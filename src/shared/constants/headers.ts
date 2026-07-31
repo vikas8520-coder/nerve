@@ -1,0 +1,17 @@
+export const NERVE_RESPONSE_HEADERS = {
+  cache: "X-Nerve-Cache",
+  cacheHit: "X-Nerve-Cache-Hit",
+  compression: "X-Nerve-Compression",
+  costSaved: "X-Nerve-Cost-Saved",
+  decision: "X-Nerve-Decision",
+  fallbackAttempts: "X-Nerve-Fallback-Attempts",
+  latencyMs: "X-Nerve-Latency-Ms",
+  model: "X-Nerve-Model",
+  progress: "X-Nerve-Progress",
+  provider: "X-Nerve-Provider",
+  requestId: "X-Nerve-Request-Id",
+  responseCost: "X-Nerve-Response-Cost",
+  tokensIn: "X-Nerve-Tokens-In",
+  tokensOut: "X-Nerve-Tokens-Out",
+  version: "X-Nerve-Version",
+} as const;
