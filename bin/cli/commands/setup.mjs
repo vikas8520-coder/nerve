@@ -11,6 +11,7 @@ import {
   resolveProviderChoice,
 } from "../provider-catalog.mjs";
 import { registerSetupOpenCode } from "./setup-open-code.mjs";
+import { runSetupWizard, generateRandomPassword } from "../../setup-wizard.mjs";
 import { t } from "../i18n.mjs";
 
 const PROJECT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
@@ -26,10 +27,16 @@ function wantsProviderSetup(opts) {
 
 async function resolvePassword(opts, prompt, nonInteractive) {
   if (opts.password) return opts.password;
+  if (opts.generatePassword) return generateRandomPassword();
   if (process.env.INITIAL_PASSWORD) return process.env.INITIAL_PASSWORD;
   if (nonInteractive) return "";
 
-  const answer = await prompt.ask("Set an admin password now? [y/N]", "N");
+  const answer = await prompt.ask("Set an admin password now? [y/N/generate]", "N");
+  if (/^g(en)?$/i.test(answer)) {
+    const generated = generateRandomPassword();
+    printSuccess(`Generated password: ${generated}`);
+    return generated;
+  }
   if (!/^y(es)?$/i.test(answer)) return "";
 
   const password = await prompt.askSecret("Admin password");
@@ -138,6 +145,7 @@ export function registerSetup(program) {
     .command("setup")
     .description(t("setup.title"))
     .option("--password <value>", "Set admin password")
+    .option("--generate-password", "Generate a random admin password")
     .option("--add-provider", "Add an API-key provider connection")
     .option("--provider <id>", "Provider id, for example openai or anthropic")
     .option("--provider-name <name>", "Display name for the connection")
@@ -190,6 +198,11 @@ export async function runSetupCommand(opts = {}) {
 
     updateSettings(db, { setupComplete: true });
     const after = getSettings(db);
+
+    // Run the post-setup wizard: ensure an API key exists, print connection
+    // URLs and next-step instructions for Claude Code, Codex, OpenCode, Hermes.
+    await runSetupWizard(db, { nonInteractive });
+
     db.close();
 
     console.log("");
