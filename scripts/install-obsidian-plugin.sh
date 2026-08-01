@@ -3,7 +3,7 @@ set -e
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PLUGIN_SRC="$(dirname "$SCRIPT_DIR")/obsidian-plugin"
-DESKTOP_VAULT="${1:-$HOME/Documents/Vault/Omniroute-Test}"
+DESKTOP_VAULT="${1:-$HOME/Documents/Vault/Nerve-Test}"
 MOBILE_VAULT="${2:-$HOME/Documents/Vault/Test}"
 
 echo "Building plugin..."

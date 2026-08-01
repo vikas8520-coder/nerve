@@ -166,7 +166,7 @@ export function extractLlmMetadata(req: InterceptedRequest): LlmMetadata | null 
   const mappedTo =
     req.mappedModel ??
     req.requestHeaders["x-nerve-mapped"] ??
-    req.requestHeaders["X-Omniroute-Mapped"] ??
+    req.requestHeaders["X-Nerve-Mapped"] ??
     null;
 
   return {

@@ -2,43 +2,7 @@ import { NextResponse } from "next/server";
 import { requireManagementAuth } from "@/lib/api/requireManagementAuth";
 import { getDbInstance } from "@/lib/db/core";
 import { sanitizeErrorMessage } from "@nerve/open-sse/utils/error";
-
-/**
- * Map a raw User-Agent string to a human-friendly CLI name.
- *
- * CLIs send distinctive User-Agent values (e.g. "claude-cli/1.0", "codex/0.1",
- * "opencode/1.2"). When the UA is null/empty or unrecognised we label it
- * "unknown" so the breakdown always has a stable bucket for unattributed
- * traffic.
- */
-function cliNameFromUserAgent(userAgent: string | null): string {
-  if (!userAgent || userAgent.trim().length === 0) return "unknown";
-  const ua = userAgent.trim();
-
-  // Common CLI identifiers — checked in order of specificity.
-  const patterns: Array<{ re: RegExp; name: string }> = [
-    { re: /^claude-cli/i, name: "Claude Code" },
-    { re: /^codex/i, name: "Codex" },
-    { re: /^opencode/i, name: "OpenCode" },
-    { re: /^hermes/i, name: "Hermes" },
-    { re: /^cursor/i, name: "Cursor" },
-    { re: /^cline/i, name: "Cline" },
-    { re: /^kilo/i, name: "Kilo Code" },
-    { re: /^roo/i, name: "Roo Code" },
-    { re: /^aider/i, name: "Aider" },
-    { re: /^goose/i, name: "Goose" },
-    { re: /^continue/i, name: "Continue" },
-    { re: /^qwen/i, name: "Qwen" },
-    { re: /^crush/i, name: "Crush" },
-  ];
-
-  for (const { re, name } of patterns) {
-    if (re.test(ua)) return name;
-  }
-
-  // Fall back to the raw UA string (truncated for display).
-  return ua.length > 60 ? ua.slice(0, 57) + "…" : ua;
-}
+import { cliNameFromUserAgent } from "@/shared/utils/cliNameFromUserAgent";
 
 interface ByCliRow {
   cli_name: string;
@@ -70,13 +34,22 @@ export async function GET(request: Request) {
 
     // relay_logs stores user_agent, prompt_tokens, completion_tokens, and
     // created_at (unix seconds). Group by user_agent, summing tokens/requests.
-    const sinceClause = since ? "WHERE created_at >= @since" : "";
-    const params: Record<string, unknown> = {};
+    let sinceSeconds: number | null = null;
     if (since) {
-      const sinceSeconds = Math.floor(new Date(since).getTime() / 1000);
-      if (Number.isFinite(sinceSeconds)) {
-        params.since = sinceSeconds;
+      const parsed = Math.floor(new Date(since).getTime() / 1000);
+      if (Number.isFinite(parsed)) {
+        sinceSeconds = parsed;
+      } else {
+        return NextResponse.json(
+          { error: "Invalid 'since' date. Expected an ISO 8601 timestamp." },
+          { status: 400 }
+        );
       }
+    }
+    const sinceClause = sinceSeconds !== null ? "WHERE created_at >= @since" : "";
+    const params: Record<string, unknown> = {};
+    if (sinceSeconds !== null) {
+      params.since = sinceSeconds;
     }
 
     const rows = db
