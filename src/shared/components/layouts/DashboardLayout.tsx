@@ -8,6 +8,7 @@ import Breadcrumbs from "../Breadcrumbs";
 import MaintenanceBanner from "../MaintenanceBanner";
 import CommandPalette from "../CommandPalette";
 import NavigationProgress from "../NavigationProgress";
+import NeuralNetworkBackground from "../NeuralNetworkBackground";
 import { useIsElectron } from "@/shared/hooks/useElectron";
 import {
   installDashboardCsrfFetch,
@@ -79,7 +80,9 @@ export default function DashboardLayout({ children }) {
   return (
     // No bg-bg here: the body grid wallpaper (globals.css body::before) shows through
     // this transparent wrapper into the content area. body's --color-bg is the base fill.
-    <div className="flex h-dvh min-h-0 w-full overflow-hidden">
+    <div className="relative flex h-dvh min-h-0 w-full overflow-hidden">
+      {/* Neural network ambient background */}
+      <NeuralNetworkBackground />
       <Suspense fallback={null}>
         <NavigationProgress />
       </Suspense>
