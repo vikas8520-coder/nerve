@@ -8996,7 +8996,7 @@
     "versionLive": "v1.0 sekarang aktif",
     "oneEndpoint": "Satu Titik Akhir untuk",
     "allProviders": "Semua Penyedia AI",
-    "heroDescription": "Proksi titik akhir AI dengan dasbor web - Port JavaScript CLIProxyAPI. Bekerja secara lancar dengan Claude Code, OpenAI Codex, Cline, RooCode, dan alat CLI lainnya.",
+    "heroDescription": "One endpoint for every AI provider. Auto-fallback, cost optimization, and token compression — runs entirely on your machine.",
     "getStarted": "Memulai",
     "viewOnGithub": "Lihat di GitHub",
     "powerfulFeatures": "Fitur Canggih",

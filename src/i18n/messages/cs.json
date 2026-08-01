@@ -8996,7 +8996,7 @@
     "versionLive": "V1.0 je nyní k dispozici",
     "oneEndpoint": "Jeden koncový bod pro",
     "allProviders": "Všechny AI poskytovatele",
-    "heroDescription": "AI Proxy koncový bod s webovou nástěnkou – JavaScript port CLIProxyAPI. Bezproblémově funguje s Claude Code, OpenAI Codex, Cline, RooCode a dalšími CLI nástroji.",
+    "heroDescription": "One endpoint for every AI provider. Auto-fallback, cost optimization, and token compression — runs entirely on your machine.",
     "getStarted": "Začít",
     "viewOnGithub": "Zobrazit na GitHubu",
     "powerfulFeatures": "Výkonné funkce",

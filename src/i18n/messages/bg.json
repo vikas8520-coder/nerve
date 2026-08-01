@@ -8996,7 +8996,7 @@
     "versionLive": "v1.0 вече е на живо",
     "oneEndpoint": "Една крайна точка за",
     "allProviders": "Всички доставчици на AI",
-    "heroDescription": "AI крайна точка прокси с уеб табло за управление - JavaScript порт на CLIProxyAPI. Работи безпроблемно с Claude Code, OpenAI Codex, Cline, RooCode и други CLI инструменти.",
+    "heroDescription": "One endpoint for every AI provider. Auto-fallback, cost optimization, and token compression — runs entirely on your machine.",
     "getStarted": "Започнете",
     "viewOnGithub": "Вижте в GitHub",
     "powerfulFeatures": "Мощни функции",

@@ -8996,7 +8996,7 @@
     "versionLive": "v1.0 ay live na ngayon",
     "oneEndpoint": "Isang Endpoint para sa",
     "allProviders": "Lahat ng AI Provider",
-    "heroDescription": "AI endpoint proxy na may web dashboard - Isang JavaScript port ng CLIProxyAPI. Gumagana nang walang putol sa Claude Code, OpenAI Codex, Cline, RooCode, at iba pang mga tool sa CLI.",
+    "heroDescription": "One endpoint for every AI provider. Auto-fallback, cost optimization, and token compression — runs entirely on your machine.",
     "getStarted": "Magsimula",
     "viewOnGithub": "Tingnan sa GitHub",
     "powerfulFeatures": "Napakahusay na Mga Tampok",

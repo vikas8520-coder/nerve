@@ -8996,7 +8996,7 @@
     "versionLive": "v1.0 现已上线",
     "oneEndpoint": "一个端点",
     "allProviders": "所有 AI 提供者",
-    "heroDescription": "带 Web 仪表板的 AI 端点代理，是 CLIProxyAPI 的 JavaScript 版本。可与 Claude Code、OpenAI Codex、Cline、RooCode 等 CLI 工具无缝配合。",
+    "heroDescription": "为每个AI提供商提供单一端点。自动回退、成本优化和令牌压缩 — 完全在您的机器上运行。",
     "getStarted": "开始使用",
     "viewOnGithub": "在 GitHub 上查看",
     "powerfulFeatures": "强大的功能",

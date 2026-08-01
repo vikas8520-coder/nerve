@@ -8996,7 +8996,7 @@
     "versionLive": "v1.0 ใช้งานได้แล้ว",
     "oneEndpoint": "จุดสิ้นสุดหนึ่งสำหรับ",
     "allProviders": "ผู้ให้บริการ AI ทั้งหมด",
-    "heroDescription": "พร็อกซีปลายทาง AI พร้อมเว็บแดชบอร์ด - พอร์ต JavaScript ของ CLIProxyAPI ทำงานได้อย่างราบรื่นกับ Claude Code, OpenAI Codex, Cline, RooCode และเครื่องมือ CLI อื่นๆ",
+    "heroDescription": "endpoint เดียวสำหรับทุกผู้ให้บริการ AI สลับระบบอัตโนมัติ ปรับต้นทุน และบีบอัดโทเคน — ทำงานบนเครื่องของคุณทั้งหมด",
     "getStarted": "เริ่มต้นเลย",
     "viewOnGithub": "ดูบน GitHub",
     "powerfulFeatures": "คุณสมบัติอันทรงพลัง",

@@ -9021,7 +9021,7 @@
     "versionLive": "v1.0 hiện đã ra mắt",
     "oneEndpoint": "Một endpoint duy nhất cho",
     "allProviders": "Tất cả các nhà cung cấp AI",
-    "heroDescription": "Proxy endpoint AI với bảng điều khiển web - Bản chuyển sang JavaScript của CLIProxyAPI. Hoạt động liền mạch với Claude Code, OpenAI Codex, Cline, RooCode và các công cụ CLI khác.",
+    "heroDescription": "One endpoint for every AI provider. Auto-fallback, cost optimization, and token compression — runs entirely on your machine.",
     "getStarted": "Bắt đầu",
     "viewOnGithub": "Xem trên GitHub",
     "powerfulFeatures": "Tính năng mạnh mẽ",

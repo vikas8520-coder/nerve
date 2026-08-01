@@ -8996,7 +8996,7 @@
     "versionLive": "v1.0 ya está disponible",
     "oneEndpoint": "Un punto final para",
     "allProviders": "Todos los proveedores de IA",
-    "heroDescription": "Proxy de punto final de IA con panel web: un puerto JavaScript de CLIProxyAPI. Funciona a la perfección con Claude Code, OpenAI Codex, Cline, RooCode y otras herramientas CLI.",
+    "heroDescription": "Un endpoint para cada proveedor de IA. Conmutacion automatica, optimizacion de costes y compresion de tokens — se ejecuta completamente en tu maquina.",
     "getStarted": "Empezar",
     "viewOnGithub": "Ver en GitHub",
     "powerfulFeatures": "Funciones potentes",

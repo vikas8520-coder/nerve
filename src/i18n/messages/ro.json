@@ -8996,7 +8996,7 @@
     "versionLive": "v1.0 este acum live",
     "oneEndpoint": "Un punct final pentru",
     "allProviders": "Toți furnizorii de AI",
-    "heroDescription": "Proxy AI endpoint cu tablou de bord web - Un port JavaScript al CLIProxyAPI. Funcționează perfect cu Claude Code, OpenAI Codex, Cline, RooCode și alte instrumente CLI.",
+    "heroDescription": "One endpoint for every AI provider. Auto-fallback, cost optimization, and token compression — runs entirely on your machine.",
     "getStarted": "Începeți",
     "viewOnGithub": "Vizualizați pe GitHub",
     "powerfulFeatures": "Caracteristici puternice",

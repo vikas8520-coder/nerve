@@ -8996,7 +8996,7 @@
     "versionLive": "v1.0 on nyt julkaistu",
     "oneEndpoint": "Yksi päätepiste",
     "allProviders": "Kaikki AI-palveluntarjoajat",
-    "heroDescription": "AI-päätepisteen välityspalvelin web-hallintapaneelilla – CLIProxyAPI:n JavaScript-portti. Toimii saumattomasti Claude Coden, OpenAI Codexin, Clinen, RooCoden ja muiden CLI-työkalujen kanssa.",
+    "heroDescription": "One endpoint for every AI provider. Auto-fallback, cost optimization, and token compression — runs entirely on your machine.",
     "getStarted": "Aloita",
     "viewOnGithub": "Katso GitHubissa",
     "powerfulFeatures": "Tehokkaat ominaisuudet",

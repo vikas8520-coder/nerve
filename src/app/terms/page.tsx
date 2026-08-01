@@ -56,8 +56,8 @@ export default function TermsPage() {
               <li>{t("termsDataStoredLocally")}</li>
               <li>{t("termsNoTransmission")}</li>
               <li>
-                {t("termsDataLocationText")}{" "}
-                <code className="text-primary text-sm">~/.nerve/</code>.
+                {t("termsDataLocationText")} <code className="text-primary text-sm">~/.nerve/</code>
+                .
               </li>
             </ul>
           </section>
@@ -77,7 +77,7 @@ export default function TermsPage() {
           <p>
             {t("questionsVisit")}{" "}
             <a
-              href="https://github.com/diegosouzapw/Nerve"
+              href="https://github.com/vikas8520-coder/nerve"
               className="text-primary hover:underline"
               target="_blank"
               rel="noopener noreferrer"

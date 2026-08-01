@@ -8996,7 +8996,7 @@
     "versionLive": "La v1.0 è ora disponibile",
     "oneEndpoint": "Un endpoint per",
     "allProviders": "Tutti i fornitori di intelligenza artificiale",
-    "heroDescription": "Proxy endpoint AI con dashboard Web: una porta JavaScript di CLIProxyAPI. Funziona perfettamente con Claude Code, OpenAI Codex, Cline, RooCode e altri strumenti CLI.",
+    "heroDescription": "Un endpoint per ogni provider di IA. Fallback automatico, ottimizzazione dei costi e compressione dei token — funziona interamente sulla tua macchina.",
     "getStarted": "Inizia",
     "viewOnGithub": "Visualizza su GitHub",
     "powerfulFeatures": "Funzionalità potenti",

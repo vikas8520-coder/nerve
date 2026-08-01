@@ -8996,7 +8996,7 @@
     "versionLive": "v1.0 er nå live",
     "oneEndpoint": "Ett endepunkt for",
     "allProviders": "Alle AI-leverandører",
-    "heroDescription": "AI-endepunktproxy med web-dashboard - En JavaScript-port av CLIProxyAPI. Fungerer sømløst med Claude Code, OpenAI Codex, Cline, RooCode og andre CLI-verktøy.",
+    "heroDescription": "One endpoint for every AI provider. Auto-fallback, cost optimization, and token compression — runs entirely on your machine.",
     "getStarted": "Kom i gang",
     "viewOnGithub": "Se på GitHub",
     "powerfulFeatures": "Kraftige funksjoner",

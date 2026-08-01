@@ -12,7 +12,7 @@ import { matchesSearch } from "@/shared/utils/turkishText";
  * Generates the chatLanguageModels.json block for VS Code GitHub Copilot
  * using the Azure vendor pattern as required by Copilot's architecture.
  *
- * Feature request: https://github.com/diegosouzapw/Nerve/issues/142
+ * Feature request: https://github.com/vikas8520-coder/nerve/issues/142
  */
 export default function CopilotToolCard({
   tool,
@@ -85,10 +85,7 @@ export default function CopilotToolCard({
   // Persist selection
   useEffect(() => {
     if (selectedModels.size > 0) {
-      localStorage.setItem(
-        "nerve-copilot-selected-models",
-        JSON.stringify([...selectedModels])
-      );
+      localStorage.setItem("nerve-copilot-selected-models", JSON.stringify([...selectedModels]));
     }
   }, [selectedModels]);
 

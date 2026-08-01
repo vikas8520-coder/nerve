@@ -8996,7 +8996,7 @@
     "versionLive": "v1.0 уже доступен",
     "oneEndpoint": "Одна конечная точка для",
     "allProviders": "Все поставщики ИИ",
-    "heroDescription": "Прокси-сервер конечной точки AI с веб-панелью — порт CLIProxyAPI на JavaScript. Беспрепятственно работает с Claude Code, OpenAI Codex, Cline, RooCode и другими инструментами CLI.",
+    "heroDescription": "Одна конечная точка для каждого ИИ-провайдера. Автоматический фолбэк, оптимизация затрат и сжатие токенов — полностью работает на вашем компьютере.",
     "getStarted": "Начать",
     "viewOnGithub": "Посмотреть на GitHub",
     "powerfulFeatures": "Мощные функции",

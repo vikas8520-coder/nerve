@@ -40,7 +40,7 @@ const docsLayoutOptions: BaseLayoutProps = {
       secondary: true,
     },
   ],
-  githubUrl: "https://github.com/diegosouzapw/Nerve",
+  githubUrl: "https://github.com/vikas8520-coder/nerve",
 };
 
 export default function Layout({ children }: { children: ReactNode }) {

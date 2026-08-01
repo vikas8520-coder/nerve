@@ -8996,7 +8996,7 @@
     "versionLive": "v1.0 が公開されました",
     "oneEndpoint": "1 つのエンドポイント",
     "allProviders": "すべての AI プロバイダー",
-    "heroDescription": "Web ダッシュボードを備えた AI エンドポイント プロキシ - CLIProxyAPI の JavaScript ポート。 Claude Code、OpenAI Codex、Cline、RooCode、その他の CLI ツールとシームレスに連携します。",
+    "heroDescription": "すべてのAIプロバイダーのための単一エンドポイント。自動フォールバック、コスト最適化、トークン圧縮 — 完全にあなたのマシンで実行されます。",
     "getStarted": "始めましょう",
     "viewOnGithub": "GitHub で見る",
     "powerfulFeatures": "強力な機能",

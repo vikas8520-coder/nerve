@@ -8996,7 +8996,7 @@
     "versionLive": "v1.0 ist jetzt live",
     "oneEndpoint": "Ein Endpunkt für",
     "allProviders": "Alle KI-Anbieter",
-    "heroDescription": "KI-Endpunkt-Proxy mit Web-Dashboard – Eine JavaScript-Portierung von CLIProxyAPI. Funktioniert nahtlos mit Claude Code, OpenAI Codex, Cline, RooCode und anderen CLI-Tools.",
+    "heroDescription": "Ein Endpunkt fur jeden KI-Anbieter. Automatisches Fallback, Kostenoptimierung und Token-Komprimierung — lauft vollstandig auf deinem Rechner.",
     "getStarted": "Legen Sie los",
     "viewOnGithub": "Auf GitHub ansehen",
     "powerfulFeatures": "Leistungsstarke Funktionen",

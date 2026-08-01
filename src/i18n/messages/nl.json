@@ -8996,7 +8996,7 @@
     "versionLive": "v1.0 is nu live",
     "oneEndpoint": "Eén eindpunt voor",
     "allProviders": "Alle AI-providers",
-    "heroDescription": "AI-eindpuntproxy met webdashboard - Een JavaScript-poort van CLIProxyAPI. Werkt naadloos samen met Claude Code, OpenAI Codex, Cline, RooCode en andere CLI-tools.",
+    "heroDescription": "Een endpoint voor elke AI-provider. Automatische fallback, kostenoptimalisatie en tokencompressie — draait volledig op jouw machine.",
     "getStarted": "Aan de slag",
     "viewOnGithub": "Bekijk op GitHub",
     "powerfulFeatures": "Krachtige functies",

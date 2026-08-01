@@ -8996,7 +8996,7 @@
     "versionLive": "v1.0 is now live",
     "oneEndpoint": "One Endpoint for",
     "allProviders": "All AI Providers",
-    "heroDescription": "AI endpoint proxy with web dashboard - A JavaScript port of CLIProxyAPI. Works seamlessly with Claude Code, OpenAI Codex, Cline, RooCode, and other CLI tools.",
+    "heroDescription": "One endpoint for every AI provider. Auto-fallback, cost optimization, and token compression — runs entirely on your machine.",
     "getStarted": "Get Started",
     "viewOnGithub": "View on GitHub",
     "powerfulFeatures": "Powerful Features",

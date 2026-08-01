@@ -8996,7 +8996,7 @@
     "versionLive": "v1.0 artık yayında",
     "oneEndpoint": "Tek Uç Nokta",
     "allProviders": "Tüm Yapay Zeka Sağlayıcıları",
-    "heroDescription": "Web kontrol paneline sahip bir AI uç nokta proxy'si - CLIProxyAPI'nin JavaScript portu. Claude Code, OpenAI Codex, Cline, RooCode ve diğer CLI araçlarıyla sorunsuz çalışır.",
+    "heroDescription": "One endpoint for every AI provider. Auto-fallback, cost optimization, and token compression — runs entirely on your machine.",
     "getStarted": "Başla",
     "viewOnGithub": "GitHub'da görüntüle",
     "powerfulFeatures": "Güçlü Özellikler",

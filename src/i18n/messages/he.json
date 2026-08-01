@@ -8996,7 +8996,7 @@
     "versionLive": "v1.0 זמין כעת",
     "oneEndpoint": "נקודת קצה אחת עבור",
     "allProviders": "כל ספקי הבינה המלאכותית",
-    "heroDescription": "פרוקסי נקודת קצה של AI עם לוח מחוונים באינטרנט - יציאת JavaScript של CLIProxyAPI. עובד בצורה חלקה עם Claude Code, OpenAI Codex, Cline, RooCode וכלי CLI אחרים.",
+    "heroDescription": "נקודת קצה אחת לכל ספק AI. מעבר אוטומטי, אופטימיזציית עלות ודחיסת טוקנים — פועל לחלוטין על המכונה שלך.",
     "getStarted": "התחל",
     "viewOnGithub": "הצג ב-GitHub",
     "powerfulFeatures": "תכונות עוצמתיות",

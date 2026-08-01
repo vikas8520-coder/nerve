@@ -138,8 +138,7 @@ export default function PrivacyPage() {
             </h2>
             <p>
               {t("privacySection7TextStart")}{" "}
-              <code className="text-primary text-sm">~/.nerve/</code>{" "}
-              {t("privacySection7TextEnd")}
+              <code className="text-primary text-sm">~/.nerve/</code> {t("privacySection7TextEnd")}
             </p>
           </section>
         </div>
@@ -148,7 +147,7 @@ export default function PrivacyPage() {
           <p>
             {t("questionsVisit")}{" "}
             <a
-              href="https://github.com/diegosouzapw/Nerve"
+              href="https://github.com/vikas8520-coder/nerve"
               className="text-primary hover:underline"
               target="_blank"
               rel="noopener noreferrer"
