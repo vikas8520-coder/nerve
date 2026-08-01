@@ -62,11 +62,16 @@ async function applyAutoPrefix(
   settings: Record<string, unknown>
 ): Promise<Pick<AutoRoutingState, "variant" | "spec">> {
   try {
-    const { parseAutoPrefix } =
-      await import("@nerve/open-sse/services/autoCombo/autoPrefix.ts");
+    const { parseAutoPrefix } = await import("@nerve/open-sse/services/autoCombo/autoPrefix.ts");
     const parsed = parseAutoPrefix(model);
     if (!parsed.valid) {
-      if (!state.spec) log.warn("AUTO", `Invalid auto prefix format: ${model}`);
+      // Template names like "auto/best-coding" / "auto/pro-reasoning" are valid
+      // built-ins (resolved via AUTO_TEMPLATE_VARIANTS in classifyAutoModel) even
+      // though the legacy parseAutoPrefix only knows flat variants — don't warn
+      // about them. Only genuinely unknown auto/* suffixes deserve a warning.
+      const isTemplateVariant = Object.prototype.hasOwnProperty.call(AUTO_TEMPLATE_VARIANTS, model);
+      if (!state.spec && !isTemplateVariant)
+        log.warn("AUTO", `Invalid auto prefix format: ${model}`);
       return state;
     }
 
