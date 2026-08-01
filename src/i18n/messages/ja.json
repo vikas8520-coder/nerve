@@ -1230,7 +1230,8 @@
     "alwaysVisible": "常に表示",
     "groupSeparatorLabel": "セパレーター",
     "discovery": "ディスカバリー",
-    "discoverySubtitle": "無料アクセス対象のプロバイダーをスキャン"
+    "discoverySubtitle": "無料アクセス対象のプロバイダーをスキャン",
+    "themeNerve": "Nerve Green"
   },
   "webhooks": {
     "title": "Webhook",
@@ -7588,7 +7589,8 @@
     "enableCredentialRedaction": "認証情報の秘匿化を有効にする",
     "enableCredentialRedactionDesc": "メッセージ、ツール呼び出し、およびレスポンスから、APIキー、トークン、秘密鍵、およびJWTを取り除きます。",
     "pricingAutoSyncDisabled": "Automatic Sync Disabled",
-    "pricingAutoSyncEnabled": "Automatic Sync Enabled"
+    "pricingAutoSyncEnabled": "Automatic Sync Enabled",
+    "themeNerve": "Nerve Green"
   },
   "contextRtk": {
     "title": "RTK Engine",

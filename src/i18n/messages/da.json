@@ -1230,7 +1230,8 @@
     "alwaysVisible": "Altid synlig",
     "groupSeparatorLabel": "Separator",
     "discovery": "Opdagelse",
-    "discoverySubtitle": "Scan udbydere for gratis adgang"
+    "discoverySubtitle": "Scan udbydere for gratis adgang",
+    "themeNerve": "Nerve Green"
   },
   "webhooks": {
     "title": "Webhooks",
@@ -7588,7 +7589,8 @@
     "enableCredentialRedaction": "Aktivér maskering af legitimationsoplysninger",
     "enableCredentialRedactionDesc": "Renser API-nøgler, tokens, private nøgler og JWT'er fra meddelelser, værktøjskald og svar.",
     "pricingAutoSyncDisabled": "Automatic Sync Disabled",
-    "pricingAutoSyncEnabled": "Automatic Sync Enabled"
+    "pricingAutoSyncEnabled": "Automatic Sync Enabled",
+    "themeNerve": "Nerve Green"
   },
   "contextRtk": {
     "title": "RTK Engine",

@@ -1230,7 +1230,8 @@
     "alwaysVisible": "Huonekana kila wakati",
     "groupSeparatorLabel": "Kigawanyishi",
     "discovery": "Ugunduzi",
-    "discoverySubtitle": "Changanua watoa huduma kwa ufikiaji wa bure"
+    "discoverySubtitle": "Changanua watoa huduma kwa ufikiaji wa bure",
+    "themeNerve": "Nerve Green"
   },
   "webhooks": {
     "title": "Viboko vya mtandao",
@@ -7588,7 +7589,8 @@
     "enableCredentialRedaction": "Washa ufichaji wa vitambulisho",
     "enableCredentialRedactionDesc": "Husafisha funguo za API, tokeni, funguo za faragha, na JWT kutoka kwa ujumbe, miito ya zana, na majibu.",
     "pricingAutoSyncDisabled": "Automatic Sync Disabled",
-    "pricingAutoSyncEnabled": "Automatic Sync Enabled"
+    "pricingAutoSyncEnabled": "Automatic Sync Enabled",
+    "themeNerve": "Nerve Green"
   },
   "contextRtk": {
     "title": "RTK Engine",

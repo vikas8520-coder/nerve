@@ -1230,7 +1230,8 @@
     "alwaysVisible": "مرئي دائمًا",
     "groupSeparatorLabel": "فاصل",
     "discovery": "اكتشاف",
-    "discoverySubtitle": "فحص المزودين للوصول المجاني"
+    "discoverySubtitle": "فحص المزودين للوصول المجاني",
+    "themeNerve": "Nerve Green"
   },
   "webhooks": {
     "title": "خطافات الويب",
@@ -7588,7 +7589,8 @@
     "enableCredentialRedaction": "تمكين تنقيح بيانات الاعتماد",
     "enableCredentialRedactionDesc": "يزيل مفاتيح API والرموز المميزة والمفاتيح الخاصة وJWTs من الرسائل واستدعاءات الأدوات والاستجابات.",
     "pricingAutoSyncDisabled": "Automatic Sync Disabled",
-    "pricingAutoSyncEnabled": "Automatic Sync Enabled"
+    "pricingAutoSyncEnabled": "Automatic Sync Enabled",
+    "themeNerve": "Nerve Green"
   },
   "contextRtk": {
     "title": "محرك آر تي كيه",

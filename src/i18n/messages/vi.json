@@ -1230,7 +1230,8 @@
     "alwaysVisible": "Luôn hiển thị",
     "groupSeparatorLabel": "Dấu phân cách",
     "discovery": "Khám phá",
-    "discoverySubtitle": "Quét các nhà cung cấp để tìm quyền truy cập miễn phí"
+    "discoverySubtitle": "Quét các nhà cung cấp để tìm quyền truy cập miễn phí",
+    "themeNerve": "Nerve Green"
   },
   "webhooks": {
     "title": "Webhook",
@@ -7613,7 +7614,8 @@
     "enableCredentialRedaction": "Enable credential redaction",
     "enableCredentialRedactionDesc": "Scrubs API keys, tokens, private keys, and JWTs from messages, tool calls, and responses.",
     "pricingAutoSyncDisabled": "Đã tắt đồng bộ hóa tự động",
-    "pricingAutoSyncEnabled": "Đã bật đồng bộ hóa tự động"
+    "pricingAutoSyncEnabled": "Đã bật đồng bộ hóa tự động",
+    "themeNerve": "Nerve Green"
   },
   "contextRtk": {
     "title": "RTK Engine",

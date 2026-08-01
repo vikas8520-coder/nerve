@@ -1230,7 +1230,8 @@
     "alwaysVisible": "始終可見",
     "groupSeparatorLabel": "隔斷",
     "discovery": "探索",
-    "discoverySubtitle": "掃描提供者以尋找免費存取"
+    "discoverySubtitle": "掃描提供者以尋找免費存取",
+    "themeNerve": "Nerve Green"
   },
   "webhooks": {
     "title": "Webhook",
@@ -7588,7 +7589,8 @@
     "enableCredentialRedaction": "啟用憑證遮蔽",
     "enableCredentialRedactionDesc": "從訊息、工具呼叫和回應中清除 API 金鑰、令牌、私鑰和 JWT。",
     "pricingAutoSyncDisabled": "Automatic Sync Disabled",
-    "pricingAutoSyncEnabled": "Automatic Sync Enabled"
+    "pricingAutoSyncEnabled": "Automatic Sync Enabled",
+    "themeNerve": "Nerve Green"
   },
   "contextRtk": {
     "title": "RTK 引擎",

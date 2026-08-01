@@ -1230,7 +1230,8 @@
     "alwaysVisible": "Altijd zichtbaar",
     "groupSeparatorLabel": "Scheidingslijn",
     "discovery": "Detectie",
-    "discoverySubtitle": "Providers scannen op gratis toegang"
+    "discoverySubtitle": "Providers scannen op gratis toegang",
+    "themeNerve": "Nerve Green"
   },
   "webhooks": {
     "title": "Webhaken",
@@ -7588,7 +7589,8 @@
     "enableCredentialRedaction": "Maskeren van inloggegevens inschakelen",
     "enableCredentialRedactionDesc": "Verwijdert API-sleutels, tokens, privésleutels en JWT's uit berichten, tool-aanroepen en reacties.",
     "pricingAutoSyncDisabled": "Automatic Sync Disabled",
-    "pricingAutoSyncEnabled": "Automatic Sync Enabled"
+    "pricingAutoSyncEnabled": "Automatic Sync Enabled",
+    "themeNerve": "Nerve Green"
   },
   "contextRtk": {
     "title": "RTK Engine",

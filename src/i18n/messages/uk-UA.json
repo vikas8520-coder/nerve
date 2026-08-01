@@ -1230,7 +1230,8 @@
     "alwaysVisible": "Завжди видимий",
     "groupSeparatorLabel": "Розділювач",
     "discovery": "Виявлення",
-    "discoverySubtitle": "Сканувати провайдерів на наявність безкоштовного доступу"
+    "discoverySubtitle": "Сканувати провайдерів на наявність безкоштовного доступу",
+    "themeNerve": "Nerve Green"
   },
   "webhooks": {
     "title": "Веб-хуки",
@@ -7588,7 +7589,8 @@
     "enableCredentialRedaction": "Увімкнути вилучення облікових даних",
     "enableCredentialRedactionDesc": "Очищає API-ключі, токени, приватні ключі та JWT з повідомлень, викликів інструментів та відповідей.",
     "pricingAutoSyncDisabled": "Automatic Sync Disabled",
-    "pricingAutoSyncEnabled": "Automatic Sync Enabled"
+    "pricingAutoSyncEnabled": "Automatic Sync Enabled",
+    "themeNerve": "Nerve Green"
   },
   "contextRtk": {
     "title": "Двигун RTK",

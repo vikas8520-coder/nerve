@@ -1230,7 +1230,8 @@
     "alwaysVisible": "எப்போதும் தெரியும்",
     "groupSeparatorLabel": "பிரிப்பான்",
     "discovery": "கண்டறிதல்",
-    "discoverySubtitle": "இலவச அணுகலுக்காக வழங்குநர்களை ஸ்கேன் செய்யவும்"
+    "discoverySubtitle": "இலவச அணுகலுக்காக வழங்குநர்களை ஸ்கேன் செய்யவும்",
+    "themeNerve": "Nerve Green"
   },
   "webhooks": {
     "title": "வெப்ஹூக்ஸ்",
@@ -7588,7 +7589,8 @@
     "enableCredentialRedaction": "கிரெடென்ஷியல் மறைத்தலை இயக்கு",
     "enableCredentialRedactionDesc": "செய்திகள், கருவி அழைப்புகள் மற்றும் பதில்களில் இருந்து API விசைகள், டோக்கன்கள், தனிப்பட்ட விசைகள் மற்றும் JWT-களை நீக்குகிறது.",
     "pricingAutoSyncDisabled": "Automatic Sync Disabled",
-    "pricingAutoSyncEnabled": "Automatic Sync Enabled"
+    "pricingAutoSyncEnabled": "Automatic Sync Enabled",
+    "themeNerve": "Nerve Green"
   },
   "contextRtk": {
     "title": "RTK Engine",

@@ -1230,7 +1230,8 @@
     "alwaysVisible": "Həmişə görünən",
     "groupSeparatorLabel": "Ayırıcı",
     "discovery": "Kəşf",
-    "discoverySubtitle": "Pulsuz giriş üçün provayderləri skan edin"
+    "discoverySubtitle": "Pulsuz giriş üçün provayderləri skan edin",
+    "themeNerve": "Nerve Green"
   },
   "webhooks": {
     "title": "Webhooks",
@@ -7588,7 +7589,8 @@
     "enableCredentialRedaction": "Kimlik məlumatlarının gizlədilməsini aktivləşdirin",
     "enableCredentialRedactionDesc": "Mesajlardan, alət çağırışlarından və cavablardan API açarlarını, tokenləri, şəxsi açarları və JWT-ləri təmizləyir.",
     "pricingAutoSyncDisabled": "Automatic Sync Disabled",
-    "pricingAutoSyncEnabled": "Automatic Sync Enabled"
+    "pricingAutoSyncEnabled": "Automatic Sync Enabled",
+    "themeNerve": "Nerve Green"
   },
   "contextRtk": {
     "title": "RTK Engine",

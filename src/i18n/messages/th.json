@@ -1230,7 +1230,8 @@
     "alwaysVisible": "แสดงอยู่เสมอ",
     "groupSeparatorLabel": "ตัวคั่น",
     "discovery": "การค้นพบ",
-    "discoverySubtitle": "สแกนผู้ให้บริการเพื่อเข้าใช้งานฟรี"
+    "discoverySubtitle": "สแกนผู้ให้บริการเพื่อเข้าใช้งานฟรี",
+    "themeNerve": "Nerve Green"
   },
   "webhooks": {
     "title": "เว็บฮุค",
@@ -7588,7 +7589,8 @@
     "enableCredentialRedaction": "เปิดใช้งานการปกปิดข้อมูลรับรอง",
     "enableCredentialRedactionDesc": "ล้างคีย์ API, โทเค็น, ไพรเวตคีย์ และ JWT ออกจากข้อความ, การเรียกใช้เครื่องมือ และการตอบกลับ",
     "pricingAutoSyncDisabled": "Automatic Sync Disabled",
-    "pricingAutoSyncEnabled": "Automatic Sync Enabled"
+    "pricingAutoSyncEnabled": "Automatic Sync Enabled",
+    "themeNerve": "Nerve Green"
   },
   "contextRtk": {
     "title": "RTK Engine",

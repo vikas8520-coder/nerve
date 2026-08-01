@@ -1230,7 +1230,8 @@
     "alwaysVisible": "હંમેશા દૃશ્યમાન",
     "groupSeparatorLabel": "વિભાજક",
     "discovery": "ડિસ્કવરી",
-    "discoverySubtitle": "મફત ઍક્સેસ માટે પ્રોવાઇડર્સ સ્કેન કરો"
+    "discoverySubtitle": "મફત ઍક્સેસ માટે પ્રોવાઇડર્સ સ્કેન કરો",
+    "themeNerve": "Nerve Green"
   },
   "webhooks": {
     "title": "વેબહુક્સ",
@@ -7588,7 +7589,8 @@
     "enableCredentialRedaction": "ઓળખપત્ર રેડેક્શન સક્ષમ કરો",
     "enableCredentialRedactionDesc": "સંદેશાઓ, ટૂલ કૉલ્સ અને પ્રતિસાદોમાંથી API કી, ટોકન્સ, પ્રાઇવેટ કી અને JWTs ને સાફ કરે છે.",
     "pricingAutoSyncDisabled": "Automatic Sync Disabled",
-    "pricingAutoSyncEnabled": "Automatic Sync Enabled"
+    "pricingAutoSyncEnabled": "Automatic Sync Enabled",
+    "themeNerve": "Nerve Green"
   },
   "contextRtk": {
     "title": "RTK Engine",

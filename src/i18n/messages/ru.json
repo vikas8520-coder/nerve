@@ -1230,7 +1230,8 @@
     "alwaysVisible": "Всегда виден",
     "groupSeparatorLabel": "Разделитель",
     "discovery": "Обнаружение",
-    "discoverySubtitle": "Сканировать провайдеров на наличие бесплатного доступа"
+    "discoverySubtitle": "Сканировать провайдеров на наличие бесплатного доступа",
+    "themeNerve": "Nerve Green"
   },
   "webhooks": {
     "title": "Вебхуки",
@@ -7588,7 +7589,8 @@
     "enableCredentialRedaction": "Включить маскирование учетных данных",
     "enableCredentialRedactionDesc": "Очищает API-ключи, токены, приватные ключи и JWT из сообщений, вызовов инструментов и ответов.",
     "pricingAutoSyncDisabled": "Automatic Sync Disabled",
-    "pricingAutoSyncEnabled": "Automatic Sync Enabled"
+    "pricingAutoSyncEnabled": "Automatic Sync Enabled",
+    "themeNerve": "Nerve Green"
   },
   "contextRtk": {
     "title": "RTK Engine",

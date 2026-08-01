@@ -1230,7 +1230,8 @@
     "alwaysVisible": "Vždy viditelné",
     "groupSeparatorLabel": "Oddělovač",
     "discovery": "Objevování",
-    "discoverySubtitle": "Skenovat poskytovatele pro bezplatný přístup"
+    "discoverySubtitle": "Skenovat poskytovatele pro bezplatný přístup",
+    "themeNerve": "Nerve Green"
   },
   "webhooks": {
     "title": "Webhooky",
@@ -7588,7 +7589,8 @@
     "enableCredentialRedaction": "Povolit redigování přihlašovacích údajů",
     "enableCredentialRedactionDesc": "Odstraní klíče API, tokeny, soukromé klíče a JWT ze zpráv, volání nástrojů a odpovědí.",
     "pricingAutoSyncDisabled": "Automatic Sync Disabled",
-    "pricingAutoSyncEnabled": "Automatic Sync Enabled"
+    "pricingAutoSyncEnabled": "Automatic Sync Enabled",
+    "themeNerve": "Nerve Green"
   },
   "contextRtk": {
     "title": "RTK Engine",

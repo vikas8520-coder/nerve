@@ -1230,7 +1230,8 @@
     "alwaysVisible": "Sentiasa kelihatan",
     "groupSeparatorLabel": "Pemisah",
     "discovery": "Penemuan",
-    "discoverySubtitle": "Imbas penyedia untuk akses percuma"
+    "discoverySubtitle": "Imbas penyedia untuk akses percuma",
+    "themeNerve": "Nerve Green"
   },
   "webhooks": {
     "title": "Webhooks",
@@ -7588,7 +7589,8 @@
     "enableCredentialRedaction": "Dayakan penyuntingan kelayakan",
     "enableCredentialRedactionDesc": "Membersihkan kunci API, token, kunci peribadi, dan JWT daripada mesej, panggilan alat, dan respons.",
     "pricingAutoSyncDisabled": "Automatic Sync Disabled",
-    "pricingAutoSyncEnabled": "Automatic Sync Enabled"
+    "pricingAutoSyncEnabled": "Automatic Sync Enabled",
+    "themeNerve": "Nerve Green"
   },
   "contextRtk": {
     "title": "RTK Engine",

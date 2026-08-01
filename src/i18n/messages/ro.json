@@ -1230,7 +1230,8 @@
     "alwaysVisible": "Întotdeauna vizibil",
     "groupSeparatorLabel": "Separator",
     "discovery": "Descoperire",
-    "discoverySubtitle": "Scanează furnizorii pentru acces gratuit"
+    "discoverySubtitle": "Scanează furnizorii pentru acces gratuit",
+    "themeNerve": "Nerve Green"
   },
   "webhooks": {
     "title": "Webhook-uri",
@@ -7588,7 +7589,8 @@
     "enableCredentialRedaction": "Activează redactarea credențialelor",
     "enableCredentialRedactionDesc": "Elimină cheile API, tokenurile, cheile private și JWT-urile din mesaje, apeluri de instrumente și răspunsuri.",
     "pricingAutoSyncDisabled": "Automatic Sync Disabled",
-    "pricingAutoSyncEnabled": "Automatic Sync Enabled"
+    "pricingAutoSyncEnabled": "Automatic Sync Enabled",
+    "themeNerve": "Nerve Green"
   },
   "contextRtk": {
     "title": "RTK Engine",

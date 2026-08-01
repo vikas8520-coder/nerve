@@ -1230,7 +1230,8 @@
     "alwaysVisible": "Sempre visível",
     "groupSeparatorLabel": "Separador",
     "discovery": "Descoberta",
-    "discoverySubtitle": "Buscar acesso gratuito em provedores"
+    "discoverySubtitle": "Buscar acesso gratuito em provedores",
+    "themeNerve": "Nerve Green"
   },
   "webhooks": {
     "title": "Webhooks",
@@ -7613,7 +7614,8 @@
     "enableCredentialRedaction": "Ativar ocultação de credenciais",
     "enableCredentialRedactionDesc": "Remove chaves de API, tokens, chaves privadas e JWTs de mensagens, chamadas de ferramentas e respostas.",
     "pricingAutoSyncDisabled": "Sincronização automática desativada",
-    "pricingAutoSyncEnabled": "Sincronização automática ativada"
+    "pricingAutoSyncEnabled": "Sincronização automática ativada",
+    "themeNerve": "Nerve Green"
   },
   "contextRtk": {
     "title": "Motor RTK",

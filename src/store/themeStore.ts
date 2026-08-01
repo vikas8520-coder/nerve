@@ -19,7 +19,7 @@ const useThemeStore = create<ThemeState>()(
   persist(
     (set, get) => ({
       theme: THEME_CONFIG.defaultTheme,
-      colorTheme: "coral",
+      colorTheme: "nerve",
       customColor: "#3b82f6",
 
       setTheme: (theme) => {
@@ -58,7 +58,7 @@ const useThemeStore = create<ThemeState>()(
 );
 
 export const COLOR_THEMES: Record<string, string> = {
-  coral: "#e54d5e",
+  nerve: "#00ff9f",
   blue: "#3b82f6",
   red: "#ef4444",
   green: "#22c55e",
@@ -89,7 +89,7 @@ function applyColorTheme(colorTheme: string, customColor: string) {
   const baseColor =
     colorTheme === "custom"
       ? normalizeHexColor(customColor)
-      : COLOR_THEMES[colorTheme] || COLOR_THEMES.coral;
+      : COLOR_THEMES[colorTheme] || COLOR_THEMES.nerve;
   const hoverColor = shadeHexColor(baseColor, -0.14);
 
   root.style.setProperty("--color-primary", baseColor);
