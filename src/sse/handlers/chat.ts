@@ -73,6 +73,7 @@ import {
   withSessionHeader,
   withSelectedConnectionHeader,
   withCorrelationId,
+  withTemplateAppliedHeader,
 } from "./chatHelpers";
 import {
   isAntigravityMissingProjectError,
@@ -92,6 +93,12 @@ import {
 } from "./reasoningRouting";
 import { createVirtualAutoCombo, resolveAutoRoutingState } from "./autoRouting";
 import { getComboFailureLogError } from "./comboFailureLogging";
+import {
+  enforceSessionBudget,
+  applySessionBudgetPostResponse,
+  resolveBudgetSessionId,
+} from "./sessionBudgetGuard";
+import { applyPromptTemplates } from "./templateInjection";
 
 // Pipeline integration — wired modules
 import { classify429FromError, type FailureKind } from "@/shared/utils/classify429";
@@ -486,6 +493,16 @@ export async function handleChat(
   const apiKeyInfo = policy.apiKeyInfo;
   const bypassProviderQuotaPolicy = hasProviderQuotaBypassScope(apiKeyInfo?.scopes);
   telemetry.endPhase();
+
+  // Smart Cost Guardrails — pre-request budget enforcement. Reject with 429 if
+  // the session has already exceeded its configured token/cost limit. No-op when
+  // no budget is configured for this session.
+  const budgetSessionId = resolveBudgetSessionId(request.headers, apiKeyInfo?.id);
+  const budgetRejection = enforceSessionBudget(budgetSessionId);
+  if (budgetRejection) {
+    recordTelemetry(telemetry);
+    return withSessionHeader(budgetRejection, sessionId);
+  }
 
   // Guardrail pre-call pipeline — prompt injection, PII masking, and future custom rules.
   telemetry.startPhase("validate");
@@ -926,7 +943,14 @@ export async function handleChat(
         });
       } catch {}
     }
-    return withCorrelationId(withSessionHeader(response, sessionId), reqId);
+    // Smart Cost Guardrails — post-response usage accounting + warning header.
+    const budgetedResponse = await applySessionBudgetPostResponse(
+      response,
+      budgetSessionId,
+      resolvedModelStr.split("/")[0] || null,
+      resolvedModelStr
+    );
+    return withCorrelationId(withSessionHeader(budgetedResponse, sessionId), reqId);
   }
   telemetry.endPhase();
 
@@ -968,7 +992,14 @@ export async function handleChat(
     false
   );
   recordTelemetry(telemetry);
-  return withCorrelationId(withSessionHeader(response, sessionId), reqId);
+  // Smart Cost Guardrails — post-response usage accounting + warning header.
+  const budgetedResponse = await applySessionBudgetPostResponse(
+    response,
+    budgetSessionId,
+    resolvedModelStr.split("/")[0] || null,
+    resolvedModelStr
+  );
+  return withCorrelationId(withSessionHeader(budgetedResponse, sessionId), reqId);
 }
 
 // The clientRawRequest envelope lives in ./chat/clientRawRequest.ts. Imported for local use
@@ -1226,6 +1257,34 @@ async function handleSingleModelChat(
       HTTP_STATUS.SERVICE_UNAVAILABLE,
       "No eligible connections matched the requested routing constraints"
     );
+  }
+
+  // Prompt Template Injection — auto-inject system-prompt optimizations based on
+  // the resolved model id and inferred task type. Skipped when the client sends
+  // `X-Skip-Templates: true`. Applied once here (before the retry loop) so the
+  // injected system message persists across connection retries; the applied
+  // template names are surfaced via the `X-Template-Applied` response header.
+  let appliedTemplateNames: string[] = [];
+  const skipTemplates =
+    (request?.headers?.get?.("x-skip-templates") || "").toLowerCase() === "true";
+  if (!skipTemplates && Array.isArray(body?.messages) && body.messages.length > 0) {
+    try {
+      const injection = applyPromptTemplates(body, modelStr, taskRouteInfo?.taskType);
+      if (injection.appliedNames.length > 0) {
+        body = injection.body;
+        appliedTemplateNames = injection.appliedNames;
+        log.info(
+          "TEMPLATES",
+          `Applied prompt templates for ${modelStr}: ${injection.appliedNames.join(", ")}`
+        );
+      }
+    } catch (err) {
+      // Best-effort: never block a request on template injection failure.
+      log.warn(
+        "TEMPLATES",
+        `Template injection skipped: ${err instanceof Error ? err.message : "error"}`
+      );
+    }
   }
 
   // 3. Credential retry loop
@@ -1487,7 +1546,7 @@ async function handleSingleModelChat(
         }
         if (telemetry) telemetry.startPhase("finalize");
         if (telemetry) telemetry.endPhase();
-        return result.response;
+        return withTemplateAppliedHeader(result.response, appliedTemplateNames);
       }
 
       // Missing Cloud Code project assignment is an account configuration error, not a

@@ -808,3 +808,55 @@ export * from "./db/interceptionRules"; // Per-model web-search/web-fetch interc
 export * from "./db/relayProbeStats"; // Relay probe latency/health stats (#6909)
 export * from "./db/ccDiscoveryAliases"; // Claude Code discovery-alias gate (flag + per-provider/model overrides)
 export * from "./db/ccDiscoveryMetrics"; // Claude Code discovery-alias usage counters (alias requests + discovery hits)
+// Provider Health Leaderboard — aggregated performance ranking from call_logs
+export {
+  getProviderLeaderboard,
+  getTaskBasedRecommendations,
+  computeLeaderboardScore,
+} from "./db/providerStats";
+export type {
+  ProviderLeaderboardEntry,
+  TaskRecommendation,
+  TaskBasedRecommendations,
+} from "./db/providerStats";
+
+// ---------------------------------------------------------------------------
+// session_budgets — Smart Cost Guardrails (per-CLI-session cost/token limits)
+// ---------------------------------------------------------------------------
+export {
+  createOrUpdateBudget,
+  getBudget,
+  getBudgetById,
+  listBudgets,
+  incrementUsage,
+  resetUsage,
+  deleteBudget,
+  deleteBudgetById,
+  checkBudget,
+  isWarningThresholdReached,
+} from "./db/sessionBudgets";
+export type { SessionBudget, BudgetLimits, BudgetCheckResult } from "./db/sessionBudgets";
+
+// ---------------------------------------------------------------------------
+// prompt_injection_templates — Prompt Template Injection
+// (auto-inject system-prompt optimizations based on model family + task type)
+// ---------------------------------------------------------------------------
+export {
+  createTemplate as createPromptInjectionTemplate,
+  getTemplate as getPromptInjectionTemplate,
+  listTemplates as listPromptInjectionTemplates,
+  updateTemplate as updatePromptInjectionTemplate,
+  deleteTemplate as deletePromptInjectionTemplate,
+  findMatchingTemplates as findMatchingPromptInjectionTemplates,
+  countEnabledTemplates as countEnabledPromptInjectionTemplates,
+  matchesPattern as matchesPromptInjectionPattern,
+  globToRegExp as globToPromptInjectionRegExp,
+} from "./db/promptInjectionTemplates";
+export type {
+  PromptInjectionTemplate,
+  InjectionMode,
+  TaskType,
+  CreateTemplateInput,
+  UpdateTemplateInput,
+  ListFilters as PromptInjectionListFilters,
+} from "./db/promptInjectionTemplates";

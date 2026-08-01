@@ -4,10 +4,7 @@ import { connectionHasExtraKeys } from "@nerve/open-sse/services/apiKeyRotator.t
 import { createBuiltinAutoCombo } from "@nerve/open-sse/services/autoCombo/builtinCatalog.ts";
 import * as log from "../utils/logger";
 import { updateProviderCredentials } from "../services/tokenRefresh";
-import {
-  detectFormatFromEndpoint,
-  getTargetFormat,
-} from "@nerve/open-sse/services/provider.ts";
+import { detectFormatFromEndpoint, getTargetFormat } from "@nerve/open-sse/services/provider.ts";
 import {
   getModelTargetFormat,
   PROVIDER_ID_TO_ALIAS,
@@ -872,6 +869,31 @@ export function withSelectedConnectionHeader(
       headers: response.headers,
     });
     cloned.headers.set("X-Nerve-Selected-Connection-Id", connectionId);
+    return cloned;
+  }
+}
+
+/**
+ * Attach the `X-Template-Applied` header listing the prompt-injection template
+ * names that were applied to the request (comma-joined). No-op when none.
+ */
+export function withTemplateAppliedHeader(
+  response: Response,
+  templateNames: string[] | null | undefined
+): Response {
+  if (!response || !templateNames || templateNames.length === 0) return response;
+  const value = templateNames.slice(0, 20).join(", ");
+
+  try {
+    response.headers.set("X-Template-Applied", value);
+    return response;
+  } catch {
+    const cloned = new Response(response.body, {
+      status: response.status,
+      statusText: response.statusText,
+      headers: response.headers,
+    });
+    cloned.headers.set("X-Template-Applied", value);
     return cloned;
   }
 }

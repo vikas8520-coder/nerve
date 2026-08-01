@@ -8,6 +8,7 @@ export const HIDEABLE_SIDEBAR_ITEM_IDS = [
   "embedded-services",
   "combos",
   "combos-live",
+  "templates",
   "quota",
   // OmniProxy > Compression Context (Settings → Combos → engines → Studio)
   "context-settings",
@@ -48,6 +49,7 @@ export const HIDEABLE_SIDEBAR_ITEM_IDS = [
   "analytics-search",
   "analytics-evals",
   "provider-stats",
+  "provider-leaderboard",
   // Monitoring — flat
   "activity",
   "logs",

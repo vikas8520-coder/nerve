@@ -64,6 +64,14 @@ const OMNI_PROXY_ITEMS: readonly SidebarItemDefinition[] = [
     icon: "account_tree",
   },
   {
+    id: "templates",
+    href: "/dashboard/templates",
+    i18nKey: "templates",
+    labelFallback: "Templates",
+    subtitleFallback: "Inject model and task-specific system prompts",
+    icon: "format_quote",
+  },
+  {
     id: "quota",
     href: "/dashboard/quota",
     i18nKey: "providerQuota",
@@ -287,6 +295,15 @@ const INTEGRATIONS_GROUP: SidebarItemGroup = {
       subtitleKey: "webhooksSubtitle",
       icon: "webhook",
     },
+    {
+      id: "templates",
+      href: "/dashboard/templates",
+      i18nKey: "templates",
+      labelFallback: "Templates",
+      subtitleKey: "templatesSubtitle",
+      subtitleFallback: "Prompt injection rules",
+      icon: "description",
+    },
   ],
 };
 
@@ -354,6 +371,15 @@ const ANALYTICS_ITEMS: readonly SidebarItemDefinition[] = [
     i18nKey: "providerStats",
     subtitleKey: "providerStatsSubtitle",
     icon: "speed",
+  },
+  {
+    id: "provider-leaderboard",
+    href: "/dashboard/provider-leaderboard",
+    i18nKey: "providerLeaderboard",
+    labelFallback: "Provider Leaderboard",
+    subtitleKey: "providerLeaderboardSubtitle",
+    subtitleFallback: "Health ranking by real metrics",
+    icon: "leaderboard",
   },
 ];
 

@@ -38,6 +38,7 @@ export const SIDEBAR_ICON_ACCENTS: Partial<Record<SidebarItemId, string>> = {
   "analytics-compression": "#F97316",
   "analytics-search": "#38BDF8",
   "analytics-evals": "#A78BFA",
+  "provider-leaderboard": "#34D399",
   logs: "#CBD5E1",
   "logs-proxy": "#A3E635",
   "logs-console": "#FACC15",
