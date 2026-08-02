@@ -271,127 +271,132 @@ export default function LoginPage() {
         />
         {/* Subtle center glow enhancement */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#00FF9F]/5 rounded-full blur-[200px] pointer-events-none"></div>
+        {/* Subtle grid pattern overlay for depth */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#00FF9F/5_1px,transparent_1px),linear-gradient(to_bottom,#00FF9F/5_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none"></div>
       </div>
 
       {nodeWarningBanner && (
         <div className="flex justify-center pt-6 px-6 z-10">{nodeWarningBanner}</div>
       )}
-      <div className="flex-1 flex">
-        <div className="flex-1 flex items-center justify-center p-6">
-          <div
-            className={`w-full max-w-sm transition-all duration-700 ease-out ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-          >
-            <div className="mb-10">
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center">
-                  <span className="material-symbols-outlined text-white text-[20px]">hub</span>
-                </div>
-                <span className="text-xl font-semibold text-text-main tracking-tight">Nerve</span>
-              </div>
-              <h1 className="text-2xl font-bold text-text-main tracking-tight">{t("signIn")}</h1>
-              <p className="text-text-muted mt-1.5">{t("enterPassword")}</p>
+      <div className="flex-1 flex items-center justify-center p-6">
+        <div
+          className={`w-full max-w-md transition-all duration-700 ease-out ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"} z-10`}
+        >
+          {/* Logo & Brand */}
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary-hover mb-6 shadow-lg shadow-primary/20">
+              <span className="material-symbols-outlined text-white text-[28px]">hub</span>
             </div>
+            <h1 className="text-3xl font-bold text-text-main tracking-tight mb-2">{t("signIn")}</h1>
+            <p className="text-text-muted">{t("enterPassword")}</p>
+          </div>
 
+          {/* Login Card */}
+          <div className="bg-surface/80 backdrop-blur-xl border border-border/50 rounded-2xl p-8 shadow-2xl shadow-black/30">
             <form onSubmit={handleLogin} className="space-y-5">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-text-main">{t("password")}</label>
-                <Input
-                  type="password"
-                  placeholder={t("enterPassword")}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  autoFocus
-                  className="h-11"
-                />
+                <label className="text-sm font-medium text-text-main flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-text-muted text-base">lock</span>
+                  {t("password")}
+                </label>
+                <div className="relative">
+                  <Input
+                    type="password"
+                    placeholder={t("enterPassword")}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    autoFocus
+                    className="h-12 pl-10 pr-4 text-base"
+                  />
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted/60">
+                    <span className="material-symbols-outlined text-base">key</span>
+                  </span>
+                </div>
                 {error && (
-                  <p className="text-sm text-red-500 flex items-center gap-1.5 pt-1">
+                  <p className="text-sm text-red-500 flex items-center gap-1.5 pt-1 animate-in shake-in">
                     <span className="material-symbols-outlined text-base">error</span>
                     {error}
                   </p>
                 )}
-                <p className="text-xs text-text-muted/60 pt-0.5">{t("defaultPasswordHint")}</p>
+                <p className="text-xs text-text-muted/60 pt-0.5 flex items-center gap-1.5 justify-center">
+                  <span className="material-symbols-outlined text-[12px]">info</span>
+                  {t("defaultPasswordHint")}
+                </p>
               </div>
 
               <Button
                 type="submit"
                 variant="primary"
-                className="w-full h-11 text-sm font-medium"
+                className="w-full h-12 text-base font-medium rounded-xl"
                 loading={loading}
               >
                 {t("continue")}
               </Button>
             </form>
+
             {oidcEnabled && (
-              <div className="mt-4">
+              <div className="mt-6">
                 <Button
                   type="button"
                   variant="secondary"
-                  className="w-full h-11 text-sm font-medium"
+                  className="w-full h-12 text-base font-medium rounded-xl"
                   onClick={() => (window.location.href = "/api/auth/oidc/login")}
                 >
+                  <span className="material-symbols-outlined mr-2">account_circle</span>
                   {t("continueWithOidc") || "Continue with OIDC"}
                 </Button>
               </div>
             )}
 
-            <div className="mt-6 pt-6 border-t border-border">
+            <div className="mt-6 pt-6 border-t border-border/50">
               <a
                 href="/forgot-password"
-                className="text-sm text-text-muted hover:text-primary transition-colors"
+                className="block text-center text-sm text-text-muted hover:text-primary transition-colors"
               >
                 {t("forgotPassword")}
               </a>
             </div>
           </div>
-        </div>
 
-        <div className="hidden lg:flex lg:w-1/2 relative z-10 items-center justify-center p-12">
-          <div
-            className={`max-w-md transition-all duration-700 delay-200 ease-out ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-          >
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-2xl font-bold text-text-main mb-3">{t("unifiedAiApiProxy")}</h2>
-                <p className="text-text-muted leading-relaxed">{t("unifiedAiApiProxyDesc")}</p>
-              </div>
-
-              <div className="space-y-4">
-                {[
-                  {
-                    icon: "swap_horiz",
-                    title: t("featureMultiProviderTitle"),
-                    desc: t("featureMultiProviderDesc"),
-                  },
-                  {
-                    icon: "speed",
-                    title: t("featureLoadBalancingTitle"),
-                    desc: t("featureLoadBalancingDesc"),
-                  },
-                  {
-                    icon: "analytics",
-                    title: t("featureUsageTrackingTitle"),
-                    desc: t("featureUsageTrackingDesc"),
-                  },
-                ].map((item) => (
-                  <div
-                    key={item.icon}
-                    className="flex items-start gap-4 p-4 rounded-xl bg-surface/50 border border-border"
-                  >
-                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <span className="material-symbols-outlined text-primary text-[20px]">
-                        {item.icon}
-                      </span>
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-text-main">{item.title}</h3>
-                      <p className="text-sm text-text-muted">{item.desc}</p>
-                    </div>
+          {/* Feature highlights below the card - compact */}
+          <div className="mt-8 hidden sm:block">
+            <p className="text-center text-xs text-text-muted/60 mb-4 uppercase tracking-wider">
+              {t("unifiedAiApiProxy")}
+            </p>
+            <div className="grid grid-cols-3 gap-3">
+              {[
+                {
+                  icon: "swap_horiz",
+                  title: t("featureMultiProviderTitle"),
+                  short: "290+ Providers",
+                },
+                { icon: "speed", title: t("featureLoadBalancingTitle"), short: "Smart Routing" },
+                {
+                  icon: "analytics",
+                  title: t("featureUsageTrackingTitle"),
+                  short: "Usage Tracking",
+                },
+              ].map((item) => (
+                <div
+                  key={item.icon}
+                  className="p-3 rounded-xl bg-surface/60 backdrop-blur-sm border border-border/30 text-center hover:border-primary/30 transition-colors group"
+                  title={item.title}
+                >
+                  <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-2 group-hover:bg-primary/20 transition-colors">
+                    <span className="material-symbols-outlined text-primary text-[18px]">
+                      {item.icon}
+                    </span>
                   </div>
-                ))}
-              </div>
+                  <p className="text-xs font-medium text-text-main truncate">{item.short}</p>
+                </div>
+              ))}
             </div>
           </div>
+
+          <p className="text-center text-xs text-text-muted/50 mt-8">
+            Nerve — Unified AI API Proxy
+          </p>
         </div>
       </div>
     </div>
