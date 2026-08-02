@@ -124,9 +124,23 @@ export default function LoginPage() {
     ) : null;
   if (hasPassword === null || setupComplete === null || oidcEnabled === null) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-6">
+      <div className="relative min-h-screen flex flex-col items-center justify-center p-6">
+        {/* Animated Background - Video */}
+        <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#0B0E14]">
+          <video
+            className="absolute inset-0 w-full h-full object-cover opacity-50"
+            autoPlay
+            loop
+            muted
+            playsInline
+            src="/landing/nerve-background.mp4"
+            aria-hidden="true"
+          />
+          {/* Subtle center glow enhancement */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#00FF9F]/5 rounded-full blur-[200px] pointer-events-none"></div>
+        </div>
         {nodeWarningBanner}
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col items-center gap-3 z-10">
           <div className="relative">
             <div className="w-10 h-10 border-2 border-primary/20 rounded-full"></div>
             <div className="absolute inset-0 w-10 h-10 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
@@ -139,10 +153,24 @@ export default function LoginPage() {
 
   if (!hasPassword && !setupComplete) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-6">
+      <div className="relative min-h-screen flex flex-col items-center justify-center p-6">
+        {/* Animated Background - Video + Grid overlay */}
+        <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#0B0E14]">
+          <video
+            className="absolute inset-0 w-full h-full object-cover opacity-50"
+            autoPlay
+            loop
+            muted
+            playsInline
+            src="/landing/nerve-background.mp4"
+            aria-hidden="true"
+          />
+          {/* Subtle center glow enhancement */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#00FF9F]/5 rounded-full blur-[200px] pointer-events-none"></div>
+        </div>
         {nodeWarningBanner}
         <div
-          className={`w-full max-w-md transition-all duration-700 ease-out ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+          className={`w-full max-w-md transition-all duration-700 ease-out ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"} z-10`}
         >
           <div className="text-center mb-10">
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/10 mb-6">
@@ -167,9 +195,7 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <p className="text-center text-xs text-text-muted/60 mt-8">
-            Nerve — {t("unifiedProxy")}
-          </p>
+          <p className="text-center text-xs text-text-muted/60 mt-8">Nerve — {t("unifiedProxy")}</p>
         </div>
       </div>
     );
@@ -177,10 +203,24 @@ export default function LoginPage() {
 
   if (!hasPassword && setupComplete) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-6">
+      <div className="relative min-h-screen flex flex-col items-center justify-center p-6">
+        {/* Animated Background - Video + Grid overlay */}
+        <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#0B0E14]">
+          <video
+            className="absolute inset-0 w-full h-full object-cover opacity-50"
+            autoPlay
+            loop
+            muted
+            playsInline
+            src="/landing/nerve-background.mp4"
+            aria-hidden="true"
+          />
+          {/* Subtle center glow enhancement */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#00FF9F]/5 rounded-full blur-[200px] pointer-events-none"></div>
+        </div>
         {nodeWarningBanner}
         <div
-          className={`w-full max-w-md transition-all duration-700 ease-out ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+          className={`w-full max-w-md transition-all duration-700 ease-out ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"} z-10`}
         >
           <div className="text-center mb-10">
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-amber-500/10 to-amber-500/5 border border-amber-500/10 mb-6">
@@ -216,9 +256,25 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="relative min-h-screen flex flex-col">
+      {/* Animated Background - Video */}
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#0B0E14]">
+        {/* Video background - green verve threads converging to center */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover opacity-50"
+          autoPlay
+          loop
+          muted
+          playsInline
+          src="/landing/nerve-background.mp4"
+          aria-hidden="true"
+        />
+        {/* Subtle center glow enhancement */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#00FF9F]/5 rounded-full blur-[200px] pointer-events-none"></div>
+      </div>
+
       {nodeWarningBanner && (
-        <div className="flex justify-center pt-6 px-6">{nodeWarningBanner}</div>
+        <div className="flex justify-center pt-6 px-6 z-10">{nodeWarningBanner}</div>
       )}
       <div className="flex-1 flex">
         <div className="flex-1 flex items-center justify-center p-6">
@@ -230,9 +286,7 @@ export default function LoginPage() {
                 <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary-hover flex items-center justify-center">
                   <span className="material-symbols-outlined text-white text-[20px]">hub</span>
                 </div>
-                <span className="text-xl font-semibold text-text-main tracking-tight">
-                  Nerve
-                </span>
+                <span className="text-xl font-semibold text-text-main tracking-tight">Nerve</span>
               </div>
               <h1 className="text-2xl font-bold text-text-main tracking-tight">{t("signIn")}</h1>
               <p className="text-text-muted mt-1.5">{t("enterPassword")}</p>
@@ -292,7 +346,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-primary/5 via-primary/3 to-transparent items-center justify-center p-12">
+        <div className="hidden lg:flex lg:w-1/2 relative z-10 items-center justify-center p-12">
           <div
             className={`max-w-md transition-all duration-700 delay-200 ease-out ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
           >

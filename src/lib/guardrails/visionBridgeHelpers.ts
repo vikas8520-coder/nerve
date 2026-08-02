@@ -343,6 +343,9 @@ async function callVisionModelSingle(
       const headers: Record<string, string> = {
         "Content-Type": "application/json",
         Authorization: `Bearer ${selfLoopApiKey}`,
+        // Force JSON framing: Nerve's legacy default (and some upstreams)
+        // stream SSE when `stream` is omitted, which breaks response.json().
+        Accept: "application/json",
       };
       if (useFullModelId) {
         headers["x-nerve-disabled-guardrails"] = "vision-bridge";
@@ -354,6 +357,10 @@ async function callVisionModelSingle(
         headers,
         body: JSON.stringify({
           model: requestModel,
+          // Explicit non-stream: without it, Nerve's resolveStreamFlag legacy
+          // default returns text/event-stream and response.json() throws
+          // "Unexpected token 'd'" (#vision-bridge SSE/JSON mismatch).
+          stream: false,
           messages: [
             {
               role: "user",

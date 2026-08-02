@@ -14,36 +14,21 @@ export default function LandingPage() {
   const router = useRouter();
   return (
     <div className="relative text-white font-sans overflow-x-hidden antialiased selection:bg-[#00FF9F] selection:text-white">
-      {/* Animated Background */}
+      {/* Animated Background - Video */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#0B0E14]">
-        {/* Grid pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage: `linear-gradient(to right, #00FF9F 1px, transparent 1px), linear-gradient(to bottom, #00FF9F 1px, transparent 1px)`,
-            backgroundSize: "50px 50px",
-          }}
-        ></div>
+        {/* Video background - green verve threads converging to center */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover opacity-60"
+          autoPlay
+          loop
+          muted
+          playsInline
+          src="/landing/nerve-background.mp4"
+          aria-hidden="true"
+        />
 
-        {/* Animated gradient orbs */}
-        <div className="absolute top-0 left-1/4 w-[700px] h-[700px] bg-[#00FF9F]/12 rounded-full blur-[130px] animate-blob"></div>
-        <div
-          className="absolute top-1/3 right-1/4 w-[600px] h-[600px] bg-purple-500/10 rounded-full blur-[130px] animate-blob"
-          style={{ animationDelay: "2s", animationDuration: "22s" }}
-        ></div>
-        <div
-          className="absolute bottom-0 left-1/2 w-[650px] h-[650px] bg-blue-500/8 rounded-full blur-[130px] animate-blob"
-          style={{ animationDelay: "4s", animationDuration: "25s" }}
-        ></div>
-
-        {/* Vignette effect */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(circle at center, transparent 0%, rgba(11, 14, 20, 0.4) 100%)",
-          }}
-        ></div>
+        {/* Subtle center glow enhancement */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#00FF9F]/5 rounded-full blur-[200px] pointer-events-none"></div>
       </div>
 
       <div className="relative z-10">
@@ -80,7 +65,7 @@ export default function LandingPage() {
                   {t("startFree")}
                 </button>
                 <button
-                  onClick={() => router.push("/docs")}
+                  onClick={() => router.push("/dashboard")}
                   className="w-full sm:w-auto h-14 px-10 rounded-lg border border-[#2D333B] hover:bg-[#111520] text-white text-lg font-bold transition-all"
                 >
                   {t("readDocumentation")}

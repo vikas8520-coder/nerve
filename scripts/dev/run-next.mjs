@@ -30,11 +30,22 @@ if (!process.env.DATA_DIR) {
   }
 }
 
-// Add check for conflicting app/ directory (Issue #1206)
+// Remove any stray app/ directory that conflicts with src/app/
 const rootAppDir = path.join(process.cwd(), "app");
-if (fs.existsSync(rootAppDir) && fs.statSync(rootAppDir).isDirectory()) {
+if (fs.existsSync(rootAppDir)) {
+  try {
+    fs.rmSync(rootAppDir, { recursive: true, force: true });
+    console.log("[run-next] Removed conflicting root-level app/ directory");
+  } catch {
+    // ignore
+  }
+}
+
+// Add check for conflicting app/ directory (Issue #1206)
+const rootAppDirCheck = path.join(process.cwd(), "app");
+if (fs.existsSync(rootAppDirCheck) && fs.statSync(rootAppDirCheck).isDirectory()) {
   console.error("\x1b[31m[FATAL ERROR]\x1b[0m Next.js App Router conflict detected!");
-  console.error(`A root-level 'app/' directory was found at: ${rootAppDir}`);
+  console.error(`A root-level 'app/' directory was found at: ${rootAppDirCheck}`);
   console.error("This conflicts with the 'src/app/' directory on Windows environments.");
   console.error("Next.js will serve 404s for all pages because it prefers the root 'app/' folder.");
   console.error("Please rename or delete the root 'app/' directory before starting Nerve.\n");
@@ -116,6 +127,16 @@ let nextApp = createNextApp();
 // remedy remains manually deleting `.build/next/**/cache/turbopack`.
 async function prepareWithHeal() {
   try {
+    // Remove any stray app/ directory that conflicts with src/app/ before preparing
+    const rootAppDir = path.join(process.cwd(), "app");
+    if (fs.existsSync(rootAppDir)) {
+      try {
+        fs.rmSync(rootAppDir, { recursive: true, force: true });
+        console.log("[run-next] Removed conflicting root-level app/ directory before prepare");
+      } catch {
+        // ignore
+      }
+    }
     await nextApp.prepare();
   } catch (error) {
     const detail =
