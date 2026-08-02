@@ -1216,7 +1216,7 @@ function ProviderOverviewCard({
   const authTypeConfig = {
     "no-auth": { color: "bg-stone-500", label: "No Auth" },
     free: { color: "bg-green-500", label: tc("free") },
-    oauth: { color: "bg-blue-500", label: t("oauthLabel") },
+    oauth: { color: "bg-[#00FF9F]/20", label: t("oauthLabel") },
     apikey: { color: "bg-amber-500", label: t("apiKeyLabel") },
   };
   const authInfo = authTypeConfig[item.authType] || authTypeConfig.apikey;
