@@ -258,10 +258,10 @@ export default function LoginPage() {
   return (
     <div className="relative min-h-screen flex flex-col">
       {/* Animated Background - Video */}
-      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#05080D]">
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none bg-[#0B0E14]">
         {/* Video background - emerald neural threads */}
         <video
-          className="absolute inset-0 w-full h-full object-cover opacity-40"
+          className="absolute inset-0 w-full h-full object-cover opacity-50"
           autoPlay
           loop
           muted
@@ -269,48 +269,10 @@ export default function LoginPage() {
           src="/landing/nerve-background.mp4"
           aria-hidden="true"
         />
-        {/* Radial gradient center glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-[radial-gradient(ellipse_at_center,#00FF9F/15_0%,#00FF9F/5_40%,transparent_70%)] rounded-full blur-[300px] pointer-events-none"></div>
-        {/* Diagonal mesh gradient overlay */}
-        <div className="absolute inset-0 bg-[conic-gradient(from_180deg_at_50%_50%,#00FF9F/3_0deg,transparent_120deg,#00FF9F/2_240deg,transparent_360deg)] pointer-events-none"></div>
-        {/* Floating particles */}
-        <div className="absolute inset-0 pointer-events-none">
-          {[...Array(12)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute rounded-full bg-[#00FF9F]/10 blur-sm"
-              style={{
-                width: `${8 + ((i * 3) % 20)}px`,
-                height: `${8 + ((i * 3) % 20)}px`,
-                top: `${10 + ((i * 7) % 80)}%`,
-                left: `${5 + ((i * 11) % 90)}%`,
-                animation: `float ${15 + ((i * 2) % 10)}s ease-in-out infinite`,
-                animationDelay: `${(i * 1.3) % 5}s`,
-              }}
-            />
-          ))}
-        </div>
-        <style jsx>{`
-          @keyframes float {
-            0%,
-            100% {
-              transform: translate(0, 0) scale(1);
-              opacity: 0.3;
-            }
-            25% {
-              transform: translate(30px, -20px) scale(1.2);
-              opacity: 0.6;
-            }
-            50% {
-              transform: translate(-20px, 30px) scale(0.8);
-              opacity: 0.4;
-            }
-            75% {
-              transform: translate(25px, 25px) scale(1.1);
-              opacity: 0.5;
-            }
-          }
-        `}</style>
+        {/* Subtle center glow enhancement */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#00FF9F]/5 rounded-full blur-[200px] pointer-events-none"></div>
+        {/* Subtle grid pattern overlay for depth */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#00FF9F/5_1px,transparent_1px),linear-gradient(to_bottom,#00FF9F/5_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none"></div>
       </div>
 
       {nodeWarningBanner && (

@@ -37,13 +37,15 @@ export default function Card({
       className={cn(
         "bg-surface",
         "border border-border",
-        "rounded-card shadow-sm",
-        hover && "hover:shadow-md hover:border-primary/30 transition-all cursor-pointer",
+        "relative rounded-card shadow-sm",
+        hover &&
+          "hover:shadow-md hover:border-[#00FF9F]/40 hover:shadow-[0_0_0_1px_rgba(0,255,159,0.08),0_8px_24px_-12px_rgba(0,255,159,0.25)] transition-all cursor-pointer",
         paddings[padding],
         className
       )}
       {...props}
     >
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] rounded-t-card bg-gradient-to-r from-transparent via-[#00FF9F]/50 to-transparent" />
       {(title || action) && (
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">

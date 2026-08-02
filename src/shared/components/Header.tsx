@@ -225,7 +225,7 @@ export default function Header({
       {/* Page title with icon - desktop */}
       <div className="hidden lg:flex items-center gap-3">
         {(icon || providerId) && (
-          <div className="flex items-center justify-center size-9 rounded-lg bg-primary/10 shrink-0">
+          <div className="flex items-center justify-center size-9 rounded-lg bg-[#00FF9F]/10 ring-1 ring-inset ring-[#00FF9F]/20 shadow-[0_0_16px_rgba(0,255,159,0.15)] shrink-0">
             {icon ? (
               <span className="material-symbols-outlined text-primary text-[20px]">{icon}</span>
             ) : (
