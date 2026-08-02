@@ -381,18 +381,21 @@ export default function Sidebar({
   const renderNavLink = (item) => {
     const active = !item.external && activeHref === item.href;
     const className = cn(
-      "flex items-center gap-3 rounded-lg transition-all group",
+      "relative flex items-center gap-3 rounded-lg transition-all group",
       collapsed ? "justify-center px-2 py-2.5" : "px-3 py-1.5",
       active
-        ? "bg-primary/10 text-primary"
+        ? "bg-[#00FF9F]/10 text-[#00FF9F] shadow-[0_0_20px_rgba(0,255,159,0.08)]"
         : "text-text-muted hover:bg-surface/50 hover:text-text-main"
     );
     const iconClassName = cn(
       "material-symbols-outlined text-[18px] shrink-0",
-      active ? "fill-1" : "group-hover:text-primary transition-colors"
+      active ? "fill-1" : "group-hover:text-[#00FF9F] transition-colors"
     );
     const content = (
       <>
+        {active && !collapsed && (
+          <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-5 rounded-full bg-gradient-to-b from-[#00FF9F] to-[#00CC7F] shadow-[0_0_8px_#00FF9F]" />
+        )}
         <span className={iconClassName} style={getIconStyle(item.id)}>
           {item.icon}
         </span>
@@ -467,22 +470,14 @@ export default function Sidebar({
             )}
             aria-hidden="true"
           >
-            {!isMacElectron && (
-              <>
-                <div className="w-3 h-3 rounded-full bg-[#FF5F56]" />
-                <div className="w-3 h-3 rounded-full bg-[#FFBD2E]" />
-                <div className="w-3 h-3 rounded-full bg-[#27C93F]" />
-              </>
-            )}
-            {!collapsed && <div className="flex-1" />}
-            {onToggleCollapse && (
+            {!isMacElectron && onToggleCollapse && (
               <button
                 onClick={onToggleCollapse}
                 title={collapsed ? t("expandSidebar") : t("collapseSidebar")}
                 aria-expanded={!collapsed}
                 aria-label={collapsed ? t("expandSidebar") : t("collapseSidebar")}
                 className={cn(
-                  "rounded-md p-1 text-text-muted/50 transition-colors hover:bg-black/5 hover:text-text-muted dark:hover:bg-white/5",
+                  "rounded-md p-1 text-text-muted/50 transition-colors hover:bg-black/5 hover:text-[#00FF9F] dark:hover:bg-white/5",
                   collapsed && !isMacElectron && "mt-2",
                   isMacElectron && "ms-auto"
                 )}
@@ -501,7 +496,7 @@ export default function Sidebar({
             prefetch={false}
             className={cn("flex items-center", collapsed ? "justify-center" : "gap-2.5")}
           >
-            <div className="flex items-center justify-center size-8 rounded bg-linear-to-br from-[#00FF9F] to-[#00CC7F] shrink-0">
+            <div className="relative flex items-center justify-center size-8 rounded bg-linear-to-br from-[#00FF9F] to-[#00CC7F] shrink-0 shadow-[0_0_16px_rgba(0,255,159,0.25)]">
               {customLogo ? (
                 <img
                   src={customLogo}
