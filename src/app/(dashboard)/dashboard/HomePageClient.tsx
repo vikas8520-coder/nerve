@@ -1139,8 +1139,8 @@ export default function HomePageClient({ machineId }: HomePageClientProps) {
                   </p>
                 </div>
               </li>
-              <li className="rounded-lg border border-border bg-bg-subtle p-4 flex gap-3">
-                <div className="flex items-center justify-center size-8 rounded-lg bg-blue-500/10 text-blue-500 shrink-0">
+              <li className="rounded-lg border border-border bg-bg-subtle p-4 flex gap-3 hover:border-[#00FF9F]/30 hover:shadow-[0_0_0_1px_rgba(0,255,159,0.06)] transition-all">
+                <div className="flex items-center justify-center size-8 rounded-lg bg-[#00FF9F]/10 text-[#00FF9F] ring-1 ring-inset ring-[#00FF9F]/20 shrink-0">
                   <span className="material-symbols-outlined text-[18px]">link</span>
                 </div>
                 <div>
@@ -1224,7 +1224,7 @@ function ProviderOverviewCard({
   return (
     <button
       onClick={onClick}
-      className="border border-border rounded-lg p-3 hover:bg-surface/40 transition-colors text-left cursor-pointer w-full"
+      className="border border-border rounded-lg p-3 hover:bg-surface/40 hover:border-[#00FF9F]/30 transition-all text-left cursor-pointer w-full"
     >
       <div className="flex items-center gap-2.5">
         <div
