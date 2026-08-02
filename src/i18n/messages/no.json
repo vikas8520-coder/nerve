@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "Skillelinje",
     "discovery": "Oppdagelse",
     "discoverySubtitle": "Skann leverandører for gratis tilgang",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "Maler"
   },
   "webhooks": {
     "title": "Webhooks",

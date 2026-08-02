@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "Ayırıcı",
     "discovery": "Kəşf",
     "discoverySubtitle": "Pulsuz giriş üçün provayderləri skan edin",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "Şablonlar"
   },
   "webhooks": {
     "title": "Webhooks",

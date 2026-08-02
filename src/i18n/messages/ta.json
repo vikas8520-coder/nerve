@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "பிரிப்பான்",
     "discovery": "கண்டறிதல்",
     "discoverySubtitle": "இலவச அணுகலுக்காக வழங்குநர்களை ஸ்கேன் செய்யவும்",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "வார்ப்புருக்கள்"
   },
   "webhooks": {
     "title": "வெப்ஹூக்ஸ்",

@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "جدا کار",
     "discovery": "دریافت",
     "discoverySubtitle": "مفت رسائی کے لیے فراہم کنندگان کو اسکین کریں",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "ٹیمپلیٹس"
   },
   "webhooks": {
     "title": "ویب ہکس",

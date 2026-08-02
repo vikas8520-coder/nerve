@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "Ayırıcı",
     "discovery": "Keşif",
     "discoverySubtitle": "Ücretsiz erişim için sağlayıcıları tarayın",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "Şablonlar"
   },
   "webhooks": {
     "title": "Web kancaları",

@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "Розділювач",
     "discovery": "Виявлення",
     "discoverySubtitle": "Сканувати провайдерів на наявність безкоштовного доступу",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "Шаблони"
   },
   "webhooks": {
     "title": "Веб-хуки",

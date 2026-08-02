@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "Separator",
     "discovery": "Opdagelse",
     "discoverySubtitle": "Scan udbydere for gratis adgang",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "Skabeloner"
   },
   "webhooks": {
     "title": "Webhooks",

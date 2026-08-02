@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "సెపరేటర్",
     "discovery": "డిస్కవరీ",
     "discoverySubtitle": "ఉచిత యాక్సెస్ కోసం ప్రొవైడర్లను స్కాన్ చేయండి",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "టెంప్లేట్లు"
   },
   "webhooks": {
     "title": "వెబ్‌బూక్స్",

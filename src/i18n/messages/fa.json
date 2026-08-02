@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "جداکننده",
     "discovery": "شناسایی",
     "discoverySubtitle": "اسکن ارائه‌دهندگان برای دسترسی رایگان",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "قالب‌ها"
   },
   "webhooks": {
     "title": "وب هوک ها",

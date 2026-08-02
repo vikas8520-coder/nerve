@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "Scheidingslijn",
     "discovery": "Detectie",
     "discoverySubtitle": "Providers scannen op gratis toegang",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "Sjablonen"
   },
   "webhooks": {
     "title": "Webhaken",

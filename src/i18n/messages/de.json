@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "Trennlinie",
     "discovery": "Discovery",
     "discoverySubtitle": "Anbieter auf kostenlosen Zugang scannen",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "Vorlagen"
   },
   "webhooks": {
     "title": "Webhooks",

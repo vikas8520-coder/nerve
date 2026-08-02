@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "Separator",
     "discovery": "Descoperire",
     "discoverySubtitle": "Scanează furnizorii pentru acces gratuit",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "Șabloane"
   },
   "webhooks": {
     "title": "Webhook-uri",

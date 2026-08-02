@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "Separator",
     "discovery": "Pagtuklas",
     "discoverySubtitle": "I-scan ang mga provider para sa libreng access",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "Templates"
   },
   "webhooks": {
     "title": "Mga Webhook",

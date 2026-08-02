@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "विभाजक",
     "discovery": "डिस्कवरी",
     "discoverySubtitle": "मुफ़्त एक्सेस के लिए प्रोवाइडर्स को स्कैन करें",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "टेम्पलेट्स"
   },
   "webhooks": {
     "title": "वेबहुक",

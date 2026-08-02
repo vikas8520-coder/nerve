@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "Oddělovač",
     "discovery": "Objevování",
     "discoverySubtitle": "Skenovat poskytovatele pro bezplatný přístup",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "Šablony"
   },
   "webhooks": {
     "title": "Webhooky",

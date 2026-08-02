@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "מפריד",
     "discovery": "גילוי",
     "discoverySubtitle": "סריקת ספקים לגישה חינמית",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "תבניות"
   },
   "webhooks": {
     "title": "Webhooks",

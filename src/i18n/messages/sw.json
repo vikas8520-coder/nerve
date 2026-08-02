@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "Kigawanyishi",
     "discovery": "Ugunduzi",
     "discoverySubtitle": "Changanua watoa huduma kwa ufikiaji wa bure",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "Violezi"
   },
   "webhooks": {
     "title": "Viboko vya mtandao",

@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "ตัวคั่น",
     "discovery": "การค้นพบ",
     "discoverySubtitle": "สแกนผู้ให้บริการเพื่อเข้าใช้งานฟรี",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "เทมเพลต"
   },
   "webhooks": {
     "title": "เว็บฮุค",

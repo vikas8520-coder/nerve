@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "Separator",
     "discovery": "Discovery",
     "discoverySubtitle": "Skanowanie providers w celu wyszukania darmowego dostępu",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "Szablony"
   },
   "webhooks": {
     "title": "Webhooks",

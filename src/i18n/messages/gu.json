@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "વિભાજક",
     "discovery": "ડિસ્કવરી",
     "discoverySubtitle": "મફત ઍક્સેસ માટે પ્રોવાઇડર્સ સ્કેન કરો",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "ટેમ્પલેટ્સ"
   },
   "webhooks": {
     "title": "વેબહુક્સ",

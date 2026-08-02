@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "Pemisah",
     "discovery": "Penemuan",
     "discoverySubtitle": "Imbas penyedia untuk akses percuma",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "Templat"
   },
   "webhooks": {
     "title": "Webhooks",

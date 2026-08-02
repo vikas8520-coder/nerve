@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "Разделител",
     "discovery": "Откриване",
     "discoverySubtitle": "Сканиране на доставчици за безплатен достъп",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "Шаблони"
   },
   "webhooks": {
     "title": "Уеб кукички",

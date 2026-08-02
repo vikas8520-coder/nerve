@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "隔断",
     "discovery": "发现",
     "discoverySubtitle": "扫描提供者以获取免费访问",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "模板"
   },
   "webhooks": {
     "title": "Webhook",

@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "Avskiljare",
     "discovery": "Upptäckt",
     "discoverySubtitle": "Skanna leverantörer efter fri åtkomst",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "Mallar"
   },
   "webhooks": {
     "title": "Webhooks",

@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "Elválasztó",
     "discovery": "Felfedezés",
     "discoverySubtitle": "Szolgáltatók vizsgálata ingyenes hozzáférésért",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "Sablonok"
   },
   "webhooks": {
     "title": "Webhooks",

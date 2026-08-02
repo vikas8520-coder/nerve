@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "구분선",
     "discovery": "디스커버리",
     "discoverySubtitle": "무료 액세스를 위한 제공자 스캔",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "템플릿"
   },
   "webhooks": {
     "title": "웹훅",

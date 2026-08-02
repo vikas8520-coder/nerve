@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "Séparateur",
     "discovery": "Découverte",
     "discoverySubtitle": "Analyser les fournisseurs pour un accès gratuit",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "Modèles"
   },
   "webhooks": {
     "title": "Webhooks",

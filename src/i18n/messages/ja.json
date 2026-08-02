@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "セパレーター",
     "discovery": "ディスカバリー",
     "discoverySubtitle": "無料アクセス対象のプロバイダーをスキャン",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "テンプレート"
   },
   "webhooks": {
     "title": "Webhook",

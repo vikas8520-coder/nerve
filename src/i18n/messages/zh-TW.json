@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "隔斷",
     "discovery": "探索",
     "discoverySubtitle": "掃描提供者以尋找免費存取",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "範本"
   },
   "webhooks": {
     "title": "Webhook",

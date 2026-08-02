@@ -1231,7 +1231,8 @@
     "groupSeparatorLabel": "विभाजक",
     "discovery": "शोध",
     "discoverySubtitle": "मोफत ॲक्सेससाठी प्रोव्हायडर्स स्कॅन करा",
-    "themeNerve": "Nerve Green"
+    "themeNerve": "Nerve Green",
+    "templates": "टेम्पलेट्स"
   },
   "webhooks": {
     "title": "वेबहुक",
