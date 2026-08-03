@@ -406,13 +406,58 @@ All **19** strategies — mix & match per combo step:
 
 <br/>
 
-<div align="center">
+## 🧠 New in Nerve — Personalization & Intelligence
+
+### 🎯 Task-Aware Smart Routing (Auto Model Switching)
+
+Nerve now **detects the semantic task type** of every request and routes it to the optimal model — no manual model selection needed.
+
+| Task Type         | Detection                                                        | Default Route     |
+| ----------------- | ---------------------------------------------------------------- | ----------------- |
+| **Coding**        | `write code`, `debug`, `refactor`, `function`, ````` code blocks | `auto/coding`     |
+| **Analysis**      | `analyze`, `compare`, `evaluate`, `pros and cons`, `reasoning`   | `auto/reasoning`  |
+| **Vision**        | Image attachments, `look at this image`, `describe this image`   | `auto/vision`     |
+| **Summarization** | `summarize`, `tldr`, `key points`, `brief overview`              | `auto/chat:fast`  |
+| **Background**    | `generate title`, `short description`, `one-line summary`        | `auto/chat:cheap` |
+| **Creative**      | `write story`, `poem`, `blog`, `roleplay`, `brainstorm`          | Pass-through      |
+| **Chat**          | General conversation                                             | Pass-through      |
+
+- **Rule-based detection** with keyword/pattern matching on system + user messages
+- **Priority ordering** (vision > background > coding > summarization > analysis > creative)
+- **Configurable overrides** via `/api/settings/task-routing` — operators can point any task type at a specific model
+- **Auto-combo scoring** still applies — `auto/*` intents resolve against your actually-connected backends with full 13-factor scoring (quota, health, cost, latency, stability)
+- **Enabled by default** but detection can be toggled; stats tracked per task type
+
+### 📦 MCP Server Registry & Auto-Install
+
+A curated marketplace of **24 MCP servers** with one-click install, project-type detection, and config generation.
+
+| Category         | Servers                                           |
+| ---------------- | ------------------------------------------------- |
+| **Filesystem**   | Filesystem, Git, GitHub                           |
+| **Databases**    | PostgreSQL, SQLite, MySQL                         |
+| **Web & API**    | Fetch, Brave Search, Puppeteer                    |
+| **Cloud**        | AWS, GCP, Kubernetes, Docker                      |
+| **Productivity** | Slack, Notion, Google Drive                       |
+| **AI/ML**        | Hugging Face, Ollama, Memory, Sequential Thinking |
+| **Monitoring**   | Sentry, Datadog                                   |
+
+**Features:**
+
+- **Project-type auto-detection** — analyzes `package.json`, `requirements.txt`, `go.mod`, `Cargo.toml` and recommends relevant servers
+- **One-click install/uninstall/update** via dashboard or API
+- **Config generation** for Claude Desktop, Cursor, VS Code, generic JSON
+- **Version management** with `npx` (always latest), `npm` (local), `docker` (pinned images)
+- **Environment variable templates** — required/optional env vars surfaced per server
+- **Official + community** servers with maintainer info and docs links
+
+---
 
 ## 🏆 What Sets Nerve Apart
 
 </div>
 
-<img src="./docs/diagrams/comparison-table.svg" width="100%" alt="What sets Nerve apart — comparison table vs 9router, OpenRouter, CLIProxyAPI and LiteLLM across 13 capabilities. Nerve: 290 providers, 90+ free providers built-in, 19 routing strategies, 12-engine token compression, built-in MCP server with 104 tools, A2A agent protocol, persistent memory, guardrails, cloud agents, TLS fingerprint stealth, Desktop/Termux/PWA, 43 i18n UI locales, 100% MIT self-hosted. Nerve is the only one with the full set; competitors show a mix of checks, partials and crosses. Verified from each project&apos;s docs."/>
+<img src="./docs/diagrams/comparison-table.svg" width="100%" alt="What sets Nerve apart — comparison table vs 9router, OpenRouter, CLIProxyAPI and LiteLLM across 13 capabilities. Nerve: 290 providers, 90+ free providers built-in, 19 routing strategies, 12-engine token compression, built-in MCP server with 104 tools, A2A agent protocol, persistent memory, guardrails, cloud agents, TLS fingerprint stealth, Desktop/Termux/PWA, 43 i18n UI locales, 100% MIT self-hosted, Task-Aware Smart Routing, MCP Server Auto-Install. Nerve is the only one with the full set; competitors show a mix of checks, partials and crosses. Verified from each project&apos;s docs."/>
 
 <sub>📊 Full methodology &amp; per-feature detail vs 9router, OpenRouter, CLIProxyAPI &amp; LiteLLM → [`docs/comparison/NERVE_VS_ALTERNATIVES.md`](docs/comparison/NERVE_VS_ALTERNATIVES.md)</sub>
 
@@ -461,6 +506,8 @@ Pix copia-e-cola:
 
 </details>
 
+<br clear="right"/>
+
 🐛 Found a bug or have feedback? Open a [Discussion](https://github.com/diegosouzapw/Nerve/discussions).
 
 <br/>
@@ -473,6 +520,9 @@ Pix copia-e-cola:
 
 > Recent highlights from **v3.8.20 → v3.8.49**. Full history in [`CHANGELOG.md`](CHANGELOG.md).
 
+- **🧠 Task-Aware Smart Routing** — Nerve detects task type (coding, analysis, vision, summarization, background, creative, chat) and auto-routes to optimal model (`auto/coding`, `auto/reasoning`, `auto/vision`, `auto/chat:fast`, `auto/chat:cheap`). Rule-based detection with priority ordering, configurable via `/api/settings/task-routing`. → [Auto-Combo](docs/routing/AUTO-COMBO.md)
+- **📦 MCP Server Registry & Auto-Install** — Curated marketplace of 24 MCP servers (Filesystem, Git, GitHub, PostgreSQL, SQLite, MySQL, Fetch, Brave Search, Puppeteer, AWS, GCP, Kubernetes, Docker, Slack, Notion, Google Drive, Hugging Face, Ollama, Memory, Sentry, Datadog + more). One-click install/uninstall/update, project-type auto-detection (package.json, requirements.txt, go.mod, Cargo.toml), config generation for Claude Desktop/Cursor/VS Code, version management (npx/npm/docker). → [MCP Server](docs/frameworks/MCP-SERVER.md)
+- **📊 Personalized Dashboard** — Your own usage overview: provider health, top models, recent activity, API key usage, daily charts, quick actions. Time-range selector (24h/7d/30d/90d). → [API Reference](docs/reference/API_REFERENCE.md)
 - **🗜️ Compression hardening** — default-on inflation guard, Caveman packs for DE / FR / JA + Chinese (wényán), RTK filters for Gradle & .NET. → [Compression](docs/compression/COMPRESSION_ENGINES.md)
 - **💸 Honest flat-rate cost** — subscription / coding-plan providers read **$0** in cost analytics; budget, quota & routing keep estimating. → [API Reference](docs/reference/API_REFERENCE.md)
 - **⚖️ Quota-Share routing** — split a shared account's quota fairly across pooled keys, work-conserving so idle slices are lent out. → [Resilience Guide](docs/architecture/RESILIENCE_GUIDE.md)
@@ -979,14 +1029,14 @@ same process on one port, so there is no separate CLI-only package today.
 | 💼 **LinkedIn** — follow the maintainer    | [linkedin.com/in/diegosouzapw](https://www.linkedin.com/in/diegosouzapw/)                                                 |
 | 🐙 **GitHub** — follow for releases & tips | [@diegosouzapw](https://github.com/diegosouzapw)                                                                          |
 | 💬 **Discord**                             | [discord.gg/U47eFqAXCn](https://discord.gg/U47eFqAXCn)                                                                    |
-| ✈️ **Telegram**                            | [t.me/nerveOficial](https://t.me/nerveOficial)                                                                    |
+| ✈️ **Telegram**                            | [t.me/nerveOficial](https://t.me/nerveOficial)                                                                            |
 | 🟢 **WhatsApp — 🌍 Global**                | [join the group](https://chat.whatsapp.com/JI7cDQ1GyaiDHhVBpLxf8b?mode=gi_t)                                              |
 | 🟢 **WhatsApp — 🇧🇷 Brasil**                | [entrar no grupo](https://chat.whatsapp.com/LTSpdFhXTxjH4R6CCNiKWz)                                                       |
-| 🌍 **Website**                             | [nerve.online](https://nerve.online)                                                                              |
-| 📦 **Source code**                         | [github.com/diegosouzapw/Nerve](https://github.com/diegosouzapw/Nerve)                                            |
-| 🐛 **Report a bug**                        | [open an issue](https://github.com/diegosouzapw/Nerve/issues) — attach `npm run system-info` output                   |
+| 🌍 **Website**                             | [nerve.online](https://nerve.online)                                                                                      |
+| 📦 **Source code**                         | [github.com/diegosouzapw/Nerve](https://github.com/diegosouzapw/Nerve)                                                    |
+| 🐛 **Report a bug**                        | [open an issue](https://github.com/diegosouzapw/Nerve/issues) — attach `npm run system-info` output                       |
 | 🤝 **Contribute**                          | [CONTRIBUTING.md](CONTRIBUTING.md) · [Branching & Release Model](docs/ops/BRANCHING_MODEL.md) · pick a `good first issue` |
-| 💚 **Support the project**                 | [Ways to support ↑](#-support-nerve) · [GitHub Sponsors](https://github.com/sponsors/diegosouzapw)                    |
+| 💚 **Support the project**                 | [Ways to support ↑](#-support-nerve) · [GitHub Sponsors](https://github.com/sponsors/diegosouzapw)                        |
 
 </div>
 
