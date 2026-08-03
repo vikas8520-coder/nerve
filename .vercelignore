@@ -21,6 +21,7 @@ LICENSE*
 README*
 CONTRIBUTING*
 SECURITY*
-# Keep scripts/build/ for postinstall, exclude other scripts subdirs
-scripts/**
+# Exclude scripts/ subdirs except build/
+scripts/*
 !scripts/build/
+!scripts/build/**
