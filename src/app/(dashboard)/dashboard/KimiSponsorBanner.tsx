@@ -70,10 +70,10 @@ export default function KimiSponsorBanner() {
     <div
       role="complementary"
       aria-label={t("title")}
-      className="mb-4 flex flex-col gap-3 rounded-lg border border-[#1783FF]/30 bg-[#1783FF]/5 px-4 py-3 dark:bg-[#1783FF]/10 sm:flex-row sm:items-center sm:justify-between"
+      className="mb-4 flex flex-col gap-3 rounded-lg border border-[#00FF9F]/30 bg-[#00FF9F]/5 px-4 py-3 dark:bg-[#00FF9F]/10 sm:flex-row sm:items-center sm:justify-between"
     >
       <div className="flex min-w-0 items-start gap-3">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-[#1783FF]/10">
+        <div className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-[#00FF9F]/10">
           <ProviderIcon providerId="moonshot" size={24} type="color" />
         </div>
         <div className="min-w-0">
@@ -89,7 +89,7 @@ export default function KimiSponsorBanner() {
             target="_blank"
             rel="noopener noreferrer"
             title={t("partnerLinkNote")}
-            className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg bg-[#1783FF] px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:brightness-110"
+            className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-lg bg-[#00FF9F] px-3 py-1.5 text-xs font-semibold text-white transition-colors hover:brightness-110"
           >
             {t("cta")}
             <span className="material-symbols-outlined text-[14px]" aria-hidden="true">

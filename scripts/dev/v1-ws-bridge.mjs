@@ -563,14 +563,14 @@ class WebSocketSession {
   }
 }
 
-export function createOmnirouteWsBridge({
+export function createNerveWsBridge({
   baseUrl,
   fetchImpl = fetch,
   pingIntervalMs = 25000,
   idleTimeoutMs = 90000,
 } = {}) {
   if (!isText(baseUrl)) {
-    throw new Error("createOmnirouteWsBridge requires a baseUrl");
+    throw new Error("createNerveWsBridge requires a baseUrl");
   }
 
   return {

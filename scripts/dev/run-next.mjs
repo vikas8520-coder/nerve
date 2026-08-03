@@ -6,7 +6,7 @@ import path from "node:path";
 import next from "next";
 import { bootstrapEnv } from "../build/bootstrap-env.mjs";
 import { resolveRuntimePorts, withRuntimePortEnv } from "../build/runtime-env.mjs";
-import { createOmnirouteWsBridge } from "./v1-ws-bridge.mjs";
+import { createNerveWsBridge } from "./v1-ws-bridge.mjs";
 import { createResponsesWsProxy } from "./responses-ws-proxy.mjs";
 import { ensurePeerStampToken, stampPeerIp } from "./peer-stamp.mjs";
 import methodGuard from "./http-method-guard.cjs";
@@ -162,7 +162,7 @@ async function start() {
     baseUrl: `http://127.0.0.1:${dashboardPort}`,
     bridgeSecret: process.env.NERVE_WS_BRIDGE_SECRET,
   });
-  const wsBridge = createOmnirouteWsBridge({
+  const wsBridge = createNerveWsBridge({
     baseUrl: `http://127.0.0.1:${dashboardPort}`,
   });
 

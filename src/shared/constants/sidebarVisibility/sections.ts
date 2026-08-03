@@ -324,6 +324,13 @@ const ANALYTICS_ITEMS: readonly SidebarItemDefinition[] = [
     icon: "analytics",
   },
   {
+    id: "personalized",
+    href: "/dashboard/personalized",
+    i18nKey: "personalized",
+    subtitleKey: "personalizedSubtitle",
+    icon: "person",
+  },
+  {
     id: "analytics-combo-health",
     href: "/dashboard/analytics/combo-health",
     i18nKey: "analyticsComboHealth",

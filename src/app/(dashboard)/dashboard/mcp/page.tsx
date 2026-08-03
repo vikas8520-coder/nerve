@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Card } from "@/shared/components";
 import { copyToClipboard } from "@/shared/utils/clipboard";
 import McpDashboardPage from "../endpoint/components/MCPDashboard";
+import McpServerRegistry from "./McpServerRegistry";
 
 type ServiceStatus = { online: boolean; loading: boolean };
 type McpTransport = "stdio" | "sse" | "streamable-http";
@@ -235,6 +236,7 @@ export default function McpPage() {
   const [mcpTransport, setMcpTransport] = useState<McpTransport>("stdio");
   const [transportSaving, setTransportSaving] = useState(false);
   const [baseUrl, setBaseUrl] = useState("");
+  const [activeTab, setActiveTab] = useState<"dashboard" | "registry">("dashboard");
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -312,52 +314,86 @@ export default function McpPage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <Card>
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
-              {t("mcpIntro", { tools: 37, scopes: 13, transports: 3 })}
-            </p>
-            <ol
-              className="mt-2 text-sm space-y-0.5 list-decimal list-inside"
-              style={{ color: "var(--color-text-muted)" }}
-            >
-              <li>
-                {t.rich("mcpStep1", {
-                  code: (chunks) => <code className="text-xs">{chunks}</code>,
-                })}
-              </li>
-              <li>{t("mcpStep2")}</li>
-              <li>
-                {t.rich("mcpStep3", {
-                  code1: (chunks) => <code className="text-xs">nerve_get_health</code>,
-                  code2: (chunks) => <code className="text-xs">nerve_list_combos</code>,
-                })}
-              </li>
-            </ol>
-          </div>
-          <div className="shrink-0">
-            <ServiceToggle
-              label="MCP"
-              status={mcpStatus}
-              enabled={mcpEnabled}
-              onToggle={() => void toggleMcp()}
-              toggling={mcpToggling}
-            />
-          </div>
-        </div>
-      </Card>
+      {/* Tab Navigation */}
+      <div className="flex gap-1 p-1 rounded-lg" style={{ background: "var(--color-bg-tertiary)" }}>
+        <button
+          onClick={() => setActiveTab("dashboard")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
+            activeTab === "dashboard"
+              ? "bg-bg text-text shadow-sm"
+              : "text-text-muted hover:text-text"
+          }`}
+        >
+          <span className="material-symbols-rounded">dashboard</span>
+          {t("dashboardTab")}
+        </button>
+        <button
+          onClick={() => setActiveTab("registry")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
+            activeTab === "registry"
+              ? "bg-bg text-text shadow-sm"
+              : "text-text-muted hover:text-text"
+          }`}
+        >
+          <span className="material-symbols-rounded">extension</span>
+          {t("registryTab")}
+        </button>
+      </div>
 
-      {mcpEnabled && (
-        <TransportSelector
-          value={mcpTransport}
-          onChange={(t) => void changeTransport(t)}
-          disabled={transportSaving}
-          baseUrl={baseUrl}
-        />
+      {activeTab === "dashboard" && (
+        <>
+          <Card>
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-sm" style={{ color: "var(--color-text-muted)" }}>
+                  {t("mcpIntro", { tools: 37, scopes: 13, transports: 3 })}
+                </p>
+                <ol
+                  className="mt-2 text-sm space-y-0.5 list-decimal list-inside"
+                  style={{ color: "var(--color-text-muted)" }}
+                >
+                  <li>
+                    {t.rich("mcpStep1", {
+                      code: (chunks) => <code className="text-xs">{chunks}</code>,
+                    })}
+                  </li>
+                  <li>{t("mcpStep2")}</li>
+                  <li>
+                    {t.rich("mcpStep3", {
+                      code1: (chunks) => <code className="text-xs">nerve_get_health</code>,
+                      code2: (chunks) => <code className="text-xs">nerve_list_combos</code>,
+                    })}
+                  </li>
+                </ol>
+              </div>
+              <div className="shrink-0">
+                <ServiceToggle
+                  label="MCP"
+                  status={mcpStatus}
+                  enabled={mcpEnabled}
+                  onToggle={() => void toggleMcp()}
+                  toggling={mcpToggling}
+                />
+              </div>
+            </div>
+          </Card>
+
+          {mcpEnabled && (
+            <TransportSelector
+              value={mcpTransport}
+              onChange={(t) => void changeTransport(t)}
+              disabled={transportSaving}
+              baseUrl={baseUrl}
+            />
+          )}
+
+          {mcpEnabled ? <McpDashboardPage /> : <DisabledPanel />}
+        </>
       )}
 
-      {mcpEnabled ? <McpDashboardPage /> : <DisabledPanel />}
+      {activeTab === "registry" && (
+        <McpServerRegistry />
+      )}
     </div>
   );
 }

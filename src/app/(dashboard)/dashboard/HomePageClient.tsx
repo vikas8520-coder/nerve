@@ -106,7 +106,7 @@ function mergeUpdateStep(steps: UpdateStep[], nextStep: UpdateStep) {
 
 // Quick-start link classes, extracted so each <Link> still fits on one line with
 // prefetch={false} (#8281) — this file is size-frozen.
-const INLINE_LINK = "text-primary hover:underline";
+const INLINE_LINK = "text-[#00FF9F] hover:underline";
 const DOCS_LINK =
   "hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border border-border text-text-muted hover:text-text-main hover:bg-bg-subtle transition-colors";
 
@@ -168,7 +168,7 @@ export default function HomePageClient({ machineId }: HomePageClientProps) {
       url: `https://github.com/vikas8520-coder/nerve/releases/tag/v${cleanLatest}`,
       desc: `A new version of the Nerve desktop app is available. Please download the respective app format for your system to update (current: v${versionInfo?.current || ""}).`,
     };
-  }, [platform, versionInfo?.latest, versionInfo?.current]);
+  }, [platform, versionInfo]);
 
   // Electron internal auto-updater state and listeners
   const [electronUpdateStatus, setElectronUpdateStatus] = useState<{

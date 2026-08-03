@@ -1,0 +1,32 @@
+{
+  "common": {
+    "error": "Hata: {message}",
+    "serverOffline": "Nerve sunucusu çevrimdışı. Başlatın: nerve serve",
+    "authRequired": "Kimlik doğrulama gerekli. NERVE_API_KEY ayarlayın veya çalıştırın: nerve setup",
+    "rateLimited": "İstek limiti aşıldı. {seconds}s sonra tekrar deneyin.",
+    "timeout": "İstek {ms}ms sonra zaman aşımına uğradı.",
+    "success": "Tamamlandı.",
+    "yes": "evet",
+    "no": "hayır",
+    "confirm": "Emin misiniz? (evet/hayır)",
+    "dryRun": "[simülasyon] yapılacaktı: {action}",
+    "cancelled": "İptal edildi.",
+    "jsonOpt": "JSON olarak çıktı",
+    "yesOpt": "Onayı atla"
+  },
+  "program": {
+    "description": "Nerve — Otomatik Fallback ile Akıllı AI Yönlendirici",
+    "version": "Sürümü yazdır ve çık",
+    "output": "Çıktı formatı (table, json, jsonl, csv)",
+    "quiet": "Önemsiz çıktıyı gizle",
+    "no_color": "Renkli çıktıyı devre dışı bırak",
+    "timeout": "HTTP istek zaman aşımı (milisaniye)",
+    "api_key": "Nerve sunucusu için API anahtarı",
+    "base_url": "Nerve sunucusu temel URL'si",
+    "context": "Bu komut için sunucu bağlamı/profili",
+    "lang": "CLI görüntüleme dilini ayarla (NERVE_LANG'ı geçersiz kılar)"
+  },
+  "redis": {
+    "description": "Nerve önbelleği ve kota takibi için tek tıkla yerel Redis konteyneri (Podman veya Docker) başlatın"
+  }
+}

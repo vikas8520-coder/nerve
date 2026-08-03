@@ -1,0 +1,23 @@
+# Vercel ignore patterns - exclude heavy directories from deployment
+node_modules/**
+app_backup/**
+.git/**
+*.md
+docs/**
+tests/**
+scripts/**
+skills/**
+bin/**
+*.config.*
+tsconfig*.json
+eslint*
+prettier*
+CHANGELOG*
+LICENSE*
+README*
+CONTRIBUTING*
+SECURITY*
+dist/**
+.build/**
+*.log
+*.tsbuildinfo

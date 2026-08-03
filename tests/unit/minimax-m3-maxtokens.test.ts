@@ -1,7 +1,7 @@
 /**
  * tests/unit/minimax-m3-maxtokens.test.ts
  *
- * Regression for issue #3141 — "Omniroute sets max_tokens = 8192 for
+ * Regression for issue #3141 — "Nerve sets max_tokens = 8192 for
  * minimax/MiniMax-M3" (reporter @totaltube).
  *
  * minimax-coding / minimax route through the Claude translator, which calls

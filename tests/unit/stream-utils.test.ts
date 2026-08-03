@@ -1902,7 +1902,7 @@ test("buildStreamSummaryFromEvents preserves Gemini thought parts and function c
   });
 });
 
-test("compactStructuredStreamPayload wraps primitive summaries with Omniroute stream metadata", () => {
+test("compactStructuredStreamPayload wraps primitive summaries with Nerve stream metadata", () => {
   const compact = compactStructuredStreamPayload({
     _streamed: true,
     _format: "sse-json",

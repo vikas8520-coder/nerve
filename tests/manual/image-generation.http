@@ -1,7 +1,7 @@
 ###
-# @name Omniroute - Generate Image
+# @name Nerve - Generate Image
 POST {{nerve-address}}/v1/images/generations
-Authorization: Bearer {{NERVE_API_KEY}}
+Authorization: Bearer ***
 Content-Type: application/json
 
 {
@@ -17,9 +17,9 @@ Content-Type: application/json
 
 ###
 
-# @name Omniroute - Generate Image - Custom OpenAI compatible endpoint
+# @name Nerve - Generate Image - Custom OpenAI compatible endpoint
 POST {{nerve-address}}/v1/images/generations
-Authorization: Bearer {{NERVE_API_KEY}}
+Authorization: Bearer ***
 Content-Type: application/json
 
 {
@@ -36,7 +36,7 @@ Content-Type: application/json
 ###
 # @name Pollinations - Generate Image
 POST https://gen.pollinations.ai/v1/images/generations
-Authorization: Bearer {{POLLINATIONS_API_KEY}}
+Authorization: Bearer {{POLL...EY}}
 Content-Type: application/json
 
 {
@@ -51,11 +51,11 @@ Content-Type: application/json
 }
 
 ###
-# @name Omniroute - Codex image via /v1/images/generations (GPT-Image shim)
+# @name Nerve - Codex image via /v1/images/generations (GPT-Image shim)
 # Translates a GPT-Image-style request into a /responses call with the
 # image_generation hosted tool. Use with OpenWebUI's image generation feature.
 POST {{nerve-address}}/v1/images/generations
-Authorization: Bearer {{NERVE_API_KEY}}
+Authorization: Bearer ***
 Content-Type: application/json
 
 {
@@ -67,12 +67,12 @@ Content-Type: application/json
 }
 
 ###
-# @name Omniroute - Codex hosted image_generation (Responses API)
+# @name Nerve - Codex hosted image_generation (Responses API)
 # Requires a Codex provider connection authenticated via ChatGPT OAuth.
 # Expect SSE stream to include `response.output_item.done` with
 # `item.type === "image_generation_call"` and a base64 PNG in `item.result`.
 POST {{nerve-address}}/v1/responses
-Authorization: Bearer {{NERVE_API_KEY}}
+Authorization: Bearer ***
 Content-Type: application/json
 
 {
