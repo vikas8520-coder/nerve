@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd"?>
+<!--
+  com.vikas.nerve.plist.template
+
+  Template for the nerve CLI server launchd agent (global npm install).
+  Do NOT use directly — run scripts/ops/install-nerve-server.sh to generate
+  a plist with the correct paths and install nerve-up / nerve-down.
+
+  Runs the globally-installed nerve CLI (`nerve serve`) on port 20128.
+  This is lighter than `npm run dev` (no Turbopack) but still grows over
+  time — pair with nerve-dev-restart for periodic restarts, or use Docker
+  prod for true always-on.
+
+  Placeholders (replaced by install script):
+    __HOME__       — user home directory
+    __NODE_BIN__   — path to node binary
+    __NERVE_BIN__  — path to nerve.mjs CLI entry point
+    __NERVE_DIR__  — nerve package working directory
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.vikas.nerve</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>__NODE_BIN__</string>
+        <string>__NERVE_BIN__</string>
+        <string>serve</string>
+        <string>--no-open</string>
+    </array>
+
+    <key>WorkingDirectory</key>
+    <string>__NERVE_DIR__</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>HOME</key>
+        <string>__HOME__</string>
+        <key>PATH</key>
+        <string>__HOME__/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+        <key>NODE_ENV</key>
+        <string>production</string>
+        <key>NODE_OPTIONS</key>
+        <string>--max-old-space-size=512</string>
+        <key>NERVE_MEMORY_MB</key>
+        <string>512</string>
+        <key>NERVE_DISABLE_BACKGROUND_SERVICES</key>
+        <string>false</string>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>KeepAlive</key>
+    <dict>
+        <key>SuccessfulExit</key>
+        <false/>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>__HOME__/.nerve/logs/launchd-stdout.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>__HOME__/.nerve/logs/launchd-stderr.log</string>
+
+    <key>ProcessType</key>
+    <string>Background</string>
+</dict>
+</plist>

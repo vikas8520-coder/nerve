@@ -989,6 +989,28 @@ docker compose -f docker-compose.prod.yml {up -d --no-build | down | logs -f | p
 > if you already configured providers via the dev server). Without it, the container
 > cannot decrypt provider credentials. The `.env` file is gitignored.
 
+**🖥️ Nerve CLI Server — nerve-up / nerve-down (macOS)**
+
+For a lighter alternative to `npm run dev` (no Turbopack), run the globally-installed
+nerve CLI server via launchd. This uses the production build from `npm install -g nerve`,
+serving on port 20128 with a 512 MB heap limit.
+
+```bash
+# One-command install (detects nerve CLI path, generates plist, copies scripts)
+scripts/ops/install-nerve-server.sh
+
+# Start / stop on demand
+nerve-up     # start nerve on :20128
+nerve-down   # stop nerve
+```
+
+The plist is installed in a disabled state (won't auto-start at login). `nerve-up`
+symlinks it to the active name and bootstraps it; `nerve-down` unloads and removes
+the symlink. Uninstall with `scripts/ops/install-nerve-server.sh --uninstall`.
+
+> **Note:** The CLI server still grows over time (same routing engine). Pair with the
+> auto-restart timer below, or use Docker prod for true always-on.
+
 **🔄 Dev Server Auto-Restart (Optional)**
 
 If you do run `npm run dev` for active development, an auto-restart script prevents the
