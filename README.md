@@ -946,6 +946,74 @@ devbox run npm run dev
 
 📖 [Docker Guide](docs/guides/DOCKER_GUIDE.md) — Compose profiles, Caddy HTTPS, Cloudflare tunnels.
 
+**🐳 Docker Compose — Always-On Production Deployment**
+
+For 24/7 use, prefer the production Compose stack over `npm run dev`. The dev server
+(Turbopack) accumulates compilation caches in memory and can balloon to ~15 GB RSS over
+~24 h, causing swap thrashing and thermal heat on resource-constrained machines. The
+containerized production deployment has bounded memory and no dev-server cache growth.
+
+```bash
+# Build the lean image (runner-base — no Playwright/Chromium)
+docker build --target runner-base -t nerve:prod .
+
+# Start the production stack (dashboard + API + Redis)
+docker compose -f docker-compose.prod.yml up -d --no-build
+```
+
+| Port    | Surface                                                         |
+| ------- | --------------------------------------------------------------- |
+| `20130` | Dashboard + Anthropic-compatible API                            |
+| `20131` | OpenAI-compatible API (`/v1/chat/completions`, `/v1/models`, …) |
+| `20132` | Live dashboard WebSocket                                        |
+
+Point your CLIs at the Docker ports instead of `:20128`:
+
+```bash
+# Claude Code
+export ANTHROPIC_BASE_URL=http://localhost:20130
+export ANTHROPIC_API_KEY=<your-nerve-api-key>
+
+# Codex / OpenCode / Hermes (OpenAI surface)
+export OPENAI_BASE_URL=http://localhost:20131/v1
+export OPENAI_API_KEY=<your-nerve-api-key>
+```
+
+Ops:
+
+```bash
+docker compose -f docker-compose.prod.yml {up -d --no-build | down | logs -f | ps | restart}
+```
+
+> **Note:** `STORAGE_ENCRYPTION_KEY` must be set in `.env` (copy from `~/.nerve/.env`
+> if you already configured providers via the dev server). Without it, the container
+> cannot decrypt provider credentials. The `.env` file is gitignored.
+
+**🔄 Dev Server Auto-Restart (Optional)**
+
+If you do run `npm run dev` for active development, an auto-restart script prevents the
+RSS from ballooning. The script (`nerve-dev-restart`) restarts the dev server only when
+its uptime exceeds 6 h or its RSS exceeds 3 GB — it's a safe no-op when the dev server
+isn't running.
+
+```bash
+# Check status
+nerve-dev-restart --status
+
+# Force restart
+nerve-dev-restart --force
+
+# Auto-threshold (for cron / launchd)
+nerve-dev-restart
+```
+
+A macOS `launchd` timer (`com.vikas.nerve-dev-restart`) runs the script every 6 h
+automatically. Install it with:
+
+```bash
+launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.vikas.nerve-dev-restart.plist
+```
+
 **🦭 Podman**
 
 ```bash

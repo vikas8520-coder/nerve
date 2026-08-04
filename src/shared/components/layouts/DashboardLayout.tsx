@@ -78,9 +78,9 @@ export default function DashboardLayout({ children }) {
   };
 
   return (
-    // No bg-bg here: the body grid wallpaper (globals.css body::before) shows through
-    // this transparent wrapper into the content area. body's --color-bg is the base fill.
-    <div className="relative flex h-dvh min-h-0 w-full overflow-hidden">
+    // Floating glassmorphism shell: sidebar + content sit as rounded cards with
+    // margin from the viewport edges, separated by a gap, over the neural background.
+    <div className="relative flex h-dvh min-h-0 w-full overflow-hidden p-2 sm:p-3 lg:p-4 gap-2 sm:gap-3 lg:gap-4">
       {/* Neural network ambient background */}
       <NeuralNetworkBackground />
       <Suspense fallback={null}>
@@ -94,8 +94,8 @@ export default function DashboardLayout({ children }) {
         />
       )}
 
-      {/* Sidebar - Desktop: keep visibility independent from Tailwind hidden/lg:flex ordering. */}
-      <div className="dashboard-sidebar-desktop">
+      {/* Sidebar - Desktop: floating glass card */}
+      <div className="dashboard-sidebar-desktop glass-surface rounded-2xl overflow-hidden">
         <Sidebar
           collapsed={collapsed}
           onToggleCollapse={handleToggleCollapse}
@@ -112,17 +112,17 @@ export default function DashboardLayout({ children }) {
         <Sidebar onClose={() => setSidebarOpen(false)} isMacElectron={isMacElectron} />
       </div>
 
-      {/* Main content */}
+      {/* Main content — floating glass card */}
       <main
         id="main-content"
-        className="relative flex min-h-0 flex-1 min-w-0 flex-col transition-colors duration-300"
+        className="glass-surface rounded-2xl relative flex min-h-0 flex-1 min-w-0 flex-col overflow-hidden transition-colors duration-300"
       >
         <Header
           onMenuClick={() => setSidebarOpen(true)}
           onOpenCommandPalette={() => setCommandPaletteOpen(true)}
         />
         {!isE2EMode && <MaintenanceBanner />}
-        <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden custom-scrollbar p-4 sm:p-6 lg:p-10">
+        <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden custom-scrollbar p-4 sm:p-6 lg:p-8">
           {/* Fluid up to a 4K cap (3840px): content follows the viewport on large
               monitors and only centers (side gutters) beyond ~4K, instead of the prior
               1280px cap that left big empty margins on wide screens. */}

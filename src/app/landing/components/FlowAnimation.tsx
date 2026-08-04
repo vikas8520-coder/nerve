@@ -50,8 +50,8 @@ export default function FlowAnimation() {
   }, [providers.length]);
 
   return (
-    <div className="mt-16 w-full max-w-4xl overflow-hidden">
-      <div className="relative h-[360px] hidden md:flex items-center justify-center animate-[float_6s_ease-in-out_infinite] overflow-hidden">
+    <div className="mt-16 w-full max-w-4xl overflow-x-hidden px-2">
+      <div className="relative h-[360px] hidden md:flex items-center justify-center animate-[float_6s_ease-in-out_infinite]">
         {/* Nerve Hub - Center */}
         <div className="relative z-20 w-32 h-32 rounded-full bg-[#111520] border-2 border-[#00FF9F] shadow-[0_0_40px_rgba(0, 255, 159,0.3)] flex flex-col items-center justify-center gap-1 group cursor-pointer hover:scale-105 transition-transform duration-500">
           <span className="material-symbols-outlined text-4xl text-[#00FF9F]" aria-hidden="true">
@@ -148,7 +148,7 @@ export default function FlowAnimation() {
         </svg>
 
         {/* AI Providers - Right side */}
-        <div className="absolute right-0 top-0 bottom-0 flex flex-col justify-between py-6">
+        <div className="absolute right-2 top-0 bottom-0 flex flex-col justify-between py-6">
           {providers.map((provider, idx) => (
             <div
               key={provider.id}
