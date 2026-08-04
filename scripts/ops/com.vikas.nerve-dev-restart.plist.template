@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  com.vikas.nerve-dev-restart.plist.template
+
+  Template for the nerve dev server auto-restart launchd timer.
+  Do NOT use directly — run scripts/ops/install-dev-restart.sh to generate
+  a plist with the correct $HOME path and load it via launchctl.
+
+  Runs scripts/ops/nerve-dev-restart.sh every 6 hours (21600 seconds).
+  The script is a safe no-op when the dev server isn't running, so this
+  timer is harmless even if you only use Docker prod.
+-->
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.vikas.nerve-dev-restart</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>__HOME__/.local/bin/nerve-dev-restart</string>
+    </array>
+
+    <key>StartInterval</key>
+    <integer>21600</integer>
+
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>StandardOutPath</key>
+    <string>__HOME__/.nerve/logs/dev-restart-launchd.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>__HOME__/.nerve/logs/dev-restart-launchd.log</string>
+
+    <key>ProcessType</key>
+    <string>Background</string>
+</dict>
+</plist>

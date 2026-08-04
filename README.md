@@ -996,22 +996,29 @@ RSS from ballooning. The script (`nerve-dev-restart`) restarts the dev server on
 its uptime exceeds 6 h or its RSS exceeds 3 GB — it's a safe no-op when the dev server
 isn't running.
 
+**macOS — one-command install (launchd timer, runs every 6 h):**
+
 ```bash
-# Check status
-nerve-dev-restart --status
-
-# Force restart
-nerve-dev-restart --force
-
-# Auto-threshold (for cron / launchd)
-nerve-dev-restart
+scripts/ops/install-dev-restart.sh
 ```
 
-A macOS `launchd` timer (`com.vikas.nerve-dev-restart`) runs the script every 6 h
-automatically. Install it with:
+This copies the script to `~/.local/bin/`, generates a launchd plist with the correct
+`$HOME` path, and loads it via `launchctl`. Uninstall with
+`scripts/ops/install-dev-restart.sh --uninstall`.
+
+**Linux — cron:**
 
 ```bash
-launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.vikas.nerve-dev-restart.plist
+crontab -e
+# Add: 0 */6 * * * "$HOME/Projects/nerve/scripts/ops/nerve-dev-restart.sh"
+```
+
+**Manual commands (after install):**
+
+```bash
+nerve-dev-restart --status   # check dev server state
+nerve-dev-restart --force    # force restart now
+nerve-dev-restart            # auto-threshold (uptime >6h or RSS >3GB)
 ```
 
 **🦭 Podman**
