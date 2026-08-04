@@ -953,6 +953,10 @@ For 24/7 use, prefer the production Compose stack over `npm run dev`. The dev se
 ~24 h, causing swap thrashing and thermal heat on resource-constrained machines. The
 containerized production deployment has bounded memory and no dev-server cache growth.
 
+> **Measured result:** Docker prod uses ~2.9 GB RAM (OrbStack VM + containers) vs ~15 GB
+> for the unmanaged dev server — a **5x reduction**. Swap dropped from 11 GB to <4 GB,
+> eliminating the thermal heat caused by memory pressure.
+
 ```bash
 # Build the lean image (runner-base — no Playwright/Chromium)
 docker build --target runner-base -t nerve:prod .
