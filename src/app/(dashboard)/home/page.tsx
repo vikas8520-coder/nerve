@@ -4,6 +4,7 @@ import { getSettings } from "@/lib/localDb";
 import HomePageClient from "../dashboard/HomePageClient";
 import BootstrapBanner from "../dashboard/BootstrapBanner";
 import KimiSponsorBanner from "../dashboard/KimiSponsorBanner";
+import SmartNotificationsCard from "../dashboard/SmartNotificationsCard";
 
 export const dynamic = "force-dynamic";
 
@@ -18,6 +19,9 @@ export default async function HomePage() {
     <>
       {isBootstrapped && <BootstrapBanner />}
       <KimiSponsorBanner />
+      <div className="px-6 pb-6 max-w-7xl mx-auto space-y-6">
+        <SmartNotificationsCard />
+      </div>
       <HomePageClient machineId={machineId} />
     </>
   );
