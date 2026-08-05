@@ -103,12 +103,11 @@ test("API bridge timeouts align request timeout with long proxy timeout by defau
   });
 });
 
-test("idle timeout default stays at 10min (600_000) for slow-thinking model safety", () => {
-  // NOTE: PR #2233 originally lowered this to 300_000, but the reviewer asked to keep
-  // the legacy default (slow thinking models, long Anthropic extended-thinking runs).
-  // The heartbeat-shape change is preserved; only the idle-timeout default revert remains.
-  assert.equal(runtimeTimeouts.DEFAULT_STREAM_IDLE_TIMEOUT_MS, 600_000);
-  assert.equal(runtimeTimeouts.getUpstreamTimeoutConfig({}).streamIdleTimeoutMs, 600_000);
+test("idle timeout default stays at 60s (60_000) for slow-thinking model safety", () => {
+  // Lowered from 10min (600_000) to prevent first-time installs from hanging on a
+  // stalled upstream. Operators can raise it via STREAM_IDLE_TIMEOUT_MS if needed.
+  assert.equal(runtimeTimeouts.DEFAULT_STREAM_IDLE_TIMEOUT_MS, 60_000);
+  assert.equal(runtimeTimeouts.getUpstreamTimeoutConfig({}).streamIdleTimeoutMs, 60_000);
 });
 
 test("readiness adaptive cap defaults to 180s and is env-overridable", () => {
@@ -141,11 +140,11 @@ test("heartbeat interval default = 15s, env-overridable", () => {
   );
 });
 
-test("API bridge proxy timeout defaults to the long upstream request window", () => {
+test("API bridge proxy timeout defaults to the upstream request window", () => {
   const config = runtimeTimeouts.getApiBridgeTimeoutConfig({});
 
-  assert.equal(config.proxyTimeoutMs, 600000);
-  assert.equal(config.serverRequestTimeoutMs, 600000);
+  assert.equal(config.proxyTimeoutMs, 120000);
+  assert.equal(config.serverRequestTimeoutMs, 120000);
 });
 
 test("REQUEST_TIMEOUT_MS=0 disables API bridge proxy and request timeouts consistently", () => {
