@@ -147,10 +147,7 @@ import {
   detectMalformedNonStream,
   describeMalformedNonStream,
 } from "../utils/diagnostics.ts";
-import {
-  checkTokenLimits,
-  recordTokenUsage,
-} from "@nerve/open-sse/services/tokenLimitCounter.ts";
+import { checkTokenLimits, recordTokenUsage } from "@nerve/open-sse/services/tokenLimitCounter.ts";
 import {
   COOLDOWN_MS,
   HTTP_STATUS,
@@ -310,6 +307,7 @@ import {
   findLargerContextModel,
   getModelFamily,
 } from "../services/modelFamilyFallback.ts";
+import { recordFallbackTrace } from "../services/fallbackTrace.ts";
 import { computeRequestHash, deduplicate, shouldDeduplicate } from "../services/requestDedup.ts";
 import {
   compressContext,
@@ -872,10 +870,8 @@ export async function handleChatCore({
   const explicitSessionIdHeader =
     (clientRawRequest?.headers && typeof clientRawRequest.headers.get === "function"
       ? clientRawRequest.headers.get("x-nerve-session-id")
-      : getHeaderValueCaseInsensitive(
-          clientRawRequest?.headers ?? null,
-          "x-nerve-session-id"
-        )) || null;
+      : getHeaderValueCaseInsensitive(clientRawRequest?.headers ?? null, "x-nerve-session-id")) ||
+    null;
   const pipelineSessionId = explicitSessionIdHeader || skillRequestId;
   // persistAttemptLogs extracted to chatCore/attemptLogging.ts (#3501); bind the per-request context
   // once so the 16 call sites keep passing only the per-attempt args (byte-identical).
@@ -3823,6 +3819,14 @@ export async function handleChatCore({
         currentModel = nextModel;
         translatedBody.model = nextModel;
         log?.info?.("MODEL_FALLBACK", `${model} unavailable (${statusCode}) → trying ${nextModel}`);
+        recordFallbackTrace({
+          requestId: traceId,
+          stage: "family_fallback",
+          fromModel: model,
+          toModel: nextModel,
+          reason: `model_unavailable (${statusCode}): ${message.slice(0, 120)}`,
+          exhausted: false,
+        });
         // Re-execute with the fallback model
         try {
           const fallbackResult = await executeProviderRequest(nextModel, false);
@@ -3914,6 +3918,14 @@ export async function handleChatCore({
         currentModel = nextModel;
         translatedBody.model = nextModel;
         log?.info?.("CONTEXT_OVERFLOW_FALLBACK", `${model} context overflow → trying ${nextModel}`);
+        recordFallbackTrace({
+          requestId: traceId,
+          stage: "family_fallback",
+          fromModel: model,
+          toModel: nextModel,
+          reason: `context_overflow (${statusCode}): ${message.slice(0, 120)}`,
+          exhausted: false,
+        });
         try {
           const fallbackResult = await executeProviderRequest(nextModel, false);
           if (fallbackResult.response.ok) {

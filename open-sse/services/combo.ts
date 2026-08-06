@@ -20,6 +20,7 @@ import {
   recordProviderFailure,
   selectLockoutCooldownMs,
 } from "./accountFallback.ts";
+import { recordFallbackTrace } from "./fallbackTrace.ts";
 import {
   errorResponse,
   unavailableResponse,
@@ -277,6 +278,17 @@ const DEFAULT_MODEL_P95_MS: Record<string, number> = {
 };
 const MIN_HISTORY_SAMPLES = 10;
 const OUTPUT_TOKEN_RATIO = 0.4;
+
+// Global fallback provider configuration (Phase 1 enhancement)
+// Parsed from NERVE_GLOBAL_FALLBACK_PROVIDER env var (format: "provider/model")
+function parseGlobalFallbackProvider(): { provider: string; model: string } | null {
+  const raw = process.env.NERVE_GLOBAL_FALLBACK_PROVIDER;
+  if (!raw || typeof raw !== "string" || raw.trim() === "") return null;
+  const trimmed = raw.trim();
+  const slashIdx = trimmed.indexOf("/");
+  if (slashIdx <= 0 || slashIdx === trimmed.length - 1) return null;
+  return { provider: trimmed.slice(0, slashIdx), model: trimmed.slice(slashIdx + 1) };
+}
 
 function calculateTargetContextAffinity(
   target: ResolvedComboTarget,
@@ -1837,6 +1849,19 @@ export async function handleComboChat({
             }
           }
           log.warn("COMBO", `Model ${modelStr} failed, trying next`, { status: result.status });
+          // Phase 2.2: emit a combo_fallback trace event (observability ring buffer).
+          recordFallbackTrace({
+            requestId:
+              (orderedTargets[i + 1] as { executionKey?: string } | undefined)?.executionKey ??
+              combo.name,
+            combo: combo.name,
+            stage: "combo_fallback",
+            fromModel: modelStr,
+            toModel: nextTarget?.modelStr ?? null,
+            reason: `combo target failed (${result.status}): ${String(errorText).slice(0, 120)}`,
+            latencyMs: Date.now() - startTime,
+            exhausted: !nextTarget,
+          });
 
           // #5976: per-model-quota providers (Gemini, GitHub, etc.) multiplex models
           // behind one connection. A model-level 500 or 429 (RPM) must NOT cool down
@@ -2083,6 +2108,104 @@ export async function handleComboChat({
           comboCooldownAttempt += 1;
           comboCooldownBudgetLeftMs = Math.max(0, comboCooldownBudgetLeftMs - decision.waitMs);
           return dispatchWithCooldownRetry();
+        }
+      }
+
+      // Global fallback provider (Phase 1 enhancement): if enabled and not yet tried,
+      // attempt one request to the configured global fallback provider/model before
+      // giving up and returning the aggregated error.
+      const globalFallback = parseGlobalFallbackProvider();
+      if (globalFallback && !comboErrors.some((e) => e.model === globalFallback.model)) {
+        log.info(
+          "COMBO",
+          `Attempting global fallback to ${globalFallback.provider}/${globalFallback.model} after combo exhaustion`
+        );
+        recordFallbackTrace({
+          requestId: combo.name,
+          combo: combo.name,
+          stage: "global_fallback",
+          fromModel:
+            comboErrors[comboErrors.length - 1]?.model ??
+            orderedTargets[orderedTargets.length - 1]?.modelStr ??
+            "combo-exhausted",
+          toModel: `${globalFallback.provider}/${globalFallback.model}`,
+          reason: "combo exhausted — attempting global fallback provider",
+          latencyMs: Date.now() - comboStartTime,
+          exhausted: false,
+        });
+        const globalTarget: ResolvedComboTarget = {
+          kind: "model",
+          stepId: `global-fallback-${Date.now()}`,
+          executionKey: `global-fallback:${globalFallback.provider}/${globalFallback.model}`,
+          modelStr: `${globalFallback.provider}/${globalFallback.model}`,
+          provider: globalFallback.provider,
+          providerId: null,
+          connectionId: null,
+          allowedConnectionIds: null,
+          weight: 0,
+          label: "global-fallback",
+          failoverBeforeRetry: undefined,
+          trafficType: "production",
+        };
+        try {
+          const globalResult = await handleSingleModelWithTimeout(
+            body,
+            `${globalFallback.provider}/${globalFallback.model}`,
+            globalTarget
+          );
+          if (globalResult.ok) {
+            // Validate quality before accepting
+            const quality = await validateResponseQuality(
+              globalResult.clone(),
+              clientRequestedStream,
+              log,
+              config.responseValidation
+            );
+            if (quality.valid) {
+              log.info(
+                "COMBO",
+                `Global fallback ${globalFallback.provider}/${globalFallback.model} succeeded`
+              );
+              recordComboRequest(combo.name, `${globalFallback.provider}/${globalFallback.model}`, {
+                success: true,
+                latencyMs: Date.now() - comboStartTime,
+                fallbackCount: fallbackCount + 1,
+                strategy: "global-fallback",
+                target: {
+                  executionKey: globalTarget.executionKey,
+                  provider: globalFallback.provider,
+                  providerId: null,
+                  connectionId: null,
+                  label: "global-fallback",
+                },
+              });
+              notifyWebhookEvent("request.completed", {
+                combo: combo.name,
+                provider: globalFallback.provider,
+                model: globalFallback.model,
+                account: "global-fallback",
+                latencyMs: Date.now() - comboStartTime,
+                fallbackCount: fallbackCount + 1,
+              });
+              return globalResult;
+            } else {
+              log.warn(
+                "COMBO",
+                `Global fallback ${globalFallback.provider}/${globalFallback.model} failed quality check: ${quality.reason}`
+              );
+            }
+          } else {
+            log.warn(
+              "COMBO",
+              `Global fallback ${globalFallback.provider}/${globalFallback.model} returned error: ${globalResult.status}`
+            );
+          }
+        } catch (err) {
+          log.warn(
+            "COMBO",
+            `Global fallback ${globalFallback.provider}/${globalFallback.model} threw:`,
+            err
+          );
         }
       }
 

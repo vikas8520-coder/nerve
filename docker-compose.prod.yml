@@ -51,6 +51,7 @@ services:
       target: runner-cli
       args:
         NERVE_BASE_PATH: ${NERVE_BASE_PATH:-}
+        NERVE_BUILD_MEMORY_MB: ${NERVE_BUILD_MEMORY_MB:-8192}
     image: nerve:prod
     restart: unless-stopped
     stop_grace_period: 40s

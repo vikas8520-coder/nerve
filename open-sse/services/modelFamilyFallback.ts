@@ -19,6 +19,12 @@ import {
   isResourceNotFoundResponse,
 } from "./errorClassifier.ts";
 import { getRegistryEntry } from "../config/providerRegistry.ts";
+import {
+  getFallbackErrorRules,
+  matchesModelUnavailable,
+  matchesContextOverflow,
+  reloadFallbackErrorRules,
+} from "../config/fallbackErrorRules.ts";
 
 // ── Model Family Definitions ─────────────────────────────────────────────────
 
@@ -125,28 +131,15 @@ const MODEL_FAMILIES: Record<string, string[]> = {
   ],
 };
 
-// ── Error Detection ──────────────────────────────────────────────────────────
+// ── Error Detection (Phase 2.6: configurable, see config/fallbackErrorRules.ts) ──
+// Historically these fragments were hard-coded here. They now live in
+// `config/fallbackErrorRules.ts` (loaded from `NERVE_FALLBACK_ERROR_RULES_PATH`
+// if set, else bundled defaults). The array below is kept ONLY as a compatibility
+// shim: `isModelUnavailableError` prefers the configurable rule set, but callers
+// that imported `MODEL_UNAVAILABLE_FRAGMENTS` directly still get the active list.
 
-/**
- * Error message fragments that indicate the requested model is unavailable
- * for the current account/provider, as opposed to a transient error.
- */
-const MODEL_UNAVAILABLE_FRAGMENTS = [
-  "model not found",
-  "model_not_found",
-  "model not available",
-  "model is not available",
-  "no such model",
-  "unsupported model",
-  "unknown model",
-  "this model does not exist",
-  "invalid model",
-  "model not supported",
-  "does not support",
-  "not enabled for",
-  "access to model",
-  "improperly formed request", // Kiro 400 (model unavailable)
-];
+/** @deprecated use getFallbackErrorRules().modelUnavailable — kept for back-compat. */
+export const MODEL_UNAVAILABLE_FRAGMENTS = getFallbackErrorRules().modelUnavailable;
 
 /**
  * Returns true if the HTTP status + error message indicates the model
@@ -156,14 +149,16 @@ export function isModelUnavailableError(status: number, errorMessage: string): b
   if (status === 404) return !isResourceNotFoundResponse(errorMessage);
   if (status !== 400 && status !== 403) return false;
 
-  const msg = errorMessage.toLowerCase();
-  if (MODEL_UNAVAILABLE_FRAGMENTS.some((fragment) => msg.includes(fragment))) return true;
+  if (matchesModelUnavailable(errorMessage)) return true;
   return containsModelUnavailableMessage(errorMessage);
 }
 
 export function isContextOverflowError(status: number, errorMessage: string): boolean {
   if (status !== 400) return false;
-  return CONTEXT_OVERFLOW_REGEX.test(errorMessage);
+  // Primary: shared errorClassifier regex. Secondary: configurable rule set
+  // (operator-extensible without a code change).
+  if (CONTEXT_OVERFLOW_REGEX.test(errorMessage)) return true;
+  return matchesContextOverflow(errorMessage);
 }
 
 // ── Fallback Resolution ──────────────────────────────────────────────────────
