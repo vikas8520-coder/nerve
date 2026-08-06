@@ -100,6 +100,29 @@ const MODEL_FAMILIES: Record<string, string[]> = {
   // GPT-5 family
   "gpt-5": ["gpt-5-mini", "gpt-4o"],
   "gpt-5.1": ["gpt-5.1-mini", "gpt-5", "gpt-4o"],
+
+  // NVIDIA Nemotron 3 family (nvidia provider).
+  // nvidia's registry stores PROVIDER-PREFIXED catalog ids (e.g.
+  // "nvidia/nemotron-3-super-120b-a12b"), and parseModel treats
+  // "nvidia/nemotron-..." as an exact model id (provider=null). So key/candidate
+  // by the FULL prefixed string here, and the lookup functions below also try
+  // the full currentModel string as a fallback key. All three share a 128K
+  // context window, so a same-provider context-overflow cannot be cured by
+  // sibling hopping — but these chains DO cover the model-unavailable (400/404)
+  // path and give the executor a concrete retry target. Context-overflow across
+  // the larger combo pool is handled by combo.ts's heterogeneous fallthrough (#8375).
+  "nvidia/nemotron-3-ultra-550b-a55b": [
+    "nvidia/nemotron-3-super-120b-a12b",
+    "nvidia/nemotron-3-nano-30b-a3b",
+  ],
+  "nvidia/nemotron-3-super-120b-a12b": [
+    "nvidia/nemotron-3-nano-30b-a3b",
+    "nvidia/nemotron-3-ultra-550b-a55b",
+  ],
+  "nvidia/nemotron-3-nano-30b-a3b": [
+    "nvidia/nemotron-3-super-120b-a12b",
+    "nvidia/nemotron-3-ultra-550b-a55b",
+  ],
 };
 
 // ── Error Detection ──────────────────────────────────────────────────────────
@@ -173,8 +196,20 @@ function candidateNotationVariants(candidate: string): string[] {
  * Returns the matching notation (preferring the first variant found) or
  * `null` if the candidate is absent from the catalog under every notation.
  */
-function resolveCandidateNotation(candidate: string, supportedIds: Set<string>): string | null {
-  return candidateNotationVariants(candidate).find((variant) => supportedIds.has(variant)) ?? null;
+function resolveCandidateNotation(
+  candidate: string,
+  supportedIds: Set<string>,
+  provider?: string
+): string | null {
+  // Some registries store provider-prefixed catalog ids (notably nvidia:
+  // "nvidia/nemotron-3-super-120b-a12b"). The family candidates are bare model
+  // ids, so try both the bare and the `${provider}/${candidate}` form. (#T5-nvidia)
+  const candidatesToTry = provider ? [candidate, `${provider}/${candidate}`] : [candidate];
+  for (const c of candidatesToTry) {
+    const match = candidateNotationVariants(c).find((variant) => supportedIds.has(variant));
+    if (match) return match;
+  }
+  return null;
 }
 
 /**
@@ -197,7 +232,10 @@ export function getNextFamilyFallback(
   // Fall back to the bare model name to support keys like "gemini-3.1-pro-high"
   // whose dots are part of the literal name, not a version separator.
   const lookupKey = bareModel.replace(/\./g, "-");
-  const family = MODEL_FAMILIES[lookupKey] ?? MODEL_FAMILIES[bareModel];
+  // #T5-nvidia: also try the full currentModel as a key (parseModel treats
+  // provider-prefixed ids like "nvidia/nemotron-..." as exact, provider=null).
+  const family =
+    MODEL_FAMILIES[lookupKey] ?? MODEL_FAMILIES[bareModel] ?? MODEL_FAMILIES[currentModel];
   if (!family) return null;
 
   // Resolve the provider's supported model IDs so we can match notation (dot vs hyphen)
@@ -207,7 +245,7 @@ export function getNextFamilyFallback(
   for (const candidate of family) {
     let resolvedCandidate = candidate;
     if (supportedIds && !supportedIds.has(candidate)) {
-      const match = resolveCandidateNotation(candidate, supportedIds);
+      const match = resolveCandidateNotation(candidate, supportedIds, provider);
       // Provider catalog is known but this candidate has no match under any
       // notation — it is provably unsupported, so skip it instead of
       // returning an id the provider will just 400 on again.
@@ -229,7 +267,7 @@ export function getNextFamilyFallback(
 export function isInModelFamily(model: string): boolean {
   const parsed = parseModel(model);
   const bareModel = parsed.model || model;
-  return bareModel in MODEL_FAMILIES;
+  return bareModel in MODEL_FAMILIES || model in MODEL_FAMILIES;
 }
 
 /**
@@ -241,7 +279,10 @@ export function getModelFamily(model: string): string[] {
   const prefix =
     parsed.provider || parsed.providerAlias ? `${parsed.provider || parsed.providerAlias}/` : "";
 
-  const family = MODEL_FAMILIES[bareModel];
+  // #T5-nvidia: parseModel treats provider-prefixed ids like
+  // "nvidia/nemotron-3-ultra-550b-a55b" as exact (provider=null), so also try
+  // the full currentModel string as a lookup key.
+  const family = MODEL_FAMILIES[bareModel] ?? MODEL_FAMILIES[model];
   if (!family) return [model];
   return [model, ...family.map((c) => `${prefix}${c}`)];
 }

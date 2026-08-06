@@ -37,8 +37,16 @@ export const nvidiaProvider: RegistryEntry = {
     { id: "moonshotai/kimi-k2.6", name: "Kimi K2.6" },
     { id: "openai/gpt-oss-120b", name: "GPT OSS 120B", toolCalling: false },
     { id: "openai/gpt-oss-20b", name: "GPT OSS 20B", toolCalling: false },
-    { id: "nvidia/nemotron-3-super-120b-a12b", name: "Nemotron 3 Super 120B A12B" },
-    { id: "nvidia/nemotron-3-ultra-550b-a55b", name: "Nemotron 3 Ultra 550B" },
+    {
+      id: "nvidia/nemotron-3-super-120b-a12b",
+      name: "Nemotron 3 Super 120B A12B",
+      contextLength: 128000,
+    },
+    {
+      id: "nvidia/nemotron-3-ultra-550b-a55b",
+      name: "Nemotron 3 Ultra 550B",
+      contextLength: 128000,
+    },
     // Port of decolua/9router#2373 ("fix(nvidia): expand NIM chat model catalog"):
     // additional live-catalog models observed to serve /v1/chat/completions.
     // `minimaxai/minimax-m3` from that PR is intentionally NOT re-added — it stays
@@ -97,6 +105,7 @@ export const nvidiaProvider: RegistryEntry = {
     {
       id: "nvidia/nemotron-3-nano-30b-a3b",
       name: "Nemotron 3 Nano 30B A3B",
+      contextLength: 128000,
       supportsReasoning: true,
     },
     {

@@ -8,7 +8,8 @@ import assert from "node:assert/strict";
 // `claude-opus-4.8`, cc uses hyphen `claude-opus-4-8`). Kiro is NOT used as the
 // dot-notation example any more — its upstream never served Opus/Fable and #6170
 // removed the fabricated ids; `anthropic` genuinely serves them in dot notation.
-const { getNextFamilyFallback } = await import("../../open-sse/services/modelFamilyFallback.ts");
+const { getNextFamilyFallback, isInModelFamily } =
+  await import("../../open-sse/services/modelFamilyFallback.ts");
 
 test("Opus 5 falls back to the previous Opus tier first", () => {
   const next = getNextFamilyFallback("cc/claude-opus-5", new Set(["cc/claude-opus-5"]));
@@ -49,4 +50,38 @@ test("skips already-tried candidates and advances down the Fable chain", () => {
 
 test("returns null for an unknown family", () => {
   assert.equal(getNextFamilyFallback("cc/not-a-real-model", new Set()), null);
+});
+
+// ── NVIDIA Nemotron 3 family (#T5-nvidia) ──────────────────────────────────
+// parseModel treats provider-prefixed nvidia ids ("nvidia/nemotron-...") as
+// exact (provider=null), and the nvidia registry stores provider-prefixed
+// catalog ids, so the family lookup must key on the full prefixed string and
+// resolve candidates against the prefixed catalog form. Without this, a
+// context-overflow (or model-unavailable) 400 on a Nemotron model has no
+// fallback target and the request errors out (the reported "best-coding stops
+// working after context over").
+test("Nemotron 3 Ultra falls back to Super then Nano", () => {
+  const next = getNextFamilyFallback(
+    "nvidia/nemotron-3-ultra-550b-a55b",
+    new Set(["nvidia/nemotron-3-ultra-550b-a55b"])
+  );
+  assert.equal(next, "nvidia/nemotron-3-super-120b-a12b");
+  const next2 = getNextFamilyFallback(
+    "nvidia/nemotron-3-ultra-550b-a55b",
+    new Set(["nvidia/nemotron-3-ultra-550b-a55b", "nvidia/nemotron-3-super-120b-a12b"])
+  );
+  assert.equal(next2, "nvidia/nemotron-3-nano-30b-a3b");
+});
+
+test("Nemotron 3 family chain is exhausted after all siblings tried", () => {
+  const tried = new Set([
+    "nvidia/nemotron-3-ultra-550b-a55b",
+    "nvidia/nemotron-3-super-120b-a12b",
+    "nvidia/nemotron-3-nano-30b-a3b",
+  ]);
+  assert.equal(getNextFamilyFallback("nvidia/nemotron-3-ultra-550b-a55b", tried), null);
+});
+
+test("Nemotron 3 is recognized as in-family", () => {
+  assert.equal(isInModelFamily("nvidia/nemotron-3-super-120b-a12b"), true);
 });
