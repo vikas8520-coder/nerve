@@ -235,17 +235,11 @@ export async function validateResponseQuality(
   // pipe the original reader so the rest of the stream keeps flowing normally.
   // Only fail over when a complete Claude lifecycle ends without content_block.
   //
-  // Non-text/event-stream streaming responses are not buffered at all.
-  if (isStreaming) {
-    const contentType = response.headers.get("content-type") || "";
-    if (!contentType.includes("text/event-stream")) {
-      return { valid: true };
-    }
-
-    if (!response.body) {
-      return { valid: true };
-    }
-
+  // Issue #9201: Non-text/event-stream responses to streaming requests now
+  // fall through to the non-streaming body validation below instead of being
+  // passed through unchecked.
+  const contentType = response.headers.get("content-type") || "";
+  if (isStreaming && contentType.includes("text/event-stream") && response.body) {
     const reader = response.body.getReader();
     const decoder = new TextDecoder("utf-8");
 
@@ -311,9 +305,9 @@ export async function validateResponseQuality(
     function isTerminalUsageOnlyChunk(parsed: Record<string, unknown>, eventType: string): boolean {
       return Boolean(
         parsed.usage &&
-          typeof parsed.usage === "object" &&
-          !Array.isArray(parsed.choices) &&
-          !eventType.startsWith("response.")
+        typeof parsed.usage === "object" &&
+        !Array.isArray(parsed.choices) &&
+        !eventType.startsWith("response.")
       );
     }
 
@@ -556,7 +550,6 @@ export async function validateResponseQuality(
     }
   }
 
-  const contentType = response.headers.get("content-type") || "";
   if (!contentType.includes("application/json") && !contentType.includes("text/")) {
     return { valid: true };
   }

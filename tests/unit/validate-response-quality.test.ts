@@ -31,7 +31,10 @@ test("returns valid=false for non-JSON non-SSE text", async () => {
 
 test("returns valid=false for Responses API bodies with no output items", async () => {
   const res = await validateResponseQuality(
-    makeResponse(JSON.stringify({ object: "response", status: "completed", output: [] }), "application/json"),
+    makeResponse(
+      JSON.stringify({ object: "response", status: "completed", output: [] }),
+      "application/json"
+    ),
     false,
     {}
   );
@@ -148,4 +151,52 @@ test("streaming OpenAI finish_reason-only chunk (no content delta) → valid (re
   );
   const verdict = await validateResponseQuality(res, true, {});
   assert.strictEqual(verdict.valid, true);
+});
+
+// ── Issue #9201: non-SSE empty 200 to a streaming request ──
+//
+// Bug: when the client requested streaming (isStreaming=true) but the upstream
+// returned HTTP 200 with a non-SSE content-type (e.g. application/json) and an
+// empty body, validateResponseQuality returned valid=true immediately without
+// inspecting the body. opencode models (big-pickle, mimo-v2.5-free) exhibited
+// this exact shape, slipping through the combo quality gate and reaching the
+// client as an empty response.
+//
+// Fix: non-SSE responses to streaming requests now fall through to the
+// non-streaming body validation, which catches empty bodies (line 578) and
+// empty choices.
+
+test("#9201: streaming request, non-SSE response, empty body → invalid", async () => {
+  const res = makeResponse("", "application/json");
+  const verdict = await validateResponseQuality(res, true, {});
+  assert.strictEqual(verdict.valid, false);
+  assert.match(verdict.reason ?? "", /empty response body/);
+});
+
+test("#9201: streaming request, non-SSE response, empty choices → invalid", async () => {
+  const res = makeResponse(
+    JSON.stringify({ choices: [{ message: { content: "" } }] }),
+    "application/json"
+  );
+  const verdict = await validateResponseQuality(res, true, {});
+  assert.strictEqual(verdict.valid, false);
+  assert.match(verdict.reason ?? "", /empty content/);
+});
+
+test("#9201: streaming request, non-SSE response, valid JSON → valid (no regression)", async () => {
+  const res = makeResponse(
+    JSON.stringify({
+      choices: [{ message: { content: "hello world" } }],
+    }),
+    "application/json"
+  );
+  const verdict = await validateResponseQuality(res, true, {});
+  assert.strictEqual(verdict.valid, true);
+});
+
+test("#9201: streaming request, text/plain empty body → invalid", async () => {
+  const res = makeResponse("", "text/plain");
+  const verdict = await validateResponseQuality(res, true, {});
+  assert.strictEqual(verdict.valid, false);
+  assert.match(verdict.reason ?? "", /empty response body/);
 });
