@@ -98,6 +98,66 @@ const FEATURES = [
       titleHover: "group-hover:text-fuchsia-400",
     },
   },
+  {
+    icon: "psychology",
+    titleKey: "featureTaskRoutingTitle",
+    descKey: "featureTaskRoutingDesc",
+    colors: {
+      border: "hover:border-amber-500/50",
+      bg: "hover:bg-amber-500/5",
+      iconBg: "bg-amber-500/10",
+      iconText: "text-amber-500",
+      titleHover: "group-hover:text-amber-400",
+    },
+  },
+  {
+    icon: "compress",
+    titleKey: "featureCompressionTitle",
+    descKey: "featureCompressionDesc",
+    colors: {
+      border: "hover:border-teal-500/50",
+      bg: "hover:bg-teal-500/5",
+      iconBg: "bg-teal-500/10",
+      iconText: "text-teal-500",
+      titleHover: "group-hover:text-teal-400",
+    },
+  },
+  {
+    icon: "hub",
+    titleKey: "featureMCPTitle",
+    descKey: "featureMCPDesc",
+    colors: {
+      border: "hover:border-indigo-500/50",
+      bg: "hover:bg-indigo-500/5",
+      iconBg: "bg-indigo-500/10",
+      iconText: "text-indigo-500",
+      titleHover: "group-hover:text-indigo-400",
+    },
+  },
+  {
+    icon: "swap_horiz",
+    titleKey: "featureMultiplexTitle",
+    descKey: "featureMultiplexDesc",
+    colors: {
+      border: "hover:border-lime-500/50",
+      bg: "hover:bg-lime-500/5",
+      iconBg: "bg-lime-500/10",
+      iconText: "text-lime-500",
+      titleHover: "group-hover:text-lime-400",
+    },
+  },
+  {
+    icon: "analytics",
+    titleKey: "featureObservabilityTitle",
+    descKey: "featureObservabilityDesc",
+    colors: {
+      border: "hover:border-cyan-500/50",
+      bg: "hover:bg-cyan-500/5",
+      iconBg: "bg-cyan-500/10",
+      iconText: "text-cyan-500",
+      titleHover: "group-hover:text-cyan-400",
+    },
+  },
 ];
 
 export default function Features() {

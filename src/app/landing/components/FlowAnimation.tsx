@@ -9,10 +9,10 @@ export default function FlowAnimation() {
   const [activeFlow, setActiveFlow] = useState(0);
 
   const cliTools = [
-    { id: "claude", name: t("flowToolClaudeCode") },
     { id: "codex", name: t("flowToolOpenAICodex") },
     { id: "cline", name: t("flowToolCline") },
-    { id: "cursor", name: t("flowToolCursor") },
+    { id: "hermes-agent", name: t("flowToolHermesAgent") },
+    { id: "opencode", name: t("flowToolOpenCode") },
   ];
 
   const providers = [
@@ -35,7 +35,7 @@ export default function FlowAnimation() {
       textColor: "text-white",
     },
     {
-      id: "github",
+      id: "copilot",
       name: t("flowProviderGithubCopilot"),
       color: "bg-gray-700",
       textColor: "text-white",
@@ -64,14 +64,14 @@ export default function FlowAnimation() {
         </div>
 
         {/* CLI Tools - Left side */}
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 flex flex-col gap-7">
+        <div className="absolute left-4 top-1/2 -translate-y-1/2 flex flex-col gap-8">
           {cliTools.map((tool) => (
             <div
               key={tool.id}
               className="flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity group"
             >
-              <div className="w-16 h-16 rounded-2xl bg-[#111520] border border-[#2D333B] flex items-center justify-center overflow-hidden p-2 hover:border-[#00FF9F]/50 transition-all hover:scale-105">
-                <ProviderIcon providerId={tool.id} size={48} type="color" />
+              <div className="w-16 h-16 rounded-2xl bg-[#111520] border border-[#2D333B] flex items-center justify-center p-3 hover:border-[#00FF9F]/50 transition-all hover:scale-105">
+                <ProviderIcon providerId={tool.id} size={42} type="color" />
               </div>
             </div>
           ))}
@@ -84,7 +84,7 @@ export default function FlowAnimation() {
         >
           <path
             className="animate-[dash_2s_linear_infinite]"
-            d="M 60 50 C 250 70, 250 180, 360 180"
+            d="M 60 60 C 250 60, 250 180, 360 180"
             fill="none"
             strokeDasharray="5,5"
             strokeWidth="2"
@@ -98,14 +98,14 @@ export default function FlowAnimation() {
           ></path>
           <path
             className="animate-[dash_2s_linear_infinite]"
-            d="M 60 210 C 250 210, 250 180, 360 180"
+            d="M 60 220 C 250 220, 250 180, 360 180"
             fill="none"
             strokeDasharray="5,5"
             strokeWidth="2"
           ></path>
           <path
             className="animate-[dash_2s_linear_infinite]"
-            d="M 60 300 C 250 280, 250 180, 360 180"
+            d="M 60 300 C 250 300, 250 180, 360 180"
             fill="none"
             strokeDasharray="5,5"
             strokeWidth="2"
@@ -148,16 +148,16 @@ export default function FlowAnimation() {
         </svg>
 
         {/* AI Providers - Right side */}
-        <div className="absolute right-2 top-0 bottom-0 flex flex-col justify-between py-6">
+        <div className="absolute right-4 top-0 bottom-0 flex flex-col justify-between py-6">
           {providers.map((provider, idx) => (
             <div
               key={provider.id}
-              className={`px-3 py-2 rounded-lg ${provider.color} ${provider.textColor} flex items-center justify-center font-bold text-[11px] leading-tight text-center shadow-lg hover:scale-110 transition-all cursor-help min-w-[110px] max-w-[140px] ${
-                activeFlow === idx ? "ring-4 ring-[#00FF9F]/50 scale-110" : ""
-              }`}
+              className={`flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity group ${activeFlow === idx ? "ring-4 ring-[#00FF9F]/50 scale-110" : ""}`}
               title={provider.name}
             >
-              {provider.name}
+              <div className="w-16 h-16 rounded-2xl bg-[#111520] border border-[#2D333B] flex items-center justify-center p-3 hover:border-[#00FF9F]/50 transition-all hover:scale-105">
+                <ProviderIcon providerId={provider.id} size={42} type="color" />
+              </div>
             </div>
           ))}
         </div>

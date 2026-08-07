@@ -236,6 +236,7 @@ const KNOWN_SVGS = new Set([
   "zenmux",
   "zenmux-free",
   "zhipu",
+  "hermes-agent",
 ]);
 
 const LOCAL_SVG_ALIASES: Record<string, string> = {
