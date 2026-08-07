@@ -166,6 +166,15 @@ const SYNTHETIC_NOAUTH_CONNECTION_ID = RESILIENCE_NOAUTH_CONNECTION_ID;
 // regardless of this list). See the `bypassAllowlist` param below.
 const AUTO_COMBO_NOAUTH_ALLOWLIST = new Set<string>(["opencode", "felo-web"]);
 
+// #9201: Known no-auth models that return HTTP 200 with an EMPTY choices array
+// (no content, no error). opencode:big-pickle and opencode:mimo-v2.5-free were
+// observed emitting empty-200 responses repeatedly. Nerve passes empty streams
+// through by design (it does not buffer streams), so the empty body reaches the
+// client as a successful empty response and poisons downstream consumers such as
+// Hermes context-compression. Exclude them from EVERY auto/* candidate pool.
+// They stay usable via direct opencode/<model> calls. Re-verify and remove to re-admit.
+const AUTO_COMBO_EMPTY_BODY_MODELS = new Set<string>(["big-pickle", "mimo-v2.5-free"]);
+
 function isChatAutoComboNoAuthProvider(
   providerDef: NoAuthProviderDefinition,
   bypassAllowlist: boolean
@@ -244,6 +253,9 @@ function getNoAuthCandidates(
     for (const model of registryModels) {
       const modelId = typeof model?.id === "string" && model.id.trim().length > 0 ? model.id : null;
       if (!modelId) continue;
+      // #9201: skip no-auth models known to return empty-200 bodies (poison the
+      // auto/* pool and downstream consumers). Kept OUT of auto-routing only.
+      if (AUTO_COMBO_EMPTY_BODY_MODELS.has(modelId)) continue;
       if (isModelExcludedByConnection(modelId, providerSpecificData)) continue;
       if (hiddenModels?.has(modelId)) continue;
       candidates.push({
@@ -427,10 +439,7 @@ export async function createVirtualAutoCombo(
   for (const conn of [...connections, ...disabledNoAuthConnections]) {
     connectionsById.set(conn.id, conn);
   }
-  const resilienceFilteredPool = filterResilienceBlockedCandidates(
-    candidatePool,
-    connectionsById
-  );
+  const resilienceFilteredPool = filterResilienceBlockedCandidates(candidatePool, connectionsById);
   if (resilienceFilteredPool !== candidatePool) {
     candidatePool.length = 0;
     candidatePool.push(...resilienceFilteredPool);
@@ -671,8 +680,7 @@ export async function createVirtualAutoCombo(
               panelSize: chaosModels.length,
               judgeModel: chaosModels[0]?.model,
               tuning: {
-                panelHardTimeoutMs:
-                  Number(process.env.NERVE_CHAOS_PANEL_TIMEOUT_MS) || undefined,
+                panelHardTimeoutMs: Number(process.env.NERVE_CHAOS_PANEL_TIMEOUT_MS) || undefined,
                 minPanel: Number(process.env.NERVE_CHAOS_MIN_PANEL) || undefined,
               },
             },
