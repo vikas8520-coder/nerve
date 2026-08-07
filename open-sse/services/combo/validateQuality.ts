@@ -238,8 +238,12 @@ export async function validateResponseQuality(
   // Issue #9201: Non-text/event-stream responses to streaming requests now
   // fall through to the non-streaming body validation below instead of being
   // passed through unchecked.
-  const contentType = response.headers.get("content-type") || "";
-  if (isStreaming && contentType.includes("text/event-stream") && response.body) {
+  // #9201 (CodeRabbit MAJOR): normalize the media type once — strip any
+  // parameters (e.g. "; charset=utf-8") and compare case-insensitively so a
+  // malformed/parametrized content-type cannot bypass body validation.
+  const rawContentType = response.headers.get("content-type") || "";
+  const contentType = rawContentType.split(";")[0].trim().toLowerCase();
+  if (isStreaming && contentType === "text/event-stream" && response.body) {
     const reader = response.body.getReader();
     const decoder = new TextDecoder("utf-8");
 
@@ -550,7 +554,11 @@ export async function validateResponseQuality(
     }
   }
 
-  if (!contentType.includes("application/json") && !contentType.includes("text/")) {
+  if (
+    contentType !== "application/json" &&
+    !contentType.endsWith("+json") &&
+    !contentType.startsWith("text/")
+  ) {
     return { valid: true };
   }
 

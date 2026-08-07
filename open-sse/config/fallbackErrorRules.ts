@@ -115,19 +115,23 @@ export function reloadFallbackErrorRules(): FallbackErrorRules {
     // ESM-safe: import node:fs at top of module (no require in ESM scope).
     const rawText = readFileSync(path, "utf-8");
     const parsed = JSON.parse(rawText) as Partial<FallbackErrorRules>;
+    // #9201 (CodeRabbit MAJOR): filter override fragment arrays to valid strings
+    // only. A non-string entry (e.g. a stray number in a JSON override) must not
+    // reach matchesModelUnavailable(); if an override array has zero valid strings,
+    // preserve the bundled defaults so behavior never degrades to "match nothing".
+    const stringFragments = (arr: unknown): string[] | null => {
+      if (!Array.isArray(arr)) return null;
+      const onlyStrings = arr.filter(
+        (x): x is string => typeof x === "string" && x.trim().length > 0
+      );
+      return onlyStrings.length > 0 ? onlyStrings : null;
+    };
     const merged: FallbackErrorRules = {
       modelUnavailable:
-        Array.isArray(parsed.modelUnavailable) && parsed.modelUnavailable.length > 0
-          ? parsed.modelUnavailable
-          : DEFAULT_FALLBACK_ERROR_RULES.modelUnavailable,
+        stringFragments(parsed.modelUnavailable) ?? DEFAULT_FALLBACK_ERROR_RULES.modelUnavailable,
       contextOverflow:
-        Array.isArray(parsed.contextOverflow) && parsed.contextOverflow.length > 0
-          ? parsed.contextOverflow
-          : DEFAULT_FALLBACK_ERROR_RULES.contextOverflow,
-      rateLimit:
-        Array.isArray(parsed.rateLimit) && parsed.rateLimit.length > 0
-          ? parsed.rateLimit
-          : DEFAULT_FALLBACK_ERROR_RULES.rateLimit,
+        stringFragments(parsed.contextOverflow) ?? DEFAULT_FALLBACK_ERROR_RULES.contextOverflow,
+      rateLimit: stringFragments(parsed.rateLimit) ?? DEFAULT_FALLBACK_ERROR_RULES.rateLimit,
       providerSpecific:
         parsed.providerSpecific && typeof parsed.providerSpecific === "object"
           ? parsed.providerSpecific
@@ -138,7 +142,7 @@ export function reloadFallbackErrorRules(): FallbackErrorRules {
     return activeRules;
   } catch (err) {
     // On any load failure, keep the previous (or default) rules and report.
-     
+
     console.warn(
       "[fallbackErrorRules] Failed to load override at",
       path,
