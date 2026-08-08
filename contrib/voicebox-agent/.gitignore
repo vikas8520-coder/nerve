@@ -1,0 +1,5 @@
+# local deps & large model assets — not committed
+.venv/
+models/
+__pycache__/
+*.pyc
