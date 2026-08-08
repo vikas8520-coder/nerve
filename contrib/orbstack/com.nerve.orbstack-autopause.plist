@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.nerve.orbstack-autopause</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/usr/local/bin/nerve-orbstack-autopause.sh</string>
+    </array>
+
+    <!-- Poll every 60s; the script only acts on a power-source transition. -->
+    <key>StartInterval</key>
+    <integer>60</integer>
+
+    <!-- Re-arm immediately after waking from sleep too. -->
+    <key>StartOnMount</key>
+    <false/>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <!-- Keep the script's working dir sane under launchd. -->
+    <key>WorkingDirectory</key>
+    <string>/tmp</string>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/nerve-orbstack-autopause.out</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/nerve-orbstack-autopause.err</string>
+
+    <!--
+      To use container-only mode (stop/start just the Nerve containers,
+      leave the OrbStack VM up for other workloads), change the ProgramArguments
+      array to:
+        <string>/bin/bash</string>
+        <string>/usr/local/bin/nerve-orbstack-autopause.sh</string>
+      and add:
+        <key>EnvironmentVariables</key>
+        <dict>
+            <key>PAUSE_CONTAINERS_ONLY</key>
+            <string>1</string>
+        </dict>
+    -->
+</dict>
+</plist>
