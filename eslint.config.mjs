@@ -141,6 +141,9 @@ const eslintConfig = [
       // Legacy app/ and QA backup dirs (renamed to dist/ in Layer 1)
       "app/**",
       "app.__qa_backup/**",
+      "app_backup/**",
+      // Scoped workspace package build outputs
+      "@nerve/opencode-plugin/dist/**",
       // CLI package copy directory
       "clipr/**",
     ],
