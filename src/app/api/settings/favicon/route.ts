@@ -83,12 +83,12 @@ export async function GET() {
     }
 
     if (!faviconData) {
-      return NextResponse.redirect("/favicon.svg");
+      return NextResponse.redirect("/favicon-32.png");
     }
 
     const match = faviconData.match(/^data:([^;]+);base64,(.+)$/);
     if (!match) {
-      return NextResponse.redirect("/favicon.svg");
+      return NextResponse.redirect("/favicon-32.png");
     }
 
     const contentType = match[1];
@@ -103,6 +103,6 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Favicon API error:", error);
-    return NextResponse.redirect("/favicon.svg");
+    return NextResponse.redirect("/favicon-32.png");
   }
 }

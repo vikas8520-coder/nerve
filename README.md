@@ -1,11 +1,10 @@
 <div align="center">
 
-<img src="./docs/screenshots/MainNerve.png" alt="Nerve Dashboard" width="820"/>
+<img src="./assets/brand/nerve/app-icon-1024.png" alt="Nerve" width="140"/>
 
 <br/>
-<br/>
 
-# 🚀 Nerve — The Free AI Gateway
+# Nerve — The Free AI Gateway
 
 <img src="./docs/diagrams/readme-hero.svg" width="100%" alt="Nerve — Never stop coding. Every AI tool → 290 providers — 90+ free — through one endpoint. Claude Code, Codex, Cursor, Cline, Copilot & Antigravity into FREE Claude / GPT / Gemini with auto-fallback. RTK + Caveman stacked compression saves 15–95% tokens (~89% avg) — never hit limits. 290 AI providers · 90+ free tiers · ~1.53B free tokens/mo · 19 routing strategies · $0 to start."/>
 

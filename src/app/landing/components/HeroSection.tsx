@@ -1,6 +1,8 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
+import NerveLogo from "@/shared/components/NerveLogo";
 
 export default function HeroSection() {
   const t = useTranslations("landing");
@@ -12,6 +14,16 @@ export default function HeroSection() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-[#00FF9F]/10 rounded-full blur-[120px] pointer-events-none"></div>
 
       <div className="relative z-10 max-w-4xl w-full text-center flex flex-col items-center gap-8">
+        {/* Logo + Wordmark */}
+        <div className="flex flex-col items-center gap-4 mb-4">
+          <Image src="/brand/logo-512.png" alt="Nerve" width={180} height={180} draggable={false} />
+          <div className="flex items-center gap-3">
+            <Image src="/brand/logo-256.png" alt="" width={36} height={36} draggable={false} />
+            <span className="text-2xl font-bold tracking-tight text-white">{t("brandName")}</span>
+          </div>
+          <p className="text-sm text-gray-400 font-mono tracking-wide">One gateway. Every model.</p>
+        </div>
+
         {/* Version badge */}
         <div className="inline-flex items-center gap-2 rounded-full border border-[#2D333B] bg-[#111520]/50 px-3 py-1 text-xs font-medium text-[#00FF9F]">
           <span className="flex h-2 w-2 rounded-full bg-[#00FF9F] animate-pulse"></span>

@@ -3,7 +3,7 @@ const APP_SHELL = [
   "/",
   "/offline",
   "/manifest.webmanifest",
-  "/icon-512.png",
+  "/pwa-512.png",
   "/apple-touch-icon.png",
 ];
 const EXCLUDED_PATH_PREFIXES = ["/api/", "/a2a", "/dashboard/endpoint"];
@@ -116,7 +116,9 @@ self.addEventListener("fetch", (event) => {
 });
 
 async function navigationFallback(request) {
-  return (await caches.match(request)) || (await caches.match("/")) || (await caches.match("/offline"));
+  return (
+    (await caches.match(request)) || (await caches.match("/")) || (await caches.match("/offline"))
+  );
 }
 
 // ── Push Notifications ───────────────────────────────────────────────────────
@@ -132,8 +134,8 @@ self.addEventListener("push", (event) => {
   const title = data.title || "Nerve";
   const options = {
     body: data.body || "",
-    icon: data.icon || "/icon-512.png",
-    badge: data.badge || "/icon-192.png",
+    icon: data.icon || "/pwa-512.png",
+    badge: data.badge || "/pwa-192.png",
     tag: data.tag || "nerve-default",
     data: {
       url: data.url || "/dashboard",

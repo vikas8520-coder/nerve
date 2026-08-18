@@ -20,8 +20,8 @@ export default function Navigation() {
           onClick={() => router.push("/")}
           aria-label={t("navigateHome")}
         >
-          <div className="size-8 rounded bg-linear-to-br from-[#00FF9F] to-[#00CC7F] flex items-center justify-center text-white">
-            <NerveLogo size={20} className="text-white" />
+          <div className="size-8 rounded flex items-center justify-center">
+            <NerveLogo size={32} className="text-white" />
           </div>
           <h2 className="text-white text-lg sm:text-xl font-bold tracking-tight truncate sm:max-w-none max-w-[160px]">
             {t("brandName")}

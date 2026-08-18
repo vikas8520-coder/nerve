@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useState, useEffect } from "react";
 import { Button, Input } from "@/shared/components";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function LoginPage() {
   const t = useTranslations("auth");
@@ -282,60 +283,17 @@ export default function LoginPage() {
         <div
           className={`w-full max-w-md transition-all duration-800 ease-out ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"} z-10`}
         >
-          {/* Nerve Brand Mark - distinctive neural node */}
+          {/* Nerve Brand Mark - official logo */}
           <div className="text-center mb-10 relative">
             <div className="relative inline-block mb-6">
-              <div className="absolute inset-0 w-20 h-20 rounded-full bg-gradient-to-br from-[#00FF9F]/30 to-[#00FF9F]/5 blur-xl animate-pulse"></div>
-              <div className="relative w-20 h-20 rounded-2xl bg-gradient-to-br from-[#0A0F1A] to-[#0D1420] border border-[#00FF9F]/30 flex items-center justify-center shadow-[0_0_40px_#00FF9F/10]">
-                <svg
-                  width="32"
-                  height="32"
-                  viewBox="0 0 32 32"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <circle
-                    cx="16"
-                    cy="16"
-                    r="12"
-                    stroke="#00FF9F"
-                    strokeWidth="2"
-                    strokeDasharray="4 4"
-                    strokeDashoffset="0"
-                  >
-                    <animate
-                      attributeName="strokeDashoffset"
-                      from="75"
-                      to="0"
-                      dur="2s"
-                      repeatCount="indefinite"
-                    />
-                  </circle>
-                  <path
-                    d="M16 8V24M8 16H24"
-                    stroke="#00FF9F"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    opacity="0.8"
-                  >
-                    <animate
-                      attributeName="opacity"
-                      values="0.8;1;0.8"
-                      dur="1.5s"
-                      repeatCount="indefinite"
-                    />
-                  </path>
-                  <circle cx="16" cy="16" r="4" fill="#00FF9F" opacity="0.9">
-                    <animate attributeName="r" values="4;5;4" dur="2s" repeatCount="indefinite" />
-                    <animate
-                      attributeName="opacity"
-                      values="0.9;1;0.9"
-                      dur="2s"
-                      repeatCount="indefinite"
-                    />
-                  </circle>
-                </svg>
-              </div>
+              <Image
+                src="/brand/logo-256.png"
+                alt="Nerve"
+                width={100}
+                height={100}
+                className="rounded-2xl"
+                draggable={false}
+              />
             </div>
             <h1 className="text-4xl font-bold text-text-main tracking-tight mb-2 bg-gradient-to-r from-white via-[#00FF9F] to-white bg-clip-text text-transparent animate-in fade-in duration-700">
               {t("signIn")}

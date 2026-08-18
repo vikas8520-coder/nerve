@@ -496,7 +496,7 @@ export default function Sidebar({
             prefetch={false}
             className={cn("flex items-center", collapsed ? "justify-center" : "gap-2.5")}
           >
-            <div className="relative flex items-center justify-center size-8 rounded bg-linear-to-br from-[#00FF9F] to-[#00CC7F] shrink-0 shadow-[0_0_16px_rgba(0,255,159,0.25)]">
+            <div className="relative flex items-center justify-center size-8 rounded shrink-0">
               {customLogo ? (
                 <img
                   src={customLogo}
@@ -504,7 +504,7 @@ export default function Sidebar({
                   className="size-5 object-contain"
                 />
               ) : (
-                <NerveLogo size={18} className="text-white" />
+                <NerveLogo size={32} className="text-white" />
               )}
             </div>
             {!collapsed && (
