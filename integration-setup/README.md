@@ -173,10 +173,24 @@ chmod +x ~/.local/bin/hermes-fallback
 
 ## 🐛 Troubleshooting
 
-### Nerve Auto Routing Issues with Tool Calling
-**Problem**: Nerve's automatic model routing (e.g., `auto/best-coding`) may select models that don't support tool calling, causing errors like "No target in combo auto/vision supports tool calling".
+### Grok CLI Hanging/Retrying Issues
+**Problem**: Grok CLI hangs, retries multiple times (5, 10, 15 attempts) with no response.
 
-**Solution**: The integration now uses specific models (e.g., `openrouter/anthropic/claude-sonnet-4-20250514`) instead of auto routing to ensure tool calling support. This bypasses Nerve's problematic routing while still using Nerve as the gateway.
+**Root Cause**: This is usually caused by Nerve provider circuit breakers. When a provider (like OpenRouter) experiences too many failures, Nerve's circuit breaker temporarily disables that provider (typically for ~5 minutes).
+
+**Solution**: 
+- Wait for the circuit breaker to reset (usually 5-10 minutes)
+- Use auto routing models (e.g., `auto/best-coding`) which can use alternative providers
+- The fallback system will automatically try other models if one provider is down
+
+**Check provider status**: 
+```bash
+curl -X POST http://localhost:20128/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -d '{"model": "openrouter/anthropic/claude-sonnet-4-20250514", "messages": [{"role": "user", "content": "test"}]}'
+```
+
+If you see `"provider_circuit_open"`, the provider is temporarily disabled.
 
 ### Nerve Not Running
 ```bash

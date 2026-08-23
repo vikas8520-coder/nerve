@@ -13,15 +13,14 @@ if [ -z "$PROMPT" ]; then
 fi
 
 # Define model fallback hierarchy for each task type
-# Using specific models to avoid Nerve's problematic auto routing
 if [ "$TASK_TYPE" = "coding" ]; then
-    MODEL_LIST="nerve-best nerve-grok nerve-pareto nerve-2m"
+    MODEL_LIST="nerve-best nerve-2m nerve-grok nerve-pareto"
 elif [ "$TASK_TYPE" = "reasoning" ]; then
-    MODEL_LIST="nerve-reasoning nerve-grok nerve-2m"
+    MODEL_LIST="nerve-reasoning nerve-2m nerve-grok"
 elif [ "$TASK_TYPE" = "chat" ]; then
     MODEL_LIST="nerve-chat nerve-2m nerve-grok"
 else
-    MODEL_LIST="nerve-best nerve-grok nerve-pareto nerve-2m"
+    MODEL_LIST="nerve-best nerve-2m nerve-grok nerve-pareto"
 fi
 
 # Try each model in order

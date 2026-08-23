@@ -26,26 +26,26 @@ privacy_banner_acked = "2026-08-20T15:35:57Z"
 default = "nerve-grok"
 default_reasoning_effort = "medium"
 
-# Nerve models with 1M context windows (specific models to avoid auto routing issues)
+# Nerve models with 1M context windows
 [model.nerve-best]
 name = "Nerve Best Coding"
-model = "openrouter/anthropic/claude-sonnet-4-20250514"
+model = "auto/best-coding"
 base_url = "http://localhost:20128/v1"
-description = "Claude Sonnet 4 via Nerve (specific model for tool support)"
+description = "Best coding model via Nerve router"
 context_window = 1048576
 
 [model.nerve-reasoning]
 name = "Nerve Best Reasoning"
-model = "openrouter/anthropic/claude-sonnet-4-20250514"
+model = "auto/best-reasoning"
 base_url = "http://localhost:20128/v1"
-description = "Claude Sonnet 4 via Nerve (specific model for tool support)"
+description = "Best reasoning model via Nerve router"
 context_window = 1048576
 
 [model.nerve-chat]
 name = "Nerve Best Chat"
-model = "openrouter/anthropic/claude-sonnet-4-20250514"
+model = "auto/best-chat"
 base_url = "http://localhost:20128/v1"
-description = "Claude Sonnet 4 via Nerve (specific model for tool support)"
+description = "Best chat model via Nerve router"
 context_window = 1048576
 
 # Nerve models with 2M context windows for fallback
