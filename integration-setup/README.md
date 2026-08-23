@@ -1,6 +1,6 @@
 # Nerve Integration Setup
 
-Seamless integration of Nerve AI router with popular terminal AI assistants (Grok, OpenCode, Hermes, etc.) with automatic model fallback for flawless coding.
+Seamless integration of Nerve AI router with popular terminal AI assistants (Grok, OpenCode, Claude Code, Hermes, etc.) with automatic model fallback for flawless coding.
 
 ## 🚀 Quick Start
 
@@ -27,9 +27,16 @@ That's it! The setup script will automatically configure everything.
 - **Automatic fallback** system for seamless operation
 - **Default model**: `nerve/openrouter/x-ai/grok-4.20`
 
+### ✅ Claude Code Integration
+- **Nerve endpoint** configured to use local Nerve router
+- **Auto model selection** with `auto/best-coding` as default
+- **Automatic fallback** script for seamless operation
+- **Default model**: `auto/best-coding` via Nerve
+
 ### ✅ Fallback Scripts
 - **`grok-fallback`**: Automatic model switching for Grok
 - **`opencode-fallback`**: Automatic model switching for OpenCode
+- **`claude-fallback`**: Automatic model switching for Claude Code
 - **Zero manual intervention** when models fail
 
 ## 🎯 Available Models
@@ -53,6 +60,9 @@ grok
 
 # OpenCode interactive TUI  
 opencode
+
+# Claude Code interactive TUI
+claude
 ```
 
 ### Fallback Mode (Automatic Model Switching)
@@ -65,6 +75,11 @@ grok-fallback "What's the weather?" chat
 # OpenCode with automatic fallback
 opencode-fallback "Debug this code" coding
 opencode-fallback "Explain this architecture" reasoning
+
+# Claude Code with automatic fallback
+claude-fallback "Write a Python function to parse JSON" coding
+claude-fallback "Analyze this problem" reasoning
+claude-fallback "What's the weather?" chat
 ```
 
 ## 🔧 How the Fallback System Works
@@ -91,11 +106,25 @@ Copy `grok-config.toml` to `~/.grok/config.toml`
 ### OpenCode Configuration  
 Merge `opencode-config.json` into `~/.config/opencode/opencode.json`
 
+### Claude Code Configuration
+Update `~/.claude/settings.json` to include:
+```json
+{
+  "env": {
+    "ANTHROPIC_BASE_URL": "http://localhost:20128/v1",
+    "ANTHROPIC_MODEL": "auto/best-coding",
+    "ANTHROPIC_AUTH_TOKEN": ""
+  },
+  "model": "auto/best-coding"
+}
+```
+
 ### Fallback Scripts
-Copy `grok-fallback` and `opencode-fallback` to `~/.local/bin/` and make executable:
+Copy `grok-fallback`, `opencode-fallback`, and `claude-fallback` to `~/.local/bin/` and make executable:
 ```bash
 chmod +x ~/.local/bin/grok-fallback
 chmod +x ~/.local/bin/opencode-fallback
+chmod +x ~/.local/bin/claude-fallback
 ```
 
 ## 🐛 Troubleshooting
@@ -119,6 +148,24 @@ grok models
 ```bash
 # Restart OpenCode or reload config
 opencode models
+```
+
+### Claude Code Not Connecting to Nerve
+```bash
+# Check Claude Code settings
+cat ~/.claude/settings.json
+
+# Ensure ANTHROPIC_BASE_URL points to http://localhost:20128/v1
+# Ensure model is set to auto/best-coding or similar Nerve model
+```
+
+### Claude Code OAuth Issues
+```bash
+# Re-authenticate Claude Code
+claude auth
+
+# Or use API key mode
+claude --settings '{"env": {"ANTHROPIC_API_KEY": "your-key"}}'
 ```
 
 ### Port Already in Use
@@ -161,6 +208,7 @@ The fallback system automatically uses the appropriate model based on your task 
 - **Nerve Documentation**: https://github.com/vikas8520-coder/nerve
 - **Grok CLI**: https://github.com/xai-org/grok
 - **OpenCode**: https://opencode.ai
+- **Claude Code**: https://claude.ai/code
 - **Nerve Dashboard**: http://localhost:20128 (when running)
 
 ## 📝 Notes

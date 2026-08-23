@@ -1,0 +1,42 @@
+#!/bin/bash
+# Claude Code with automatic Nerve model fallback
+# Usage: claude-fallback "your prompt" [task_type]
+# If no prompt provided, launches normal claude interactive mode
+
+PROMPT="$1"
+TASK_TYPE="${2:-coding}"  # coding, reasoning, chat
+
+# If no prompt provided, launch normal claude interactive mode
+if [ -z "$PROMPT" ]; then
+    exec claude
+    exit $?
+fi
+
+# Define model fallback hierarchy for each task type
+# Claude Code uses model names directly with Nerve
+if [ "$TASK_TYPE" = "coding" ]; then
+    MODEL_LIST="auto/best-coding openrouter/pareto-code openrouter/x-ai/grok-4.20 openrouter/auto-beta"
+elif [ "$TASK_TYPE" = "reasoning" ]; then
+    MODEL_LIST="auto/best-reasoning openrouter/x-ai/grok-4.20 openrouter/auto-beta"
+elif [ "$TASK_TYPE" = "chat" ]; then
+    MODEL_LIST="auto/best-chat openrouter/auto-beta openrouter/x-ai/grok-4.20"
+else
+    MODEL_LIST="auto/best-coding openrouter/pareto-code openrouter/x-ai/grok-4.20 openrouter/auto-beta"
+fi
+
+# Try each model in order
+for model in $MODEL_LIST; do
+    echo "🔄 Trying model: $model" >&2
+    
+    # Run claude with the model
+    if claude -p "$PROMPT" --model "$model"; then
+        echo "✅ Success with model: $model" >&2
+        exit 0
+    else
+        echo "⚠️  Failed with $model, trying next..." >&2
+        sleep 1
+    fi
+done
+
+echo "❌ All models failed" >&2
+exit 1

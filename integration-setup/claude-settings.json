@@ -1,0 +1,14 @@
+{
+  "env": {
+    "ANTHROPIC_MODEL": "auto/best-coding",
+    "ANTHROPIC_SMALL_FAST_MODEL": "auto/best-fast",
+    "ANTHROPIC_BASE_URL": "http://localhost:20128/v1",
+    "ANTHROPIC_AUTH_TOKEN": ""
+  },
+  "model": "auto/best-coding",
+  "enabledPlugins": {},
+  "effortLevel": "high",
+  "tui": "fullscreen",
+  "skipWorkflowUsageWarning": true,
+  "theme": "auto"
+}

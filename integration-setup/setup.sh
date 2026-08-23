@@ -143,6 +143,64 @@ else
     print_warning "OpenCode CLI not found. Install it from: https://opencode.ai"
 fi
 
+# Setup Claude Code configuration
+print_info "Setting up Claude Code configuration..."
+CLAUDE_CONFIG="$HOME/.claude/settings.json"
+CLAUDE_DIR="$HOME/.claude"
+
+if [ -d "$CLAUDE_DIR" ]; then
+    # Backup existing config if it exists
+    if [ -f "$CLAUDE_CONFIG" ]; then
+        BACKUP_FILE="$CLAUDE_CONFIG.backup.$(date +%Y%m%d_%H%M%S)"
+        cp "$CLAUDE_CONFIG" "$BACKUP_FILE"
+        print_info "Backed up existing Claude Code config to $BACKUP_FILE"
+    fi
+
+    # Update Claude Code config to use Nerve
+    # Update the base URL to point to Nerve
+    python3 << EOF
+import json
+
+try:
+    with open('$CLAUDE_CONFIG', 'r') as f:
+        config = json.load(f)
+    
+    # Update or add env section for Nerve
+    if 'env' not in config:
+        config['env'] = {}
+    
+    config['env']['ANTHROPIC_BASE_URL'] = 'http://localhost:20128/v1'
+    config['env']['ANTHROPIC_MODEL'] = 'auto/best-coding'
+    config['env']['ANTHROPIC_AUTH_TOKEN'] = ''
+    config['model'] = 'auto/best-coding'
+    
+    with open('$CLAUDE_CONFIG', 'w') as f:
+        json.dump(config, f, indent=2)
+    
+    print("Claude Code configuration updated")
+except Exception as e:
+    print(f"Error updating Claude Code config: {e}")
+EOF
+
+    print_success "Claude Code configuration updated"
+else
+    print_warning "Claude Code directory not found. Install Claude Code from: https://claude.ai/code"
+fi
+
+# Setup Claude Code fallback script
+print_info "Setting up Claude Code fallback script..."
+cp "$(dirname "$0")/claude-fallback" "$BIN_DIR/claude-fallback"
+chmod +x "$BIN_DIR/claude-fallback"
+print_success "Claude Code fallback script installed"
+
+# Verify Claude Code
+print_info "Verifying Claude Code configuration..."
+if command -v claude &> /dev/null; then
+    print_success "Claude Code CLI found and configured"
+else
+    print_warning "Claude Code CLI not found. Install it from: https://claude.ai/code"
+fi
+
 echo ""
 echo "🎉 Setup Complete!"
 echo "=================="
@@ -150,6 +208,7 @@ echo ""
 echo "You can now use Nerve models with:"
 echo "  • Grok: grok (interactive) or grok-fallback \"prompt\" (with fallback)"
 echo "  • OpenCode: opencode (interactive) or opencode-fallback \"prompt\" (with fallback)"
+echo "  • Claude Code: claude (interactive) or claude-fallback \"prompt\" (with fallback)"
 echo ""
 echo "Available models:"
 echo "  • nerve-best: Best coding model (1M context)"
