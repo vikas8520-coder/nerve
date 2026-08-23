@@ -7,6 +7,7 @@ import ProviderIcon from "@/shared/components/ProviderIcon";
 import { USAGE_SUPPORTED_PROVIDERS } from "@/shared/constants/providers";
 import { translateUsageOrFallback } from "../dashboard/usage/components/ProviderLimits/i18nFallback";
 import { isProviderQuotaVisible } from "@/shared/utils/providerQuotaVisibility";
+import { getProviderResetInfo } from "@/shared/utils/providerResetTimes";
 
 type Connection = {
   id: string;
@@ -88,6 +89,7 @@ export default function ProviderQuotaWidget({ autoRefreshInterval = 0 }: Provide
   const [quotaData, setQuotaData] = useState<QuotaData>({});
   const [loading, setLoading] = useState(true);
   const [refreshingAll, setRefreshingAll] = useState(false);
+  const [currentTime, setCurrentTime] = useState(() => Date.now());
 
   const refreshingAllRef = useRef(false);
   const lastRefreshAllAtRef = useRef(Date.now());
@@ -136,6 +138,14 @@ export default function ProviderQuotaWidget({ autoRefreshInterval = 0 }: Provide
   useEffect(() => {
     loadData();
   }, [loadData]);
+
+  // Update current time every minute for live countdown
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(Date.now());
+    }, 60000); // Update every minute
+    return () => clearInterval(timer);
+  }, []);
 
   const refreshAll = useCallback(async () => {
     if (refreshingAllRef.current) return;
@@ -257,6 +267,7 @@ export default function ProviderQuotaWidget({ autoRefreshInterval = 0 }: Provide
               const firstConn = conns[0];
               const cache = quotaData[firstConn?.id];
               const hasQuota = cache?.quotas && Object.keys(cache.quotas).length > 0;
+              const resetInfo = getProviderResetInfo(provider, new Date(currentTime));
 
               return (
                 <div
@@ -285,6 +296,18 @@ export default function ProviderQuotaWidget({ autoRefreshInterval = 0 }: Provide
                     >
                       {tr("refreshAll", "Refresh All")}
                     </button>
+                  )}
+
+                  {/* Reset Time Information */}
+                  {resetInfo && (
+                    <div className="text-[10px] text-text-muted mt-auto pt-1 border-t border-border/50">
+                      <div className="flex items-center gap-1">
+                        <span className="material-symbols-outlined text-[12px]">schedule</span>
+                        <span className="truncate" title={resetInfo.resetDescription}>
+                          {resetInfo.timeUntilReset}
+                        </span>
+                      </div>
+                    </div>
                   )}
 
                   {/* Future: embed small QuotaProgressBar for the primary window here */}
