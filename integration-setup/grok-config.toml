@@ -1,0 +1,71 @@
+# Grok Configuration for Nerve Integration
+# Copy this to ~/.grok/config.toml or merge with existing config
+
+[cli]
+installer = "internal"
+
+[marketplace]
+default_skills_installs_purged = true
+official_marketplace_auto_installed = true
+
+[[marketplace.sources]]
+name = "xAI Official"
+git = "https://github.com/xai-org/plugin-marketplace.git"
+
+[ui]
+max_thoughts_width = 120
+fork_secondary_model = "grok-4.5"
+yolo = false
+compact_mode = true
+permission_mode = "always-approve"
+
+[privacy]
+privacy_banner_acked = "2026-08-20T15:35:57Z"
+
+[models]
+default = "nerve-grok"
+default_reasoning_effort = "medium"
+
+# Nerve models with 1M context windows
+[model.nerve-best]
+name = "Nerve Best Coding"
+model = "auto/best-coding"
+base_url = "http://localhost:20128/v1"
+description = "Best coding model via Nerve router"
+context_window = 1048576
+
+[model.nerve-reasoning]
+name = "Nerve Best Reasoning"
+model = "auto/best-reasoning"
+base_url = "http://localhost:20128/v1"
+description = "Best reasoning model via Nerve router"
+context_window = 1048576
+
+[model.nerve-chat]
+name = "Nerve Best Chat"
+model = "auto/best-chat"
+base_url = "http://localhost:20128/v1"
+description = "Best chat model via Nerve router"
+context_window = 1048576
+
+# Nerve models with 2M context windows for fallback
+[model.nerve-2m]
+name = "Nerve 2M Context"
+model = "openrouter/auto-beta"
+base_url = "http://localhost:20128/v1"
+description = "2M context window via OpenRouter"
+context_window = 2000000
+
+[model.nerve-grok]
+name = "Nerve Grok 4.20"
+model = "openrouter/x-ai/grok-4.20"
+base_url = "http://localhost:20128/v1"
+description = "Grok 4.20 with 2M context"
+context_window = 2000000
+
+[model.nerve-pareto]
+name = "Nerve Pareto Code"
+model = "openrouter/pareto-code"
+base_url = "http://localhost:20128/v1"
+description = "Pareto Code with 2M context"
+context_window = 2000000

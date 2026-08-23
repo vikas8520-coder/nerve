@@ -1,0 +1,41 @@
+#!/bin/bash
+# Grok with automatic Nerve model fallback
+# Usage: grok-fallback "your prompt" [task_type]
+# If no prompt provided, launches normal grok interactive mode
+
+PROMPT="$1"
+TASK_TYPE="${2:-coding}"  # coding, reasoning, chat
+
+# If no prompt provided, launch normal grok interactive mode
+if [ -z "$PROMPT" ]; then
+    exec grok
+    exit $?
+fi
+
+# Define model fallback hierarchy for each task type
+if [ "$TASK_TYPE" = "coding" ]; then
+    MODEL_LIST="nerve-best nerve-2m nerve-grok nerve-pareto"
+elif [ "$TASK_TYPE" = "reasoning" ]; then
+    MODEL_LIST="nerve-reasoning nerve-2m nerve-grok"
+elif [ "$TASK_TYPE" = "chat" ]; then
+    MODEL_LIST="nerve-chat nerve-2m nerve-grok"
+else
+    MODEL_LIST="nerve-best nerve-2m nerve-grok nerve-pareto"
+fi
+
+# Try each model in order
+for model in $MODEL_LIST; do
+    echo "🔄 Trying model: $model" >&2
+    
+    # Run grok with the model
+    if grok -p "$PROMPT" -m "$model"; then
+        echo "✅ Success with model: $model" >&2
+        exit 0
+    else
+        echo "⚠️  Failed with $model, trying next..." >&2
+        sleep 1
+    fi
+done
+
+echo "❌ All models failed" >&2
+exit 1

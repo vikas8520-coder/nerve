@@ -1,0 +1,34 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "nerve": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Nerve (Local)",
+      "options": {
+        "baseURL": "http://localhost:20128/v1",
+        "apiKey": "nerve"
+      },
+      "models": {
+        "auto/best-coding": {
+          "name": "Nerve Best Coding"
+        },
+        "auto/best-reasoning": {
+          "name": "Nerve Best Reasoning"
+        },
+        "auto/best-chat": {
+          "name": "Nerve Best Chat"
+        },
+        "openrouter/auto-beta": {
+          "name": "Nerve 2M Context"
+        },
+        "openrouter/x-ai/grok-4.20": {
+          "name": "Nerve Grok 4.20"
+        },
+        "openrouter/pareto-code": {
+          "name": "Nerve Pareto Code"
+        }
+      }
+    }
+  },
+  "model": "nerve/openrouter/x-ai/grok-4.20"
+}

@@ -1,0 +1,41 @@
+#!/bin/bash
+# OpenCode with automatic Nerve model fallback
+# Usage: opencode-fallback "your prompt" [task_type]
+# If no prompt provided, launches normal opencode interactive mode
+
+PROMPT="$1"
+TASK_TYPE="${2:-coding}"  # coding, reasoning, chat
+
+# If no prompt provided, launch normal opencode interactive mode
+if [ -z "$PROMPT" ]; then
+    exec opencode
+    exit $?
+fi
+
+# Define model fallback hierarchy for each task type
+if [ "$TASK_TYPE" = "coding" ]; then
+    MODEL_LIST="nerve/auto/best-coding nerve/openrouter/pareto-code nerve/openrouter/x-ai/grok-4.20 nerve/openrouter/auto-beta"
+elif [ "$TASK_TYPE" = "reasoning" ]; then
+    MODEL_LIST="nerve/auto/best-reasoning nerve/openrouter/x-ai/grok-4.20 nerve/openrouter/auto-beta"
+elif [ "$TASK_TYPE" = "chat" ]; then
+    MODEL_LIST="nerve/auto/best-chat nerve/openrouter/auto-beta nerve/openrouter/x-ai/grok-4.20"
+else
+    MODEL_LIST="nerve/auto/best-coding nerve/openrouter/pareto-code nerve/openrouter/x-ai/grok-4.20 nerve/openrouter/auto-beta"
+fi
+
+# Try each model in order
+for model in $MODEL_LIST; do
+    echo "🔄 Trying model: $model" >&2
+    
+    # Run opencode with the model
+    if opencode run "$PROMPT" -m "$model"; then
+        echo "✅ Success with model: $model" >&2
+        exit 0
+    else
+        echo "⚠️  Failed with $model, trying next..." >&2
+        sleep 1
+    fi
+done
+
+echo "❌ All models failed" >&2
+exit 1
