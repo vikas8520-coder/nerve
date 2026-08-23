@@ -32,6 +32,7 @@ That's it! The setup script will automatically configure everything.
 - **Auto model selection** with `auto/best-coding` as default
 - **Automatic fallback** script for seamless operation
 - **Default model**: `auto/best-coding` via Nerve
+- **Note**: Claude Code has limited custom model support - only shows one custom model at a time. Use the fallback script to access other Nerve models.
 
 ### ✅ Fallback Scripts
 - **`grok-fallback`**: Automatic model switching for Grok
@@ -64,6 +65,8 @@ opencode
 # Claude Code interactive TUI
 claude
 ```
+
+**Note for Claude Code users**: Claude Code has limited custom model support and will only show `auto/best-coding` as a custom model option. To use other Nerve models with Claude Code, use the fallback script below.
 
 ### Fallback Mode (Automatic Model Switching)
 ```bash
@@ -168,6 +171,16 @@ claude auth
 claude --settings '{"env": {"ANTHROPIC_API_KEY": "your-key"}}'
 ```
 
+### Claude Code Limited Model Support
+**Claude Code limitation**: Unlike Grok and OpenCode, Claude Code only supports a single custom model at a time through environment variables. You will only see `auto/best-coding` in the model picker.
+
+**Workarounds**:
+1. **Use the fallback script**: `claude-fallback "prompt" coding` - this tries multiple Nerve models automatically
+2. **Change the default model**: Edit `~/.claude/settings.json` and change `ANTHROPIC_MODEL` to another Nerve model like `openrouter/x-ai/grok-4.20`
+3. **Use --model flag**: `claude -p "prompt" --model openrouter/x-ai/grok-4.20`
+
+**Recommended approach**: Use Grok or OpenCode for full Nerve model selection, and use Claude Code with the fallback script for automatic model switching.
+
 ### Port Already in Use
 ```bash
 # Stop Nerve
@@ -202,6 +215,15 @@ The fallback system automatically uses the appropriate model based on your task 
 - ✅ One-command setup
 - ✅ Optimized context windows (1M and 2M)
 - ✅ Works across multiple AI assistants
+
+### Tool Comparison
+| Tool | Custom Model Support | Model Picker | Fallback Script | Best For |
+|------|-------------------|--------------|-----------------|----------|
+| **Grok** | ✅ Full (6 models) | ✅ All models visible | ✅ Yes | Full model selection |
+| **OpenCode** | ✅ Full (6 models) | ✅ All models visible | ✅ Yes | Full model selection |
+| **Claude Code** | ⚠️ Limited (1 model) | ⚠️ Only custom model | ✅ Yes | Automatic fallback via script |
+
+**Recommendation**: Use Grok or OpenCode for the best Nerve experience with full model selection. Use Claude Code with the fallback script for automatic model switching.
 
 ## 🔗 Related Resources
 
