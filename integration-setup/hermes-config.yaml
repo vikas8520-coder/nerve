@@ -1,0 +1,35 @@
+# Hermes Configuration for Nerve Integration
+# Copy this to ~/.hermes/config.yaml or merge with existing config
+
+model:
+  default: auto/best-coding
+  provider: nerve
+  context_length: 1048576
+
+providers:
+  nerve:
+    name: Nerve
+    api: http://localhost:20128/v1
+    key_env: NERVE_API_KEY
+    discover_models: true
+    models:
+      # 1M context window models
+      - auto/best-coding
+      - auto/best-reasoning
+      - auto/best-chat
+      - auto/best-fast
+      # 2M context window models
+      - openrouter/x-ai/grok-4.20
+      - openrouter/pareto-code
+      - openrouter/auto-beta
+      # Additional high-quality models
+      - gemini/gemini-2.5-flash
+      - gemini/gemini-2.5-pro
+      - nvidia/nvidia/nemotron-3-super-120b-a12b
+      - nvidia/nvidia/nemotron-3-ultra-550b-a55b
+      - nvidia/nvidia/nemotron-3-nano-30b-a3b
+
+agent:
+  max_turns: 60
+  verbose: false
+  reasoning_effort: high

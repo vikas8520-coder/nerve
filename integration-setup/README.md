@@ -1,6 +1,6 @@
 # Nerve Integration Setup
 
-Seamless integration of Nerve AI router with popular terminal AI assistants (Grok, OpenCode, Claude Code, Hermes, etc.) with automatic model fallback for flawless coding.
+Seamless integration of Nerve AI router with popular terminal AI assistants (Grok, OpenCode, Claude Code, Hermes Agent, etc.) with automatic model fallback for flawless coding.
 
 ## 🚀 Quick Start
 
@@ -34,10 +34,19 @@ That's it! The setup script will automatically configure everything.
 - **Default model**: `auto/best-coding` via Nerve
 - **Note**: Claude Code has limited custom model support - only shows one custom model at a time. Use the fallback script to access other Nerve models.
 
+### ✅ Hermes Agent Integration
+- **Nerve provider** configured with correct API endpoint
+- **Auto model selection** with `auto/best-coding` as default
+- **Automatic fallback** script for seamless operation
+- **Default model**: `auto/best-coding` via Nerve
+- **Full model discovery**: Hermes automatically discovers all available Nerve models
+- **Built-in fallback support**: Hermes has native fallback provider support
+
 ### ✅ Fallback Scripts
 - **`grok-fallback`**: Automatic model switching for Grok
 - **`opencode-fallback`**: Automatic model switching for OpenCode
 - **`claude-fallback`**: Automatic model switching for Claude Code
+- **`hermes-fallback`**: Automatic model switching for Hermes Agent
 - **Zero manual intervention** when models fail
 
 ## 🎯 Available Models
@@ -64,6 +73,9 @@ opencode
 
 # Claude Code interactive TUI
 claude
+
+# Hermes Agent interactive mode
+hermes
 ```
 
 **Note for Claude Code users**: Claude Code has limited custom model support and will only show `auto/best-coding` as a custom model option. To use other Nerve models with Claude Code, use the fallback script below.
@@ -83,6 +95,11 @@ opencode-fallback "Explain this architecture" reasoning
 claude-fallback "Write a Python function to parse JSON" coding
 claude-fallback "Analyze this problem" reasoning
 claude-fallback "What's the weather?" chat
+
+# Hermes Agent with automatic fallback
+hermes-fallback "Write a Python function to parse JSON" coding
+hermes-fallback "Analyze this problem" reasoning
+hermes-fallback "What's the weather?" chat
 ```
 
 ## 🔧 How the Fallback System Works
@@ -122,12 +139,36 @@ Update `~/.claude/settings.json` to include:
 }
 ```
 
+### Hermes Agent Configuration
+Update `~/.hermes/config.yaml` to include:
+```yaml
+model:
+  default: auto/best-coding
+  provider: nerve
+  context_length: 1048576
+
+providers:
+  nerve:
+    name: Nerve
+    api: http://localhost:20128/v1
+    key_env: NERVE_API_KEY
+    discover_models: true
+    models:
+      - auto/best-coding
+      - auto/best-reasoning
+      - auto/best-chat
+      - openrouter/x-ai/grok-4.20
+      - openrouter/pareto-code
+      - openrouter/auto-beta
+```
+
 ### Fallback Scripts
-Copy `grok-fallback`, `opencode-fallback`, and `claude-fallback` to `~/.local/bin/` and make executable:
+Copy `grok-fallback`, `opencode-fallback`, `claude-fallback`, and `hermes-fallback` to `~/.local/bin/` and make executable:
 ```bash
 chmod +x ~/.local/bin/grok-fallback
 chmod +x ~/.local/bin/opencode-fallback
 chmod +x ~/.local/bin/claude-fallback
+chmod +x ~/.local/bin/hermes-fallback
 ```
 
 ## 🐛 Troubleshooting
@@ -181,6 +222,28 @@ claude --settings '{"env": {"ANTHROPIC_API_KEY": "your-key"}}'
 
 **Recommended approach**: Use Grok or OpenCode for full Nerve model selection, and use Claude Code with the fallback script for automatic model switching.
 
+### Hermes Agent Not Connecting to Nerve
+```bash
+# Check Hermes configuration
+hermes config
+
+# Ensure nerve provider API points to http://localhost:20128/v1
+# Ensure model.default is set to auto/best-coding
+# Ensure model.provider is set to nerve
+
+# Test Hermes with Nerve
+hermes -z "Test" --model auto/best-coding
+```
+
+### Hermes Agent Wrong Port
+Hermes may be configured with the wrong Nerve port (20129 instead of 20128). The setup script fixes this automatically.
+
+```bash
+# Manually fix if needed
+hermes config edit
+# Change providers.nerve.api to http://localhost:20128/v1
+```
+
 ### Port Already in Use
 ```bash
 # Stop Nerve
@@ -221,9 +284,10 @@ The fallback system automatically uses the appropriate model based on your task 
 |------|-------------------|--------------|-----------------|----------|
 | **Grok** | ✅ Full (6 models) | ✅ All models visible | ✅ Yes | Full model selection |
 | **OpenCode** | ✅ Full (6 models) | ✅ All models visible | ✅ Yes | Full model selection |
+| **Hermes Agent** | ✅ Full (auto-discovery) | ✅ All models visible | ✅ Yes + Native | Best overall experience |
 | **Claude Code** | ⚠️ Limited (1 model) | ⚠️ Only custom model | ✅ Yes | Automatic fallback via script |
 
-**Recommendation**: Use Grok or OpenCode for the best Nerve experience with full model selection. Use Claude Code with the fallback script for automatic model switching.
+**Recommendation**: Use **Hermes Agent** for the best Nerve experience with full model discovery and native fallback support. Use Grok or OpenCode as excellent alternatives. Use Claude Code with the fallback script for automatic model switching.
 
 ## 🔗 Related Resources
 
@@ -231,6 +295,7 @@ The fallback system automatically uses the appropriate model based on your task 
 - **Grok CLI**: https://github.com/xai-org/grok
 - **OpenCode**: https://opencode.ai
 - **Claude Code**: https://claude.ai/code
+- **Hermes Agent**: https://github.com/nousresearch/hermes
 - **Nerve Dashboard**: http://localhost:20128 (when running)
 
 ## 📝 Notes

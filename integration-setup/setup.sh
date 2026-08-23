@@ -201,6 +201,86 @@ else
     print_warning "Claude Code CLI not found. Install it from: https://claude.ai/code"
 fi
 
+# Setup Hermes Agent configuration
+print_info "Setting up Hermes Agent configuration..."
+HERMES_CONFIG="$HOME/.hermes/config.yaml"
+HERMES_DIR="$HOME/.hermes"
+
+if [ -d "$HERMES_DIR" ]; then
+    # Backup existing config if it exists
+    if [ -f "$HERMES_CONFIG" ]; then
+        BACKUP_FILE="$HERMES_CONFIG.backup.$(date +%Y%m%d_%H%M%S)"
+        cp "$HERMES_CONFIG" "$BACKUP_FILE"
+        print_info "Backed up existing Hermes config to $BACKUP_FILE"
+    fi
+
+    # Update Hermes config to use correct Nerve port
+    python3 << EOF
+import yaml
+import os
+
+try:
+    with open('$HERMES_CONFIG', 'r') as f:
+        config = yaml.safe_load(f)
+    
+    # Update nerve provider to use correct port
+    if 'providers' not in config:
+        config['providers'] = {}
+    
+    if 'nerve' not in config['providers']:
+        config['providers']['nerve'] = {}
+    
+    config['providers']['nerve']['api'] = 'http://localhost:20128/v1'
+    config['providers']['nerve']['discover_models'] = True
+    
+    # Ensure nerve provider has the right models
+    nerve_models = [
+        'auto/best-coding',
+        'auto/best-reasoning', 
+        'auto/best-chat',
+        'auto/best-fast',
+        'openrouter/x-ai/grok-4.20',
+        'openrouter/pareto-code',
+        'openrouter/auto-beta',
+        'gemini/gemini-2.5-flash',
+        'gemini/gemini-2.5-pro'
+    ]
+    config['providers']['nerve']['models'] = nerve_models
+    
+    # Set default model to nerve
+    if 'model' not in config:
+        config['model'] = {}
+    config['model']['default'] = 'auto/best-coding'
+    config['model']['provider'] = 'nerve'
+    config['model']['context_length'] = 1048576
+    
+    with open('$HERMES_CONFIG', 'w') as f:
+        yaml.dump(config, f, default_flow_style=False)
+    
+    print("Hermes configuration updated")
+except Exception as e:
+    print(f"Error updating Hermes config: {e}")
+EOF
+
+    print_success "Hermes Agent configuration updated"
+else
+    print_warning "Hermes Agent directory not found. Install Hermes Agent from: https://github.com/nousresearch/hermes"
+fi
+
+# Setup Hermes Agent fallback script
+print_info "Setting up Hermes Agent fallback script..."
+cp "$(dirname "$0")/hermes-fallback" "$BIN_DIR/hermes-fallback"
+chmod +x "$BIN_DIR/hermes-fallback"
+print_success "Hermes Agent fallback script installed"
+
+# Verify Hermes Agent
+print_info "Verifying Hermes Agent configuration..."
+if command -v hermes &> /dev/null; then
+    print_success "Hermes Agent CLI found and configured"
+else
+    print_warning "Hermes Agent CLI not found. Install it from: https://github.com/nousresearch/hermes"
+fi
+
 echo ""
 echo "🎉 Setup Complete!"
 echo "=================="
@@ -209,6 +289,7 @@ echo "You can now use Nerve models with:"
 echo "  • Grok: grok (interactive) or grok-fallback \"prompt\" (with fallback)"
 echo "  • OpenCode: opencode (interactive) or opencode-fallback \"prompt\" (with fallback)"
 echo "  • Claude Code: claude (interactive) or claude-fallback \"prompt\" (with fallback)"
+echo "  • Hermes Agent: hermes (interactive) or hermes-fallback \"prompt\" (with fallback)"
 echo ""
 echo "Available models:"
 echo "  • nerve-best: Best coding model (1M context)"
