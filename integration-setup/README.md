@@ -173,6 +173,13 @@ chmod +x ~/.local/bin/hermes-fallback
 
 ## 🐛 Troubleshooting
 
+### Nerve Auto Routing Issues with Tool Calling
+**Problem**: Nerve's automatic model routing (e.g., `auto/best-coding`) may select models that don't support tool calling, causing errors like "No target in combo auto/vision supports tool calling".
+
+**Solution**: The integration now uses specific models (e.g., `openrouter/anthropic/claude-sonnet-4-20250514`) instead of auto routing to ensure tool calling support. This bypasses Nerve's problematic routing while still using Nerve as the gateway.
+
+**Performance**: Added 5-minute timeouts to fallback scripts to prevent 20-30 minute delays from Nerve's retry system.
+
 ### Nerve Not Running
 ```bash
 # Start Nerve
